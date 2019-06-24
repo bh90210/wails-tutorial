@@ -5,6 +5,9 @@ import (
 	"time"
 
 	"github.com/shirou/gopsutil/cpu"
+	_ "github.com/shirou/gopsutil/disk"
+	_ "github.com/shirou/gopsutil/load"
+	_ "github.com/shirou/gopsutil/mem"
 )
 
 // GetCPUUsage .
