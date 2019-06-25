@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+button {
+  color: black;
+}
+
 .App {
   text-align: center;
 }
