@@ -10,15 +10,20 @@ import (
 	_ "github.com/shirou/gopsutil/mem"
 )
 
-// GetCPUUsage .
-func (s *Stats) GetCPUUsage() *CPUUsage {
+// GetCPU .
+func GetCPU() (int32, float64, float64, float64, float64) {
 	percent, err := cpu.Percent(1*time.Second, false)
 	if err != nil {
-		s.log.Errorf("unable to get cpu stats: %s", err.Error())
-		return nil
 	}
 
-	return &CPUUsage{
-		Average: int(math.Round(percent[0])),
+	times, err := cpu.Times(false)
+	if err != nil {
 	}
+
+	user := times[0].User
+	system := times[0].System
+	idle := times[0].Idle
+	nice := times[0].Nice
+
+	return int32(math.Round(percent[0])), user, system, idle, nice
 }

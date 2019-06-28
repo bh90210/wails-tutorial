@@ -3,20 +3,24 @@ syntax = "proto3";
 package protobuf;
 
 // The greeting service definition.
-service Greeter {
+service Intercomm {
   // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
+  rpc GetCPUStats (CPUStatsRequest) returns (stream CPUStatsReply) {}
 }
 
 // The request message containing the user's name.
-message HelloRequest {
+message CPUStatsRequest {
   string name = 1;
 }
 
 // The response message containing the greetings
-message HelloReply {
-  string message = 1;
+message CPUStatsReply {
+  int32 percentage = 1;
+  double user = 2;
+  double system = 3;
+  double idle = 4;
+  double nice = 5;
 }
 
 // cd wails-tutorial/server/api
-// protoc -I protobuf/ protobuf/protobuf.proto --go_out=plugins=grpc:protobuf
+// `protoc -I protobuf/ protobuf/protobuf.proto --go_out=plugins=grpc:protobuf`

@@ -2,15 +2,16 @@ package main
 
 import (
 	"context"
+	"io"
 	"log"
-	"os"
-	"time"
 
 	"github.com/leaanthony/mewn"
 	"github.com/wailsapp/wails"
 
-	"google.golang.org/grpc"
 	pb "client/api/protobuf"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 )
 
 const (
@@ -23,28 +24,36 @@ func basic() string {
 }
 
 func main() {
-
-	// Set up a connection to the server.
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	var conn *grpc.ClientConn
+	// Create the client TLS credentials
+	creds, err := credentials.NewClientTLSFromFile("cert/cert.pem", "")
 	if err != nil {
-		log.Fatalf("did not connect: %v", err)
+		log.Fatalf("could not load tls cert: %s", err)
+	}
+	// Initiate a connection with the server
+	conn, err = grpc.Dial(address, grpc.WithTransportCredentials(creds))
+	if err != nil {
+		log.Fatalf("did not connect: %s", err)
 	}
 	defer conn.Close()
-	c := pb.NewGreeterClient(conn)
+	c := pb.NewIntercommClient(conn)
 
-	// Contact the server and print out its response.
-	name := defaultName
-	if len(os.Args) > 1 {
-		name = os.Args[1]
-	}
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
-	r, err := c.SayHello(ctx, &pb.HelloRequest{Name: name})
+	stream, err := c.GetCPUStats(context.Background(), &pb.CPUStatsRequest{Name: "cpu"})
 	if err != nil {
-		log.Fatalf("could not greet: %v", err)
+		log.Fatalf("%v.ListFeatures(_) = _, %v", c, err)
 	}
-	log.Printf("Greeting: %s", r.Message)
 
+	for {
+		response, err := stream.Recv()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			log.Fatalf("%v.ListFeatures(_) = _, %v", c, err)
+		}
+		log.Println(response)
+	}
+log.Println("test")
 	js := mewn.String("./frontend/build/static/js/main.js")
 	css := mewn.String("./frontend/build/static/css/main.css")
 
