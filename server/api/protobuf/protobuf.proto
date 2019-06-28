@@ -5,7 +5,7 @@ package protobuf;
 // The greeting service definition.
 service Intercomm {
   // Sends a greeting
-  rpc GetCPUStats (CPUStatsRequest) returns (stream CPUStatsReply) {}
+  rpc GetCPUStats (stream CPUStatsRequest) returns (stream CPUStatsReply) {}
 }
 
 // The request message containing the user's name.

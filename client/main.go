@@ -36,24 +36,45 @@ func main() {
 		log.Fatalf("did not connect: %s", err)
 	}
 	defer conn.Close()
-	c := pb.NewIntercommClient(conn)
+	client := pb.NewIntercommClient(conn)
 
-	stream, err := c.GetCPUStats(context.Background(), &pb.CPUStatsRequest{Name: "cpu"})
+	stream, err := client.GetCPUStats(context.Background(), &pb.CPUStatsRequest{Name: "cpu"})
 	if err != nil {
-		log.Fatalf("%v.ListFeatures(_) = _, %v", c, err)
+		log.Fatalf("%v.ListFeatures(_) = _, %v", client, err)
 	}
 
-	for {
-		response, err := stream.Recv()
-		if err == io.EOF {
-			break
+	var perc int32
+	ctx := stream.Context()
+	done := make(chan bool)
+
+	go func() {
+		for {
+			response, err := *stream.Recv()
+			if err == io.EOF {
+				close(done)
+				return
+			}
+			if err != nil {
+				log.Fatalf("can not receive %v", err)
+			}
+			perc = response.Percentage
+			log.Printf("new max %d received", perc)
+			log.Println("test")
+			log.Println(response.Percentage)
 		}
-		if err != nil {
-			log.Fatalf("%v.ListFeatures(_) = _, %v", c, err)
+	}()
+
+	go func() {
+		<-ctx.Done()
+		if err := ctx.Err(); err != nil {
+			log.Println(err)
 		}
-		log.Println(response)
-	}
-log.Println("test")
+		close(done)
+	}()
+	<-done
+	log.Printf("finished with max=%d", perc)
+
+	// wails
 	js := mewn.String("./frontend/build/static/js/main.js")
 	css := mewn.String("./frontend/build/static/css/main.css")
 
