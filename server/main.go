@@ -20,16 +20,14 @@ type server struct{}
 
 // GetCPUStats implements helloworld.GreeterServer
 func (s *server) GetCPUStats(in *pb.CPUStatsRequest, stream pb.Intercomm_GetCPUStatsServer) error {
-	go func() {
-		for {
-			percent, user, system, idle, nice := monitoring.GetCPU()
-			data := pb.CPUStatsReply{Percentage: percent, User: user, System: system, Idle: idle, Nice: nice}
-			stream.Send(&data)
-			//runtime.Events.Emit("cpu_usage", s.GetCPUUsage())
-			time.Sleep(1 * time.Second)
-		}
-	}()
 
+	percent, user, system, idle, nice := monitoring.GetCPU()
+	data := pb.CPUStatsReply{Percentage: percent, User: user, System: system, Idle: idle, Nice: nice}
+	stream.Send(&data)
+	//runtime.Events.Emit("cpu_usage", s.GetCPUUsage())
+
+	log.Println("response.Percentage")
+	time.Sleep(1 * time.Second)
 	return nil
 }
 
