@@ -30,7 +30,7 @@ func GetCPU() (int32, float64, float64, float64, float64) {
 
 // GetDISKCounters .
 func GetDISKCounters() (float64, float64) {
-	iocounters, err := disk.Usage("/")
+	iocounters, err := disk.Usage("/home/bh90210/")
 	if err != nil {
 	}
 
