@@ -4,8 +4,17 @@ package protobuf;
 
 // The greeting service definition.
 service Intercomm {
-  // Sends a greeting
+  // Get  CPU info
   rpc GetCPUStats (CPUStatsRequest) returns (stream CPUStatsReply) {}
+
+  // Get disk info
+  rpc GetDiskStats (DiskStatsRequest) returns (stream DiskStatsReply) {}
+
+  // Get disk info
+  rpc GetLoadStats (LoadStatsRequest) returns (stream LoadStatsReply) {}
+
+  // Get disk info
+  rpc GetMemStats (MemStatsRequest) returns (stream MemStatsReply) {}
 }
 
 // The request message containing the user's name.
@@ -22,5 +31,39 @@ message CPUStatsReply {
   double nice = 5;
 }
 
+message DiskStatsRequest {
+  string name = 1;
+}
+
+message DiskStatsReply {
+  double usedPercent = 1;
+  double inodesUsedPercent = 2;
+}
+
+message LoadStatsRequest {
+  string name = 1;
+}
+
+message LoadStatsReply {
+  double load1 = 1;
+  double load5 = 2;
+  double load15 = 3;
+  int32 procsRunning = 4;
+  int32 procsBlocked = 5;
+  int32 ctxt = 6;
+}
+
+message MemStatsRequest {
+  string name = 1;
+}
+
+message MemStatsReply {
+  uint64 total = 1;
+  uint64 used = 2;
+  uint64 free = 3;
+  uint64 sin = 4;
+  uint64 sout = 5;
+}
+
 // cd wails-tutorial/server/api
-// `protoc -I protobuf/ protobuf/protobuf.proto --go_out=plugins=grpc:protobuf`
+// protoc -I protobuf/ protobuf/protobuf.proto --go_out=plugins=grpc:protobuf
