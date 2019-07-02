@@ -75,7 +75,7 @@ func Monitoring() {
 			case "1":
 				//
 				for {
-					if loop1 == 0 {
+					if scanner.Text() != "1" {
 						break
 					}
 
