@@ -6,7 +6,7 @@
   "email": "ktc@protonmail.com"
  },
  "version": "0.1.0",
- "binaryname": "simpleclient",
+ "binaryname": "simpleClient",
  "frontend": {
   "dir": "frontend",
   "install": "npm install",

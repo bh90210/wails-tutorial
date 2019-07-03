@@ -9,8 +9,8 @@ import (
 	"sync"
 	"time"
 
-	pb "simpleClient/api/protobuf"
-	e "simpleClient/errors"
+	pb "simpleclient/api/protobuf"
+	e "simpleclient/errors"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
