@@ -134,28 +134,363 @@ func (m *CPUStatsReply) GetNice() float64 {
 	return 0
 }
 
+type DiskStatsRequest struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DiskStatsRequest) Reset()         { *m = DiskStatsRequest{} }
+func (m *DiskStatsRequest) String() string { return proto.CompactTextString(m) }
+func (*DiskStatsRequest) ProtoMessage()    {}
+func (*DiskStatsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c77a803fcbc0c059, []int{2}
+}
+
+func (m *DiskStatsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DiskStatsRequest.Unmarshal(m, b)
+}
+func (m *DiskStatsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DiskStatsRequest.Marshal(b, m, deterministic)
+}
+func (m *DiskStatsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DiskStatsRequest.Merge(m, src)
+}
+func (m *DiskStatsRequest) XXX_Size() int {
+	return xxx_messageInfo_DiskStatsRequest.Size(m)
+}
+func (m *DiskStatsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DiskStatsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DiskStatsRequest proto.InternalMessageInfo
+
+func (m *DiskStatsRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+type DiskStatsReply struct {
+	UsedPercent          float64  `protobuf:"fixed64,1,opt,name=usedPercent,proto3" json:"usedPercent,omitempty"`
+	InodesUsedPercent    float64  `protobuf:"fixed64,2,opt,name=inodesUsedPercent,proto3" json:"inodesUsedPercent,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DiskStatsReply) Reset()         { *m = DiskStatsReply{} }
+func (m *DiskStatsReply) String() string { return proto.CompactTextString(m) }
+func (*DiskStatsReply) ProtoMessage()    {}
+func (*DiskStatsReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c77a803fcbc0c059, []int{3}
+}
+
+func (m *DiskStatsReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DiskStatsReply.Unmarshal(m, b)
+}
+func (m *DiskStatsReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DiskStatsReply.Marshal(b, m, deterministic)
+}
+func (m *DiskStatsReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DiskStatsReply.Merge(m, src)
+}
+func (m *DiskStatsReply) XXX_Size() int {
+	return xxx_messageInfo_DiskStatsReply.Size(m)
+}
+func (m *DiskStatsReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_DiskStatsReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DiskStatsReply proto.InternalMessageInfo
+
+func (m *DiskStatsReply) GetUsedPercent() float64 {
+	if m != nil {
+		return m.UsedPercent
+	}
+	return 0
+}
+
+func (m *DiskStatsReply) GetInodesUsedPercent() float64 {
+	if m != nil {
+		return m.InodesUsedPercent
+	}
+	return 0
+}
+
+type LoadStatsRequest struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LoadStatsRequest) Reset()         { *m = LoadStatsRequest{} }
+func (m *LoadStatsRequest) String() string { return proto.CompactTextString(m) }
+func (*LoadStatsRequest) ProtoMessage()    {}
+func (*LoadStatsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c77a803fcbc0c059, []int{4}
+}
+
+func (m *LoadStatsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LoadStatsRequest.Unmarshal(m, b)
+}
+func (m *LoadStatsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LoadStatsRequest.Marshal(b, m, deterministic)
+}
+func (m *LoadStatsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LoadStatsRequest.Merge(m, src)
+}
+func (m *LoadStatsRequest) XXX_Size() int {
+	return xxx_messageInfo_LoadStatsRequest.Size(m)
+}
+func (m *LoadStatsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_LoadStatsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LoadStatsRequest proto.InternalMessageInfo
+
+func (m *LoadStatsRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+type LoadStatsReply struct {
+	Load1                float64  `protobuf:"fixed64,1,opt,name=load1,proto3" json:"load1,omitempty"`
+	Load5                float64  `protobuf:"fixed64,2,opt,name=load5,proto3" json:"load5,omitempty"`
+	Load15               float64  `protobuf:"fixed64,3,opt,name=load15,proto3" json:"load15,omitempty"`
+	ProcsRunning         int32    `protobuf:"varint,4,opt,name=procsRunning,proto3" json:"procsRunning,omitempty"`
+	ProcsBlocked         int32    `protobuf:"varint,5,opt,name=procsBlocked,proto3" json:"procsBlocked,omitempty"`
+	Ctxt                 int32    `protobuf:"varint,6,opt,name=ctxt,proto3" json:"ctxt,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LoadStatsReply) Reset()         { *m = LoadStatsReply{} }
+func (m *LoadStatsReply) String() string { return proto.CompactTextString(m) }
+func (*LoadStatsReply) ProtoMessage()    {}
+func (*LoadStatsReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c77a803fcbc0c059, []int{5}
+}
+
+func (m *LoadStatsReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LoadStatsReply.Unmarshal(m, b)
+}
+func (m *LoadStatsReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LoadStatsReply.Marshal(b, m, deterministic)
+}
+func (m *LoadStatsReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LoadStatsReply.Merge(m, src)
+}
+func (m *LoadStatsReply) XXX_Size() int {
+	return xxx_messageInfo_LoadStatsReply.Size(m)
+}
+func (m *LoadStatsReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_LoadStatsReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LoadStatsReply proto.InternalMessageInfo
+
+func (m *LoadStatsReply) GetLoad1() float64 {
+	if m != nil {
+		return m.Load1
+	}
+	return 0
+}
+
+func (m *LoadStatsReply) GetLoad5() float64 {
+	if m != nil {
+		return m.Load5
+	}
+	return 0
+}
+
+func (m *LoadStatsReply) GetLoad15() float64 {
+	if m != nil {
+		return m.Load15
+	}
+	return 0
+}
+
+func (m *LoadStatsReply) GetProcsRunning() int32 {
+	if m != nil {
+		return m.ProcsRunning
+	}
+	return 0
+}
+
+func (m *LoadStatsReply) GetProcsBlocked() int32 {
+	if m != nil {
+		return m.ProcsBlocked
+	}
+	return 0
+}
+
+func (m *LoadStatsReply) GetCtxt() int32 {
+	if m != nil {
+		return m.Ctxt
+	}
+	return 0
+}
+
+type MemStatsRequest struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *MemStatsRequest) Reset()         { *m = MemStatsRequest{} }
+func (m *MemStatsRequest) String() string { return proto.CompactTextString(m) }
+func (*MemStatsRequest) ProtoMessage()    {}
+func (*MemStatsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c77a803fcbc0c059, []int{6}
+}
+
+func (m *MemStatsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_MemStatsRequest.Unmarshal(m, b)
+}
+func (m *MemStatsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_MemStatsRequest.Marshal(b, m, deterministic)
+}
+func (m *MemStatsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MemStatsRequest.Merge(m, src)
+}
+func (m *MemStatsRequest) XXX_Size() int {
+	return xxx_messageInfo_MemStatsRequest.Size(m)
+}
+func (m *MemStatsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_MemStatsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MemStatsRequest proto.InternalMessageInfo
+
+func (m *MemStatsRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+type MemStatsReply struct {
+	Total                uint64   `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
+	Used                 uint64   `protobuf:"varint,2,opt,name=used,proto3" json:"used,omitempty"`
+	Free                 uint64   `protobuf:"varint,3,opt,name=free,proto3" json:"free,omitempty"`
+	Sin                  uint64   `protobuf:"varint,4,opt,name=sin,proto3" json:"sin,omitempty"`
+	Sout                 uint64   `protobuf:"varint,5,opt,name=sout,proto3" json:"sout,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *MemStatsReply) Reset()         { *m = MemStatsReply{} }
+func (m *MemStatsReply) String() string { return proto.CompactTextString(m) }
+func (*MemStatsReply) ProtoMessage()    {}
+func (*MemStatsReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c77a803fcbc0c059, []int{7}
+}
+
+func (m *MemStatsReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_MemStatsReply.Unmarshal(m, b)
+}
+func (m *MemStatsReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_MemStatsReply.Marshal(b, m, deterministic)
+}
+func (m *MemStatsReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MemStatsReply.Merge(m, src)
+}
+func (m *MemStatsReply) XXX_Size() int {
+	return xxx_messageInfo_MemStatsReply.Size(m)
+}
+func (m *MemStatsReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_MemStatsReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MemStatsReply proto.InternalMessageInfo
+
+func (m *MemStatsReply) GetTotal() uint64 {
+	if m != nil {
+		return m.Total
+	}
+	return 0
+}
+
+func (m *MemStatsReply) GetUsed() uint64 {
+	if m != nil {
+		return m.Used
+	}
+	return 0
+}
+
+func (m *MemStatsReply) GetFree() uint64 {
+	if m != nil {
+		return m.Free
+	}
+	return 0
+}
+
+func (m *MemStatsReply) GetSin() uint64 {
+	if m != nil {
+		return m.Sin
+	}
+	return 0
+}
+
+func (m *MemStatsReply) GetSout() uint64 {
+	if m != nil {
+		return m.Sout
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*CPUStatsRequest)(nil), "protobuf.CPUStatsRequest")
 	proto.RegisterType((*CPUStatsReply)(nil), "protobuf.CPUStatsReply")
+	proto.RegisterType((*DiskStatsRequest)(nil), "protobuf.DiskStatsRequest")
+	proto.RegisterType((*DiskStatsReply)(nil), "protobuf.DiskStatsReply")
+	proto.RegisterType((*LoadStatsRequest)(nil), "protobuf.LoadStatsRequest")
+	proto.RegisterType((*LoadStatsReply)(nil), "protobuf.LoadStatsReply")
+	proto.RegisterType((*MemStatsRequest)(nil), "protobuf.MemStatsRequest")
+	proto.RegisterType((*MemStatsReply)(nil), "protobuf.MemStatsReply")
 }
 
 func init() { proto.RegisterFile("protobuf.proto", fileDescriptor_c77a803fcbc0c059) }
 
 var fileDescriptor_c77a803fcbc0c059 = []byte{
-	// 206 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2b, 0x28, 0xca, 0x2f,
-	0xc9, 0x4f, 0x2a, 0x4d, 0xd3, 0x03, 0x33, 0x84, 0x38, 0x60, 0x7c, 0x25, 0x55, 0x2e, 0x7e, 0xe7,
-	0x80, 0xd0, 0xe0, 0x92, 0xc4, 0x92, 0xe2, 0xa0, 0xd4, 0xc2, 0xd2, 0xd4, 0xe2, 0x12, 0x21, 0x21,
-	0x2e, 0x96, 0xbc, 0xc4, 0xdc, 0x54, 0x09, 0x46, 0x05, 0x46, 0x0d, 0xce, 0x20, 0x30, 0x5b, 0xa9,
-	0x99, 0x91, 0x8b, 0x17, 0xa1, 0xae, 0x20, 0xa7, 0x52, 0x48, 0x8e, 0x8b, 0xab, 0x20, 0xb5, 0x28,
-	0x39, 0x35, 0xaf, 0x24, 0x31, 0x1d, 0xa2, 0x96, 0x35, 0x08, 0x49, 0x04, 0x64, 0x4a, 0x69, 0x71,
-	0x6a, 0x91, 0x04, 0x93, 0x02, 0xa3, 0x06, 0x63, 0x10, 0x98, 0x2d, 0x24, 0xc6, 0xc5, 0x56, 0x5c,
-	0x59, 0x5c, 0x92, 0x9a, 0x2b, 0xc1, 0x0c, 0x16, 0x85, 0xf2, 0x40, 0x6a, 0x33, 0x53, 0x72, 0x52,
-	0x25, 0x58, 0x20, 0x6a, 0x41, 0x6c, 0xb0, 0x2b, 0x32, 0x93, 0x53, 0x25, 0x58, 0x21, 0x62, 0x20,
-	0xb6, 0x51, 0x08, 0x17, 0xa7, 0x67, 0x5e, 0x49, 0x6a, 0x51, 0x72, 0x7e, 0x6e, 0xae, 0x90, 0x3b,
-	0x17, 0xb7, 0x7b, 0x6a, 0x09, 0xcc, 0x51, 0x42, 0x92, 0x7a, 0x70, 0x3f, 0xa2, 0x79, 0x48, 0x4a,
-	0x1c, 0x9b, 0x54, 0x41, 0x4e, 0xa5, 0x12, 0x83, 0x06, 0xa3, 0x01, 0x63, 0x12, 0x1b, 0x58, 0xd6,
-	0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0x1b, 0xda, 0xd0, 0x53, 0x25, 0x01, 0x00, 0x00,
+	// 442 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x52, 0x5d, 0x8b, 0xd3, 0x40,
+	0x14, 0x75, 0x76, 0x93, 0xe2, 0xde, 0xdd, 0xad, 0xeb, 0x20, 0x1a, 0xfb, 0x20, 0x25, 0xa0, 0xec,
+	0x83, 0x2c, 0x7e, 0xb0, 0x7f, 0xc0, 0x0f, 0x56, 0x41, 0xa1, 0x8c, 0xf4, 0xdd, 0x34, 0xb9, 0x2d,
+	0xa1, 0xc9, 0x4c, 0xcc, 0x4c, 0xc0, 0x3e, 0xfb, 0x7b, 0x04, 0x7f, 0xa2, 0xcc, 0x9d, 0x24, 0x9d,
+	0x64, 0x0b, 0x7d, 0x3b, 0xf7, 0xde, 0xc3, 0x9d, 0x73, 0xee, 0x1c, 0x98, 0x56, 0xb5, 0x32, 0x6a,
+	0xd5, 0xac, 0x6f, 0x08, 0xf0, 0x87, 0x5d, 0x1d, 0xbf, 0x84, 0x47, 0x1f, 0x17, 0xcb, 0x1f, 0x26,
+	0x31, 0x5a, 0xe0, 0xaf, 0x06, 0xb5, 0xe1, 0x1c, 0x02, 0x99, 0x94, 0x18, 0xb1, 0x39, 0xbb, 0x3e,
+	0x13, 0x84, 0xe3, 0x3f, 0x0c, 0x2e, 0xf7, 0xbc, 0xaa, 0xd8, 0xf1, 0x17, 0x00, 0x15, 0xd6, 0x29,
+	0x4a, 0x93, 0x6c, 0x1c, 0x37, 0x14, 0x5e, 0xc7, 0x6e, 0x69, 0x34, 0xd6, 0xd1, 0xc9, 0x9c, 0x5d,
+	0x33, 0x41, 0x98, 0x3f, 0x85, 0x89, 0xde, 0x69, 0x83, 0x65, 0x74, 0x4a, 0xdd, 0xb6, 0xb2, 0xdc,
+	0x3c, 0x2b, 0x30, 0x0a, 0x1c, 0xd7, 0x62, 0x52, 0x91, 0xa7, 0x18, 0x85, 0xae, 0x67, 0x71, 0xfc,
+	0x0a, 0xae, 0x3e, 0xe5, 0x7a, 0x7b, 0x54, 0xed, 0x4f, 0x98, 0x7a, 0x3c, 0xab, 0x76, 0x0e, 0xe7,
+	0x8d, 0xc6, 0x6c, 0xe1, 0xf4, 0x11, 0x99, 0x09, 0xbf, 0xc5, 0x5f, 0xc3, 0xe3, 0x5c, 0xaa, 0x0c,
+	0xf5, 0xd2, 0xe3, 0x39, 0xf1, 0xf7, 0x07, 0x56, 0xc9, 0x37, 0x95, 0x64, 0x47, 0x95, 0xfc, 0x63,
+	0x30, 0xf5, 0x88, 0x56, 0xca, 0x13, 0x08, 0x0b, 0x95, 0x64, 0x6f, 0x5b, 0x11, 0xae, 0xe8, 0xba,
+	0xb7, 0xed, 0x93, 0xae, 0xb0, 0x07, 0xa3, 0xf1, 0x6d, 0x77, 0x30, 0x57, 0xf1, 0x18, 0x2e, 0xaa,
+	0x5a, 0xa5, 0x5a, 0x34, 0x52, 0xe6, 0x72, 0x43, 0x87, 0x0b, 0xc5, 0xa0, 0xd7, 0x73, 0x3e, 0x14,
+	0x2a, 0xdd, 0x62, 0x46, 0x87, 0xec, 0x38, 0x6d, 0xcf, 0x4a, 0x4e, 0xcd, 0x6f, 0x13, 0x4d, 0x68,
+	0x46, 0xd8, 0x26, 0xe2, 0x3b, 0x96, 0x47, 0x9d, 0x69, 0xb8, 0xdc, 0xd3, 0x5a, 0x5f, 0x46, 0x99,
+	0xa4, 0x20, 0x56, 0x20, 0x5c, 0xd1, 0xc6, 0x20, 0x23, 0x5b, 0x01, 0xc5, 0x80, 0x5e, 0x5d, 0xd7,
+	0x88, 0xe4, 0x29, 0x10, 0x84, 0xf9, 0x15, 0x9c, 0xea, 0x5c, 0x92, 0x91, 0x40, 0x58, 0x68, 0x59,
+	0x5a, 0x35, 0x86, 0x74, 0x07, 0x82, 0xf0, 0xbb, 0xbf, 0x27, 0x70, 0xf6, 0x55, 0x1a, 0xac, 0x53,
+	0x55, 0x96, 0xfc, 0x33, 0x9c, 0xdf, 0xa1, 0xe9, 0x62, 0xc9, 0x9f, 0xdf, 0xf4, 0x29, 0x1f, 0x45,
+	0x7a, 0xf6, 0xec, 0xd0, 0xa8, 0x2a, 0x76, 0xf1, 0x83, 0x37, 0x8c, 0x7f, 0x81, 0x8b, 0x3b, 0x34,
+	0x7d, 0x60, 0xf8, 0x6c, 0x4f, 0x1e, 0xa7, 0x6d, 0x16, 0x1d, 0x9c, 0x0d, 0x37, 0xf5, 0xff, 0xed,
+	0x6f, 0x1a, 0xa7, 0xc5, 0xdf, 0x34, 0x0c, 0x08, 0x6d, 0x72, 0xd6, 0xba, 0x03, 0xfb, 0xd6, 0x46,
+	0x7f, 0xe3, 0x5b, 0x1b, 0xfc, 0x87, 0x5d, 0xb3, 0x9a, 0xd0, 0xec, 0xfd, 0xff, 0x00, 0x00, 0x00,
+	0xff, 0xff, 0xf5, 0xb9, 0xbe, 0xcf, 0x00, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -170,8 +505,14 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type IntercommClient interface {
-	// Sends a greeting
-	GetCPUStats(ctx context.Context, opts ...grpc.CallOption) (Intercomm_GetCPUStatsClient, error)
+	// Get  CPU info
+	GetCPUStats(ctx context.Context, in *CPUStatsRequest, opts ...grpc.CallOption) (Intercomm_GetCPUStatsClient, error)
+	// Get disk info
+	GetDiskStats(ctx context.Context, in *DiskStatsRequest, opts ...grpc.CallOption) (Intercomm_GetDiskStatsClient, error)
+	// Get disk info
+	GetLoadStats(ctx context.Context, in *LoadStatsRequest, opts ...grpc.CallOption) (Intercomm_GetLoadStatsClient, error)
+	// Get disk info
+	GetMemStats(ctx context.Context, in *MemStatsRequest, opts ...grpc.CallOption) (Intercomm_GetMemStatsClient, error)
 }
 
 type intercommClient struct {
@@ -182,27 +523,28 @@ func NewIntercommClient(cc *grpc.ClientConn) IntercommClient {
 	return &intercommClient{cc}
 }
 
-func (c *intercommClient) GetCPUStats(ctx context.Context, opts ...grpc.CallOption) (Intercomm_GetCPUStatsClient, error) {
+func (c *intercommClient) GetCPUStats(ctx context.Context, in *CPUStatsRequest, opts ...grpc.CallOption) (Intercomm_GetCPUStatsClient, error) {
 	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[0], "/protobuf.Intercomm/GetCPUStats", opts...)
 	if err != nil {
 		return nil, err
 	}
 	x := &intercommGetCPUStatsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
 	return x, nil
 }
 
 type Intercomm_GetCPUStatsClient interface {
-	Send(*CPUStatsRequest) error
 	Recv() (*CPUStatsReply, error)
 	grpc.ClientStream
 }
 
 type intercommGetCPUStatsClient struct {
 	grpc.ClientStream
-}
-
-func (x *intercommGetCPUStatsClient) Send(m *CPUStatsRequest) error {
-	return x.ClientStream.SendMsg(m)
 }
 
 func (x *intercommGetCPUStatsClient) Recv() (*CPUStatsReply, error) {
@@ -213,10 +555,112 @@ func (x *intercommGetCPUStatsClient) Recv() (*CPUStatsReply, error) {
 	return m, nil
 }
 
+func (c *intercommClient) GetDiskStats(ctx context.Context, in *DiskStatsRequest, opts ...grpc.CallOption) (Intercomm_GetDiskStatsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[1], "/protobuf.Intercomm/GetDiskStats", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &intercommGetDiskStatsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type Intercomm_GetDiskStatsClient interface {
+	Recv() (*DiskStatsReply, error)
+	grpc.ClientStream
+}
+
+type intercommGetDiskStatsClient struct {
+	grpc.ClientStream
+}
+
+func (x *intercommGetDiskStatsClient) Recv() (*DiskStatsReply, error) {
+	m := new(DiskStatsReply)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *intercommClient) GetLoadStats(ctx context.Context, in *LoadStatsRequest, opts ...grpc.CallOption) (Intercomm_GetLoadStatsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[2], "/protobuf.Intercomm/GetLoadStats", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &intercommGetLoadStatsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type Intercomm_GetLoadStatsClient interface {
+	Recv() (*LoadStatsReply, error)
+	grpc.ClientStream
+}
+
+type intercommGetLoadStatsClient struct {
+	grpc.ClientStream
+}
+
+func (x *intercommGetLoadStatsClient) Recv() (*LoadStatsReply, error) {
+	m := new(LoadStatsReply)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *intercommClient) GetMemStats(ctx context.Context, in *MemStatsRequest, opts ...grpc.CallOption) (Intercomm_GetMemStatsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[3], "/protobuf.Intercomm/GetMemStats", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &intercommGetMemStatsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type Intercomm_GetMemStatsClient interface {
+	Recv() (*MemStatsReply, error)
+	grpc.ClientStream
+}
+
+type intercommGetMemStatsClient struct {
+	grpc.ClientStream
+}
+
+func (x *intercommGetMemStatsClient) Recv() (*MemStatsReply, error) {
+	m := new(MemStatsReply)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // IntercommServer is the server API for Intercomm service.
 type IntercommServer interface {
-	// Sends a greeting
-	GetCPUStats(Intercomm_GetCPUStatsServer) error
+	// Get  CPU info
+	GetCPUStats(*CPUStatsRequest, Intercomm_GetCPUStatsServer) error
+	// Get disk info
+	GetDiskStats(*DiskStatsRequest, Intercomm_GetDiskStatsServer) error
+	// Get disk info
+	GetLoadStats(*LoadStatsRequest, Intercomm_GetLoadStatsServer) error
+	// Get disk info
+	GetMemStats(*MemStatsRequest, Intercomm_GetMemStatsServer) error
 }
 
 func RegisterIntercommServer(s *grpc.Server, srv IntercommServer) {
@@ -224,12 +668,15 @@ func RegisterIntercommServer(s *grpc.Server, srv IntercommServer) {
 }
 
 func _Intercomm_GetCPUStats_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(IntercommServer).GetCPUStats(&intercommGetCPUStatsServer{stream})
+	m := new(CPUStatsRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(IntercommServer).GetCPUStats(m, &intercommGetCPUStatsServer{stream})
 }
 
 type Intercomm_GetCPUStatsServer interface {
 	Send(*CPUStatsReply) error
-	Recv() (*CPUStatsRequest, error)
 	grpc.ServerStream
 }
 
@@ -241,12 +688,67 @@ func (x *intercommGetCPUStatsServer) Send(m *CPUStatsReply) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *intercommGetCPUStatsServer) Recv() (*CPUStatsRequest, error) {
-	m := new(CPUStatsRequest)
-	if err := x.ServerStream.RecvMsg(m); err != nil {
-		return nil, err
+func _Intercomm_GetDiskStats_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(DiskStatsRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
 	}
-	return m, nil
+	return srv.(IntercommServer).GetDiskStats(m, &intercommGetDiskStatsServer{stream})
+}
+
+type Intercomm_GetDiskStatsServer interface {
+	Send(*DiskStatsReply) error
+	grpc.ServerStream
+}
+
+type intercommGetDiskStatsServer struct {
+	grpc.ServerStream
+}
+
+func (x *intercommGetDiskStatsServer) Send(m *DiskStatsReply) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _Intercomm_GetLoadStats_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(LoadStatsRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(IntercommServer).GetLoadStats(m, &intercommGetLoadStatsServer{stream})
+}
+
+type Intercomm_GetLoadStatsServer interface {
+	Send(*LoadStatsReply) error
+	grpc.ServerStream
+}
+
+type intercommGetLoadStatsServer struct {
+	grpc.ServerStream
+}
+
+func (x *intercommGetLoadStatsServer) Send(m *LoadStatsReply) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _Intercomm_GetMemStats_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(MemStatsRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(IntercommServer).GetMemStats(m, &intercommGetMemStatsServer{stream})
+}
+
+type Intercomm_GetMemStatsServer interface {
+	Send(*MemStatsReply) error
+	grpc.ServerStream
+}
+
+type intercommGetMemStatsServer struct {
+	grpc.ServerStream
+}
+
+func (x *intercommGetMemStatsServer) Send(m *MemStatsReply) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 var _Intercomm_serviceDesc = grpc.ServiceDesc{
@@ -258,7 +760,21 @@ var _Intercomm_serviceDesc = grpc.ServiceDesc{
 			StreamName:    "GetCPUStats",
 			Handler:       _Intercomm_GetCPUStats_Handler,
 			ServerStreams: true,
-			ClientStreams: true,
+		},
+		{
+			StreamName:    "GetDiskStats",
+			Handler:       _Intercomm_GetDiskStats_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "GetLoadStats",
+			Handler:       _Intercomm_GetLoadStats_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "GetMemStats",
+			Handler:       _Intercomm_GetMemStats_Handler,
+			ServerStreams: true,
 		},
 	},
 	Metadata: "protobuf.proto",
