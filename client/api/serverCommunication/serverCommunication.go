@@ -1,11 +1,11 @@
 package serverCommunication
 
 import (
-	"bufio"
+	//"bufio"
 	"context"
 	"io"
 	"log"
-	"os"
+	//"os"
 	"sync"
 	"time"
 
@@ -21,73 +21,50 @@ const (
 )
 
 var varClient pb.IntercommClient
-var conn *grpc.ClientConn
-var cpuPlay = make(chan struct{})
-var cpuPause = make(chan struct{})
-var diskPlay = make(chan struct{})
-var diskPause = make(chan struct{})
-var loadPlay = make(chan struct{})
-var loadPause = make(chan struct{})
-var memPlay = make(chan struct{})
-var memPause = make(chan struct{})
+var Conn *grpc.ClientConn
+var CpuPlay = make(chan struct{})
+var CpuPause = make(chan struct{})
+var DiskPlay = make(chan struct{})
+var DiskPause = make(chan struct{})
+var LoadPlay = make(chan struct{})
+var LoadPause = make(chan struct{})
+var MemPlay = make(chan struct{})
+var MemPause = make(chan struct{})
 var wg sync.WaitGroup
-var lastCall string
+var LastCall string
 
 // Monitoring .
 func Monitoring() {
 	connect()
-	defer conn.Close()
+	//defer Conn.Close()
 
 	wg.Add(1)
 	go cpu()
-	cpuPause <- struct{}{}
+	CpuPause <- struct{}{}
 	go disk()
-	diskPause <- struct{}{}
+	DiskPause <- struct{}{}
 	go load()
-	loadPause <- struct{}{}
+	LoadPause <- struct{}{}
 	go mem()
-	memPause <- struct{}{}
-
-	scanner := bufio.NewScanner(os.Stdin)
-	for {
-		if scanner.Scan() {
-			switch scanner.Text() {
-			case "1":
-				pausePrevRout()
-				cpuPlay <- struct{}{}
-				lastCall = "1"
-			case "2":
-				pausePrevRout()
-				diskPlay <- struct{}{}
-				lastCall = "2"
-			case "3":
-				pausePrevRout()
-				loadPlay <- struct{}{}
-				lastCall = "3"
-			case "4":
-				pausePrevRout()
-				memPlay <- struct{}{}
-				lastCall = "4"
-			}
-		}
-	}
+	MemPause <- struct{}{}
 }
 
-func pausePrevRout() {
-	if lastCall == "" {
+// PausePrevRout .
+func PausePrevRout() {
+	if LastCall == "" {
 		//
 	} else {
-		if lastCall == "1" {
-			cpuPause <- struct{}{}
+		if LastCall == "1" {
+			CpuPause <- struct{}{}
 		}
-		if lastCall == "2" {
-			diskPause <- struct{}{}
+		if LastCall == "2" {
+			DiskPause <- struct{}{}
 		}
-		if lastCall == "3" {
-			loadPause <- struct{}{}
+		if LastCall == "3" {
+			LoadPause <- struct{}{}
 		}
-		if lastCall == "4" {
-			memPause <- struct{}{}
+		if LastCall == "4" {
+			MemPause <- struct{}{}
 		}
 	}
 }
@@ -97,9 +74,9 @@ func connect() {
 	creds, err := credentials.NewClientTLSFromFile("cert/cert.pem", "")
 	e.Handle(err)
 	// Initiate a connection with the server
-	conn, err = grpc.Dial(address, grpc.WithTransportCredentials(creds))
+	Conn, err = grpc.Dial(address, grpc.WithTransportCredentials(creds))
 	e.Handle(err)
-	client := pb.NewIntercommClient(conn)
+	client := pb.NewIntercommClient(Conn)
 	varClient = client
 
 	// do logging stuff
@@ -109,10 +86,10 @@ func connect() {
 func cpu() {
 	for {
 		select {
-		case <-cpuPause:
+		case <-CpuPause:
 			log.Println("cpu pause")
 			select {
-			case <-cpuPlay:
+			case <-CpuPlay:
 				log.Println("cpu play")
 				/*case <-quit:
 				wg.Done()
@@ -151,10 +128,10 @@ func cpuCallnReturn() {
 func disk() {
 	for {
 		select {
-		case <-diskPause:
+		case <-DiskPause:
 			log.Println("disk pause")
 			select {
-			case <-diskPlay:
+			case <-DiskPlay:
 				log.Println("disk play")
 			}
 		default:
@@ -184,10 +161,10 @@ func diskCallnReturn() {
 func load() {
 	for {
 		select {
-		case <-loadPause:
+		case <-LoadPause:
 			log.Println("load pause")
 			select {
-			case <-loadPlay:
+			case <-LoadPlay:
 				log.Println("load play")
 			}
 		default:
@@ -222,10 +199,10 @@ func loadCallnReturn() {
 func mem() {
 	for {
 		select {
-		case <-memPause:
+		case <-MemPause:
 			log.Println("mem pause")
 			select {
-			case <-memPlay:
+			case <-MemPlay:
 				log.Println("mem play")
 			}
 		default:

@@ -4,10 +4,14 @@ import (
 	"github.com/leaanthony/mewn"
 	"github.com/wailsapp/wails"
 	sc "simpleclient/api/serverCommunication"
+	w "simpleclient/pkg/wailscomm"
 )
 
 func main() {
 	go sc.Monitoring()
+	defer sc.Conn.Close()
+
+	choose := w.NewserviceChooser()
 
 	js := mewn.String("./frontend/build/static/js/main.js")
 	css := mewn.String("./frontend/build/static/css/main.css")
@@ -20,6 +24,6 @@ func main() {
 		CSS:    css,
 		Colour: "#131313",
 	})
-	//app.Bind(backend)
+	app.Bind(choose)
 	app.Run()
 }
