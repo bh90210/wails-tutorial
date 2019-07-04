@@ -6,12 +6,7 @@ import (
 	sc "simpleclient/api/serverCommunication"
 )
 
-func basic() string {
-	return "World!"
-}
-
 func main() {
-
 	go sc.Monitoring()
 
 	js := mewn.String("./frontend/build/static/js/main.js")
@@ -25,6 +20,6 @@ func main() {
 		CSS:    css,
 		Colour: "#131313",
 	})
-	app.Bind(basic)
+	//app.Bind(backend)
 	app.Run()
 }
