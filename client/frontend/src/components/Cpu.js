@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Grid from '@material-ui/core/Grid';
-import Chart from "./Chart";
+import Chart from "./CpuChart";
 
 class Cpu extends Component {
   constructor() {

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Bar, Pie } from "react-chartjs-2";
 import Grid from '@material-ui/core/Grid';
 
-class Chart extends Component {
+class CpuChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,4 +54,4 @@ class Chart extends Component {
   }
 }
 
-export default Chart;
+export default CpuChart;
