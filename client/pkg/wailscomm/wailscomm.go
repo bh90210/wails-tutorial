@@ -5,19 +5,13 @@ import (
 	sc "simpleclient/api/serverCommunication"
 )
 
+// ServiceChooser .
 type ServiceChooser struct {
 	Switch string
 }
 
-func NewserviceChooser() *ServiceChooser {
-	result := &ServiceChooser{
-		Switch: "0",
-	}
-	return result
-}
-
 // Choose .
-func (sw *ServiceChooser) Choose(service string) {
+func (sw *ServiceChooser) Choose(service string) string {
 	sw.Switch = service
 	//scanner := bufio.NewScanner(os.Stdin)
 	//for {
@@ -42,5 +36,5 @@ func (sw *ServiceChooser) Choose(service string) {
 	}
 	//}
 	//}
-	fmt.Sprintf("My name is now '%s'", service)
+	return fmt.Sprintf("Service '%s'", service)
 }

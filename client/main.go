@@ -8,10 +8,13 @@ import (
 )
 
 func main() {
+	// Start connection with server and client side goroutines
 	go sc.Monitoring()
+	// Close connection with server when program ends
 	defer sc.Conn.Close()
 
-	choose := w.NewserviceChooser()
+	//choose := w.NewserviceChooser()
+	choose := &w.ServiceChooser{}
 
 	js := mewn.String("./frontend/build/static/js/main.js")
 	css := mewn.String("./frontend/build/static/css/main.css")
