@@ -3,7 +3,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #FFF;
   max-height: 10vh;
   display: flex;
   flex-direction: column;
@@ -14,9 +14,17 @@
 }
 
 .App-body {
-  background-color: #282c34;
+  background-color: #FFF;
 }
 
 .App-link {
   color: #61dafb;
+}
+
+html, body, #app, #app>div {
+  height: 100%
+}
+
+.Top-Div {
+  margin-top: 7vh;;
 }

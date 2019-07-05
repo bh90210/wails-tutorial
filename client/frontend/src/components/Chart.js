@@ -1,30 +1,34 @@
-import React, {Component} from 'react';
-import {Bar, Line, Pie} from 'react-chartjs-2';
+import React, { Component } from "react";
+import { Bar, Pie } from "react-chartjs-2";
+import Grid from '@material-ui/core/Grid';
 
-class Chart extends Component{
-  constructor(props){
+class Chart extends Component {
+  constructor(props) {
     super(props);
     this.state = {
-      chartData:props.chartData
-    }
+      chartData: props.chartData
+    };
   }
 
   static defaultProps = {
-    displayTitle:true,
+    displayTitle: false,
     displayLegend: true,
-    legendPosition:'right',
-    location:'City'
-  }
+    legendPosition: "right",
+    location: "City"
+  };
 
-  render(){
+  render() {
     return (
-      <div className="chart">
-        <Bar
+      <div className="Top-Div">
+        <Grid container spacing={3}>
+          <Grid item item xs={12}>
+            <Pie
           data={this.state.chartData}
           options={{
             title:{
               display:this.props.displayTitle,
-              fontSize:25,
+              text:'Largest Cities In '+this.props.location,
+              fontSize:25
             },
             legend:{
               display:this.props.displayLegend,
@@ -32,9 +36,21 @@ class Chart extends Component{
             }
           }}
         />
-
-    </div>
-    )
+          </Grid>
+          <Grid item item xs={12}>
+            <Bar
+              data={this.state.chartData}
+              options={{
+                legend: {
+                  display: this.props.displayLegend,
+                  position: this.props.legendPosition
+                }
+              }}
+            />
+          </Grid>
+        </Grid>
+      </div>
+    );
   }
 }
 

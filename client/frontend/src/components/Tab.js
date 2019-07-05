@@ -8,15 +8,24 @@ import StorageIcon from '@material-ui/icons/Storage';
 import MemoryIcon from '@material-ui/icons/Memory';
 import LoadIcon from '@material-ui/icons/Reorder'
 import Cpu from "./Cpu";
-import Disk from "./Disk";
 import Load from "./Load";
 import Mem from "./Mem";
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
-  root: {
+  paper: {
     flexGrow: 1,
+    elevation: 0,
+    square: true,
+    padding: '0 20px',
+    boxShadow: '0 0px 0px 0px rgba(0, 0, 0, 0)',
+  },
+  cpu: {
+  },
+  load: {
+  },
+  mem: {
   },
 });
 
@@ -53,7 +62,7 @@ export default function IconLabelTabs() {
   }
 
   return (
-    <Paper square className={classes.root}>
+    <Paper square className={classes.paper}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -62,15 +71,13 @@ export default function IconLabelTabs() {
         textColor="secondary"
         centered
       >
-        <Tab icon={<ComputerIcon />} label="CPU" />
-        <Tab icon={<StorageIcon />} label="DISK" />
-        <Tab icon={<LoadIcon />} label="LOAD" />
-        <Tab icon={<MemoryIcon />} label="MEMORY" />
+        <Tab className={classes.cpu} icon={<ComputerIcon />} label="CPU" />
+        <Tab className={classes.load} icon={<LoadIcon />} label="LOAD" />
+        <Tab className={classes.mem} icon={<MemoryIcon />} label="MEMORY" />
       </Tabs>
       {value === 0 && <Cpu />}
-      {value === 1 && <Disk />}
-      {value === 2 && <Load />}
-      {value === 3 && <Mem />}
+      {value === 1 && <Load />}
+      {value === 2 && <Mem />}
     </Paper>
   );
 }
