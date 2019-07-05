@@ -61,6 +61,19 @@ export default function IconLabelTabs() {
     setValue(newValue);
   }
 
+  function handleClickCPU(e) {
+    e.preventDefault();
+    window.backend.ServiceChooser.Choose("1").then(console.log)
+  }
+  function handleClickLOAD(e) {
+    e.preventDefault();
+    window.backend.ServiceChooser.Choose("3").then(console.log)
+  }
+  function handleClickMEM(e) {
+    e.preventDefault();
+    window.backend.ServiceChooser.Choose("4").then(console.log)
+  }
+
   return (
     <Paper square className={classes.paper}>
       <Tabs
@@ -71,9 +84,9 @@ export default function IconLabelTabs() {
         textColor="secondary"
         centered
       >
-        <Tab className={classes.cpu} icon={<ComputerIcon />} label="CPU" />
-        <Tab className={classes.load} icon={<LoadIcon />} label="LOAD" />
-        <Tab className={classes.mem} icon={<MemoryIcon />} label="MEMORY" />
+        <Tab className={classes.cpu} icon={<ComputerIcon />} label="CPU" onClick={handleClickCPU} />
+        <Tab className={classes.load} icon={<LoadIcon />} label="LOAD" onClick={handleClickLOAD} />
+        <Tab className={classes.mem} icon={<MemoryIcon />} label="MEMORY" onClick={handleClickMEM} />
       </Tabs>
       {value === 0 && <Cpu />}
       {value === 1 && <Load />}

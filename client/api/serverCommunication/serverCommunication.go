@@ -41,7 +41,7 @@ func Monitoring() {
 	wg.Add(1)
 	go cpu()
 	// "auto-start" cpu goroutine because app's landing page is 'cpu stats'
-	//CpuPause <- struct{}{}
+	CpuPause <- struct{}{}
 	go disk()
 	DiskPause <- struct{}{}
 	go load()
