@@ -21,7 +21,7 @@ class CpuChart extends Component {
     return (
       <div className="Top-Div">
         <Grid container spacing={3}>
-          <Grid item item xs={12}>
+          <Grid item xs={12}>
             <Pie
           data={this.state.chartData}
           options={{
@@ -37,7 +37,7 @@ class CpuChart extends Component {
           }}
         />
           </Grid>
-          <Grid item item xs={12}>
+          <Grid item xs={12}>
             <Bar
               data={this.state.chartData}
               options={{

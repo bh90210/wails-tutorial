@@ -21,7 +21,7 @@ class LoadChart extends Component {
     return (
       <div className="Top-Div">
         <Grid container spacing={3}>
-          <Grid item item xs={12}>
+          <Grid item xs={12}>
             <Line
           data={this.state.chartData}
           options={{
@@ -37,7 +37,7 @@ class LoadChart extends Component {
           }}
         />
           </Grid>
-          <Grid item item xs={12}>
+          <Grid item xs={12}>
             <Bubble
           data={this.state.chartData}
           options={{

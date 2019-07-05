@@ -9,6 +9,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/wailsapp/wails"
 	pb "simpleclient/api/protobuf"
 	e "simpleclient/errors"
 
@@ -34,19 +35,19 @@ var wg sync.WaitGroup
 var LastCall string
 
 // Monitoring .
-func Monitoring() {
+func (w *WailsStruct) Monitoring() {
 	connect()
 	//defer Conn.Close()
 
 	wg.Add(1)
-	go cpu()
+	go w.cpu()
 	// "auto-start" cpu goroutine because app's landing page is 'cpu stats'
 	CpuPause <- struct{}{}
-	go disk()
+	go w.disk()
 	DiskPause <- struct{}{}
-	go load()
+	go w.load()
 	LoadPause <- struct{}{}
-	go mem()
+	go w.mem()
 	MemPause <- struct{}{}
 }
 
@@ -84,7 +85,7 @@ func connect() {
 
 }
 
-func cpu() {
+func (w *WailsStruct) cpu() {
 	for {
 		select {
 		case <-CpuPause:
@@ -100,12 +101,12 @@ func cpu() {
 		wg.Done()
 		return*/
 		default:
-			cpuCallnReturn()
+			w.cpuCallnReturn()
 		}
 	}
 }
 
-func cpuCallnReturn() {
+func (w *WailsStruct) cpuCallnReturn() {
 	done := make(chan bool)
 
 	stream, err := varClient.GetCPUStats(context.Background(), &pb.CPUStatsRequest{Name: "cpu"})
@@ -123,10 +124,39 @@ func cpuCallnReturn() {
 	log.Println(response.Idle)
 	log.Println(response.Nice)
 
+	go w.wailsEventsComm(int32(response.Percentage))
+
 	time.Sleep(1 * time.Second)
 }
 
-func disk() {
+// WailsStruct .
+type WailsStruct struct {
+	runtime *wails.Runtime
+}
+
+// WailsInit .
+func (w *WailsStruct) WailsInit(runtime *wails.Runtime) error {
+	w.runtime = runtime
+	return nil
+}
+
+// CPUUsage .
+type CPUUsage struct {
+	Average int32 `json:"avg"`
+}
+
+func (w *WailsStruct) wailsEventsComm(percent int32) {
+	w.runtime.Events.Emit("error", w.GetCPUUsage(percent))
+}
+
+// GetCPUUsage .
+func (w *WailsStruct) GetCPUUsage(percent int32) *CPUUsage {
+	return &CPUUsage{
+		Average: percent,
+	}
+}
+
+func (w *WailsStruct) disk() {
 	for {
 		select {
 		case <-DiskPause:
@@ -136,12 +166,12 @@ func disk() {
 				log.Println("disk play")
 			}
 		default:
-			diskCallnReturn()
+			w.diskCallnReturn()
 		}
 	}
 }
 
-func diskCallnReturn() {
+func (w *WailsStruct) diskCallnReturn() {
 	done := make(chan bool)
 
 	stream, err := varClient.GetDiskStats(context.Background(), &pb.DiskStatsRequest{Name: "disk"})
@@ -159,7 +189,7 @@ func diskCallnReturn() {
 	time.Sleep(1 * time.Second)
 }
 
-func load() {
+func (w *WailsStruct) load() {
 	for {
 		select {
 		case <-LoadPause:
@@ -169,12 +199,12 @@ func load() {
 				log.Println("load play")
 			}
 		default:
-			loadCallnReturn()
+			w.loadCallnReturn()
 		}
 	}
 }
 
-func loadCallnReturn() {
+func (w *WailsStruct) loadCallnReturn() {
 	done := make(chan bool)
 
 	stream, err := varClient.GetLoadStats(context.Background(), &pb.LoadStatsRequest{Name: "load"})
@@ -197,7 +227,7 @@ func loadCallnReturn() {
 	time.Sleep(1 * time.Second)
 }
 
-func mem() {
+func (w *WailsStruct) mem() {
 	for {
 		select {
 		case <-MemPause:
@@ -207,12 +237,12 @@ func mem() {
 				log.Println("mem play")
 			}
 		default:
-			memCallnReturn()
+			w.memCallnReturn()
 		}
 	}
 }
 
-func memCallnReturn() {
+func (w *WailsStruct) memCallnReturn() {
 	done := make(chan bool)
 
 	stream, err := varClient.GetMemStats(context.Background(), &pb.MemStatsRequest{Name: "mem"})

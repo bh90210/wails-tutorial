@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Grid from '@material-ui/core/Grid';
 import Chart from "./LoadChart";
 
 class Load extends Component {

@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ComputerIcon from '@material-ui/icons/Computer';
-import StorageIcon from '@material-ui/icons/Storage';
 import MemoryIcon from '@material-ui/icons/Memory';
 import LoadIcon from '@material-ui/icons/Reorder'
 import Cpu from "./Cpu";
@@ -34,18 +33,6 @@ function TabContainer(props) {
     <Typography component="div" style={{ padding: 8 * 3 }}>
       {props.children}
     </Typography>
-  );
-}
-
-function LinkTab(props) {
-  return (
-    <Tab
-      component="a"
-      onClick={event => {
-        event.preventDefault();
-      }}
-      {...props}
-    />
   );
 }
 

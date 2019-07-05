@@ -8,8 +8,9 @@ import (
 )
 
 func main() {
+	logic := &sc.WailsStruct{}
 	// Start connection with server and client side goroutines
-	go sc.Monitoring()
+	go logic.Monitoring()
 	// Close connection with server when program ends
 	defer sc.Conn.Close()
 
@@ -28,5 +29,6 @@ func main() {
 		Colour: "#131313",
 	})
 	app.Bind(choose)
+	app.Bind(logic)
 	app.Run()
 }
