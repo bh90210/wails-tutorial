@@ -1,16 +1,35 @@
-import React, { Component } from "react";
-import "./App.css";
+import React from 'react';
+import './App.css';
+import FilesDrop from './components/FilesDrop';
 
-import Menu from "./components/Tab";
+class App extends React.Component {
+  constructor(props, context) {
+    super();
+    this.state = {
+      result2: " "
+    };
+  }
+  
+  componentDidMount(){
+    window.wails.Events.On("cpu_usage", (cpu_usage) => {
+      this.setState({
+        result2: cpu_usage
+      })
+    });
+  }
 
-class App extends Component {
   render() {
+    const { result2 } = this.state;
     return (
-        <div id="app" className="App">
-          <header className="App-header">
-          </header>
-          <Menu />
-        </div>
+      <div id="app" className="App">
+        <header className="App-header">
+          <p>
+            Welcome to your new <code>wails/react</code> project.
+          </p>
+          <h1>{result2}</h1>
+          <FilesDrop />
+        </header>
+      </div>
     );
   }
 }

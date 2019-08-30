@@ -1,12 +1,12 @@
 {
- "name": "simpleClient",
+ "name": "gRPC Tutorial",
  "description": "Enter your project description",
  "author": {
   "name": "bh90210",
-  "email": "ktc@protonmail.com"
+  "email": "ktc@pm.me"
  },
  "version": "0.1.0",
- "binaryname": "simpleClient",
+ "binaryname": "grpc-tutorial",
  "frontend": {
   "dir": "frontend",
   "install": "npm install",
