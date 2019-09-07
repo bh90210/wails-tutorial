@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import FilesDrop from './components/FilesDrop';
 import InteractiveList from './components/InteractiveList';
+import Drop from './components/Drop';
 
 class App extends React.Component {
   constructor(props, context) {
@@ -24,7 +24,7 @@ class App extends React.Component {
     return (
       <div id="app" className="App">
         <header className="App-header">
-          <FilesDrop />
+          <Drop />
         </header>
         <body className="App-body">
           <InteractiveList />
