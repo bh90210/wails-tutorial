@@ -26,6 +26,8 @@ func NewTodos() (*Stats, error) {
 func (s *Stats) WailsInit(runtime *wails.Runtime) error {
 	s.log = runtime.Log.New("Stats")
 
+	runtime.Window.SetColour("#fff")
+
 	go func() {
 		for {
 			runtime.Events.Emit("cpu_usage", rand.Intn(100))
@@ -39,6 +41,16 @@ func (s *Stats) WailsInit(runtime *wails.Runtime) error {
 	})
 
 	return nil
+}
+
+func basic(name string, path string, size float64, file []byte) {
+	//fmt.Printf(fileName)
+	fmt.Println(name)
+	fmt.Println(path)
+	fmt.Println(size)
+	fmt.Printf("basic bind with the message %s", file)
+	//fmt.Println(fileSize)
+	//return "works! :+1:"
 }
 
 func main() {
@@ -58,5 +70,6 @@ func main() {
 	biindd, _ := NewTodos()
 
 	app.Bind(biindd)
+	app.Bind(basic)
 	app.Run()
 }

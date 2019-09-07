@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import FilesDrop from './components/FilesDrop';
+import InteractiveList from './components/InteractiveList';
 
 class App extends React.Component {
   constructor(props, context) {
@@ -23,12 +24,11 @@ class App extends React.Component {
     return (
       <div id="app" className="App">
         <header className="App-header">
-          <p>
-            Welcome to your new <code>wails/react</code> project.
-          </p>
-          <h1>{result2}</h1>
           <FilesDrop />
         </header>
+        <body className="App-body">
+          <InteractiveList />
+        </body>
       </div>
     );
   }

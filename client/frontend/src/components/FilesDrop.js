@@ -6,18 +6,21 @@ class FilesDrop extends Component {
     super();
     this.onDrop = (files) => {
       this.setState({files})
-      const reader = new FileReader()
 
-      reader.onabort = () => console.log('file reading was aborted')
-      reader.onerror = () => console.log('file reading has failed')
-      reader.onload = () => {
-        // Do whatever you want with the file contents
-        const binaryStr = reader.result
-        console.log(binaryStr)
+      for (var i = 0; i < files.length; i++) { //for multiple files          
+        (function(file) {
+            var name = file.name;
+            var path = file.path;
+            var size = file.size;
+            var reader = new FileReader();  
+            reader.onload = function(e) {  
+                // get file content  
+                var binaryStr = e.target.result; 
+                window.backend.basic(name, path, size, binaryStr)
+            }
+            reader.readAsBinaryString(file);
+        })(files[i]);
       }
-
-      files.forEach(file => reader.readAsBinaryString(file))
-      //window.wails.Events.On("filesDropped", {file.path});
     };
     this.state = {
       files: []
@@ -27,7 +30,7 @@ class FilesDrop extends Component {
   render() {
     const files = this.state.files.map(file => (
       <li key={file.name}>
-        {file.path} - {file.name} - {file.size} bytes
+        {file.path} - {file.size} bytes
       </li>
     ));
 
@@ -36,11 +39,10 @@ class FilesDrop extends Component {
         {({getRootProps, getInputProps}) => (
           <section className="container">
             <div {...getRootProps({className: 'dropzone'})}>
+              <p className="App-header-text">Drag 'n' drop some files here, or click to select files</p>
               <input {...getInputProps()} />
-              <p>Drag 'n' drop some files here, or click to select files</p>
             </div>
             <aside>
-              <h4>Files</h4>
               <ul>{files}</ul>
             </aside>
           </section>

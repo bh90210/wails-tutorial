@@ -9,10 +9,10 @@
  "binaryname": "grpc-tutorial",
  "frontend": {
   "dir": "frontend",
-  "install": "npm install",
-  "build": "npm run build",
+  "install": "yarn",
+  "build": "yarn build",
   "bridge": "src",
-  "serve": "npm run start"
+  "serve": "yarn start"
  },
  "WailsVersion": ""
 }
