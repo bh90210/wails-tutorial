@@ -1,9 +1,9 @@
-// cd wails-tutorial/server/api
-// protoc -I protobuf/ protobuf/protobuf.proto --go_out=plugins=grpc:protobuf
+// cd wails-tutorial/server
+// protoc -I api/ api/api.proto --go_out=plugins=grpc:api
 
 syntax = "proto3";
 
-package protobuf;
+package api;
 
 service Intercomm {
   rpc Upload (stream UploadRequest) returns (UploadReply) {}

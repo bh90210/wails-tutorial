@@ -1,4 +1,4 @@
-package filesHandling
+package pkg
 
 import (
 	"fmt"
