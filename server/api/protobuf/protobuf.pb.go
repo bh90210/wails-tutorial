@@ -8,6 +8,8 @@ import (
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -22,475 +24,375 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// The request message containing the user's name.
-type CPUStatsRequest struct {
-	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+type UploadRequest struct {
+	Path                 string   `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	Data                 []byte   `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *CPUStatsRequest) Reset()         { *m = CPUStatsRequest{} }
-func (m *CPUStatsRequest) String() string { return proto.CompactTextString(m) }
-func (*CPUStatsRequest) ProtoMessage()    {}
-func (*CPUStatsRequest) Descriptor() ([]byte, []int) {
+func (m *UploadRequest) Reset()         { *m = UploadRequest{} }
+func (m *UploadRequest) String() string { return proto.CompactTextString(m) }
+func (*UploadRequest) ProtoMessage()    {}
+func (*UploadRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c77a803fcbc0c059, []int{0}
 }
 
-func (m *CPUStatsRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CPUStatsRequest.Unmarshal(m, b)
+func (m *UploadRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UploadRequest.Unmarshal(m, b)
 }
-func (m *CPUStatsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CPUStatsRequest.Marshal(b, m, deterministic)
+func (m *UploadRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UploadRequest.Marshal(b, m, deterministic)
 }
-func (m *CPUStatsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CPUStatsRequest.Merge(m, src)
+func (m *UploadRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UploadRequest.Merge(m, src)
 }
-func (m *CPUStatsRequest) XXX_Size() int {
-	return xxx_messageInfo_CPUStatsRequest.Size(m)
+func (m *UploadRequest) XXX_Size() int {
+	return xxx_messageInfo_UploadRequest.Size(m)
 }
-func (m *CPUStatsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CPUStatsRequest.DiscardUnknown(m)
+func (m *UploadRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UploadRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_CPUStatsRequest proto.InternalMessageInfo
+var xxx_messageInfo_UploadRequest proto.InternalMessageInfo
 
-func (m *CPUStatsRequest) GetName() string {
+func (m *UploadRequest) GetPath() string {
 	if m != nil {
-		return m.Name
+		return m.Path
 	}
 	return ""
 }
 
-// The response message containing the greetings
-type CPUStatsReply struct {
-	Percentage           int32    `protobuf:"varint,1,opt,name=percentage,proto3" json:"percentage,omitempty"`
-	User                 float64  `protobuf:"fixed64,2,opt,name=user,proto3" json:"user,omitempty"`
-	System               float64  `protobuf:"fixed64,3,opt,name=system,proto3" json:"system,omitempty"`
-	Idle                 float64  `protobuf:"fixed64,4,opt,name=idle,proto3" json:"idle,omitempty"`
-	Nice                 float64  `protobuf:"fixed64,5,opt,name=nice,proto3" json:"nice,omitempty"`
+func (m *UploadRequest) GetData() []byte {
+	if m != nil {
+		return m.Data
+	}
+	return nil
+}
+
+type UploadReply struct {
+	Feedback             string   `protobuf:"bytes,1,opt,name=feedback,proto3" json:"feedback,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *CPUStatsReply) Reset()         { *m = CPUStatsReply{} }
-func (m *CPUStatsReply) String() string { return proto.CompactTextString(m) }
-func (*CPUStatsReply) ProtoMessage()    {}
-func (*CPUStatsReply) Descriptor() ([]byte, []int) {
+func (m *UploadReply) Reset()         { *m = UploadReply{} }
+func (m *UploadReply) String() string { return proto.CompactTextString(m) }
+func (*UploadReply) ProtoMessage()    {}
+func (*UploadReply) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c77a803fcbc0c059, []int{1}
 }
 
-func (m *CPUStatsReply) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CPUStatsReply.Unmarshal(m, b)
+func (m *UploadReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UploadReply.Unmarshal(m, b)
 }
-func (m *CPUStatsReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CPUStatsReply.Marshal(b, m, deterministic)
+func (m *UploadReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UploadReply.Marshal(b, m, deterministic)
 }
-func (m *CPUStatsReply) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CPUStatsReply.Merge(m, src)
+func (m *UploadReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UploadReply.Merge(m, src)
 }
-func (m *CPUStatsReply) XXX_Size() int {
-	return xxx_messageInfo_CPUStatsReply.Size(m)
+func (m *UploadReply) XXX_Size() int {
+	return xxx_messageInfo_UploadReply.Size(m)
 }
-func (m *CPUStatsReply) XXX_DiscardUnknown() {
-	xxx_messageInfo_CPUStatsReply.DiscardUnknown(m)
+func (m *UploadReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_UploadReply.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_CPUStatsReply proto.InternalMessageInfo
+var xxx_messageInfo_UploadReply proto.InternalMessageInfo
 
-func (m *CPUStatsReply) GetPercentage() int32 {
+func (m *UploadReply) GetFeedback() string {
 	if m != nil {
-		return m.Percentage
+		return m.Feedback
 	}
-	return 0
+	return ""
 }
 
-func (m *CPUStatsReply) GetUser() float64 {
-	if m != nil {
-		return m.User
-	}
-	return 0
-}
-
-func (m *CPUStatsReply) GetSystem() float64 {
-	if m != nil {
-		return m.System
-	}
-	return 0
-}
-
-func (m *CPUStatsReply) GetIdle() float64 {
-	if m != nil {
-		return m.Idle
-	}
-	return 0
-}
-
-func (m *CPUStatsReply) GetNice() float64 {
-	if m != nil {
-		return m.Nice
-	}
-	return 0
-}
-
-type DiskStatsRequest struct {
-	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+type DownloadRequest struct {
+	Path                 string   `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *DiskStatsRequest) Reset()         { *m = DiskStatsRequest{} }
-func (m *DiskStatsRequest) String() string { return proto.CompactTextString(m) }
-func (*DiskStatsRequest) ProtoMessage()    {}
-func (*DiskStatsRequest) Descriptor() ([]byte, []int) {
+func (m *DownloadRequest) Reset()         { *m = DownloadRequest{} }
+func (m *DownloadRequest) String() string { return proto.CompactTextString(m) }
+func (*DownloadRequest) ProtoMessage()    {}
+func (*DownloadRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c77a803fcbc0c059, []int{2}
 }
 
-func (m *DiskStatsRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DiskStatsRequest.Unmarshal(m, b)
+func (m *DownloadRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DownloadRequest.Unmarshal(m, b)
 }
-func (m *DiskStatsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DiskStatsRequest.Marshal(b, m, deterministic)
+func (m *DownloadRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DownloadRequest.Marshal(b, m, deterministic)
 }
-func (m *DiskStatsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DiskStatsRequest.Merge(m, src)
+func (m *DownloadRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DownloadRequest.Merge(m, src)
 }
-func (m *DiskStatsRequest) XXX_Size() int {
-	return xxx_messageInfo_DiskStatsRequest.Size(m)
+func (m *DownloadRequest) XXX_Size() int {
+	return xxx_messageInfo_DownloadRequest.Size(m)
 }
-func (m *DiskStatsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DiskStatsRequest.DiscardUnknown(m)
+func (m *DownloadRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DownloadRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_DiskStatsRequest proto.InternalMessageInfo
+var xxx_messageInfo_DownloadRequest proto.InternalMessageInfo
 
-func (m *DiskStatsRequest) GetName() string {
+func (m *DownloadRequest) GetPath() string {
 	if m != nil {
-		return m.Name
+		return m.Path
 	}
 	return ""
 }
 
-type DiskStatsReply struct {
-	UsedPercent          float64  `protobuf:"fixed64,1,opt,name=usedPercent,proto3" json:"usedPercent,omitempty"`
-	InodesUsedPercent    float64  `protobuf:"fixed64,2,opt,name=inodesUsedPercent,proto3" json:"inodesUsedPercent,omitempty"`
+type DownloadReply struct {
+	Path                 string   `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	Data                 []byte   `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *DiskStatsReply) Reset()         { *m = DiskStatsReply{} }
-func (m *DiskStatsReply) String() string { return proto.CompactTextString(m) }
-func (*DiskStatsReply) ProtoMessage()    {}
-func (*DiskStatsReply) Descriptor() ([]byte, []int) {
+func (m *DownloadReply) Reset()         { *m = DownloadReply{} }
+func (m *DownloadReply) String() string { return proto.CompactTextString(m) }
+func (*DownloadReply) ProtoMessage()    {}
+func (*DownloadReply) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c77a803fcbc0c059, []int{3}
 }
 
-func (m *DiskStatsReply) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DiskStatsReply.Unmarshal(m, b)
+func (m *DownloadReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DownloadReply.Unmarshal(m, b)
 }
-func (m *DiskStatsReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DiskStatsReply.Marshal(b, m, deterministic)
+func (m *DownloadReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DownloadReply.Marshal(b, m, deterministic)
 }
-func (m *DiskStatsReply) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DiskStatsReply.Merge(m, src)
+func (m *DownloadReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DownloadReply.Merge(m, src)
 }
-func (m *DiskStatsReply) XXX_Size() int {
-	return xxx_messageInfo_DiskStatsReply.Size(m)
+func (m *DownloadReply) XXX_Size() int {
+	return xxx_messageInfo_DownloadReply.Size(m)
 }
-func (m *DiskStatsReply) XXX_DiscardUnknown() {
-	xxx_messageInfo_DiskStatsReply.DiscardUnknown(m)
+func (m *DownloadReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_DownloadReply.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_DiskStatsReply proto.InternalMessageInfo
+var xxx_messageInfo_DownloadReply proto.InternalMessageInfo
 
-func (m *DiskStatsReply) GetUsedPercent() float64 {
+func (m *DownloadReply) GetPath() string {
 	if m != nil {
-		return m.UsedPercent
+		return m.Path
 	}
-	return 0
+	return ""
 }
 
-func (m *DiskStatsReply) GetInodesUsedPercent() float64 {
+func (m *DownloadReply) GetData() []byte {
 	if m != nil {
-		return m.InodesUsedPercent
+		return m.Data
 	}
-	return 0
+	return nil
 }
 
-type LoadStatsRequest struct {
-	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+type DeleteRequest struct {
+	Path                 string   `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *LoadStatsRequest) Reset()         { *m = LoadStatsRequest{} }
-func (m *LoadStatsRequest) String() string { return proto.CompactTextString(m) }
-func (*LoadStatsRequest) ProtoMessage()    {}
-func (*LoadStatsRequest) Descriptor() ([]byte, []int) {
+func (m *DeleteRequest) Reset()         { *m = DeleteRequest{} }
+func (m *DeleteRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteRequest) ProtoMessage()    {}
+func (*DeleteRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c77a803fcbc0c059, []int{4}
 }
 
-func (m *LoadStatsRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_LoadStatsRequest.Unmarshal(m, b)
+func (m *DeleteRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteRequest.Unmarshal(m, b)
 }
-func (m *LoadStatsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_LoadStatsRequest.Marshal(b, m, deterministic)
+func (m *DeleteRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteRequest.Marshal(b, m, deterministic)
 }
-func (m *LoadStatsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_LoadStatsRequest.Merge(m, src)
+func (m *DeleteRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteRequest.Merge(m, src)
 }
-func (m *LoadStatsRequest) XXX_Size() int {
-	return xxx_messageInfo_LoadStatsRequest.Size(m)
+func (m *DeleteRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteRequest.Size(m)
 }
-func (m *LoadStatsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_LoadStatsRequest.DiscardUnknown(m)
+func (m *DeleteRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_LoadStatsRequest proto.InternalMessageInfo
+var xxx_messageInfo_DeleteRequest proto.InternalMessageInfo
 
-func (m *LoadStatsRequest) GetName() string {
+func (m *DeleteRequest) GetPath() string {
 	if m != nil {
-		return m.Name
+		return m.Path
 	}
 	return ""
 }
 
-type LoadStatsReply struct {
-	Load1                float64  `protobuf:"fixed64,1,opt,name=load1,proto3" json:"load1,omitempty"`
-	Load5                float64  `protobuf:"fixed64,2,opt,name=load5,proto3" json:"load5,omitempty"`
-	Load15               float64  `protobuf:"fixed64,3,opt,name=load15,proto3" json:"load15,omitempty"`
-	ProcsRunning         int32    `protobuf:"varint,4,opt,name=procsRunning,proto3" json:"procsRunning,omitempty"`
-	ProcsBlocked         int32    `protobuf:"varint,5,opt,name=procsBlocked,proto3" json:"procsBlocked,omitempty"`
-	Ctxt                 int32    `protobuf:"varint,6,opt,name=ctxt,proto3" json:"ctxt,omitempty"`
+type DeleteReply struct {
+	Feedback             string   `protobuf:"bytes,1,opt,name=feedback,proto3" json:"feedback,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *LoadStatsReply) Reset()         { *m = LoadStatsReply{} }
-func (m *LoadStatsReply) String() string { return proto.CompactTextString(m) }
-func (*LoadStatsReply) ProtoMessage()    {}
-func (*LoadStatsReply) Descriptor() ([]byte, []int) {
+func (m *DeleteReply) Reset()         { *m = DeleteReply{} }
+func (m *DeleteReply) String() string { return proto.CompactTextString(m) }
+func (*DeleteReply) ProtoMessage()    {}
+func (*DeleteReply) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c77a803fcbc0c059, []int{5}
 }
 
-func (m *LoadStatsReply) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_LoadStatsReply.Unmarshal(m, b)
+func (m *DeleteReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteReply.Unmarshal(m, b)
 }
-func (m *LoadStatsReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_LoadStatsReply.Marshal(b, m, deterministic)
+func (m *DeleteReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteReply.Marshal(b, m, deterministic)
 }
-func (m *LoadStatsReply) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_LoadStatsReply.Merge(m, src)
+func (m *DeleteReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteReply.Merge(m, src)
 }
-func (m *LoadStatsReply) XXX_Size() int {
-	return xxx_messageInfo_LoadStatsReply.Size(m)
+func (m *DeleteReply) XXX_Size() int {
+	return xxx_messageInfo_DeleteReply.Size(m)
 }
-func (m *LoadStatsReply) XXX_DiscardUnknown() {
-	xxx_messageInfo_LoadStatsReply.DiscardUnknown(m)
+func (m *DeleteReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteReply.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_LoadStatsReply proto.InternalMessageInfo
+var xxx_messageInfo_DeleteReply proto.InternalMessageInfo
 
-func (m *LoadStatsReply) GetLoad1() float64 {
+func (m *DeleteReply) GetFeedback() string {
 	if m != nil {
-		return m.Load1
-	}
-	return 0
-}
-
-func (m *LoadStatsReply) GetLoad5() float64 {
-	if m != nil {
-		return m.Load5
-	}
-	return 0
-}
-
-func (m *LoadStatsReply) GetLoad15() float64 {
-	if m != nil {
-		return m.Load15
-	}
-	return 0
-}
-
-func (m *LoadStatsReply) GetProcsRunning() int32 {
-	if m != nil {
-		return m.ProcsRunning
-	}
-	return 0
-}
-
-func (m *LoadStatsReply) GetProcsBlocked() int32 {
-	if m != nil {
-		return m.ProcsBlocked
-	}
-	return 0
-}
-
-func (m *LoadStatsReply) GetCtxt() int32 {
-	if m != nil {
-		return m.Ctxt
-	}
-	return 0
-}
-
-type MemStatsRequest struct {
-	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *MemStatsRequest) Reset()         { *m = MemStatsRequest{} }
-func (m *MemStatsRequest) String() string { return proto.CompactTextString(m) }
-func (*MemStatsRequest) ProtoMessage()    {}
-func (*MemStatsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c77a803fcbc0c059, []int{6}
-}
-
-func (m *MemStatsRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_MemStatsRequest.Unmarshal(m, b)
-}
-func (m *MemStatsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_MemStatsRequest.Marshal(b, m, deterministic)
-}
-func (m *MemStatsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MemStatsRequest.Merge(m, src)
-}
-func (m *MemStatsRequest) XXX_Size() int {
-	return xxx_messageInfo_MemStatsRequest.Size(m)
-}
-func (m *MemStatsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_MemStatsRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_MemStatsRequest proto.InternalMessageInfo
-
-func (m *MemStatsRequest) GetName() string {
-	if m != nil {
-		return m.Name
+		return m.Feedback
 	}
 	return ""
 }
 
-type MemStatsReply struct {
-	Total                uint64   `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
-	Used                 uint64   `protobuf:"varint,2,opt,name=used,proto3" json:"used,omitempty"`
-	Free                 uint64   `protobuf:"varint,3,opt,name=free,proto3" json:"free,omitempty"`
-	Sin                  uint64   `protobuf:"varint,4,opt,name=sin,proto3" json:"sin,omitempty"`
-	Sout                 uint64   `protobuf:"varint,5,opt,name=sout,proto3" json:"sout,omitempty"`
+type ListFilesRequest struct {
+	List                 bool     `protobuf:"varint,1,opt,name=list,proto3" json:"list,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *MemStatsReply) Reset()         { *m = MemStatsReply{} }
-func (m *MemStatsReply) String() string { return proto.CompactTextString(m) }
-func (*MemStatsReply) ProtoMessage()    {}
-func (*MemStatsReply) Descriptor() ([]byte, []int) {
+func (m *ListFilesRequest) Reset()         { *m = ListFilesRequest{} }
+func (m *ListFilesRequest) String() string { return proto.CompactTextString(m) }
+func (*ListFilesRequest) ProtoMessage()    {}
+func (*ListFilesRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c77a803fcbc0c059, []int{6}
+}
+
+func (m *ListFilesRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListFilesRequest.Unmarshal(m, b)
+}
+func (m *ListFilesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListFilesRequest.Marshal(b, m, deterministic)
+}
+func (m *ListFilesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListFilesRequest.Merge(m, src)
+}
+func (m *ListFilesRequest) XXX_Size() int {
+	return xxx_messageInfo_ListFilesRequest.Size(m)
+}
+func (m *ListFilesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListFilesRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListFilesRequest proto.InternalMessageInfo
+
+func (m *ListFilesRequest) GetList() bool {
+	if m != nil {
+		return m.List
+	}
+	return false
+}
+
+type ListFilesReply struct {
+	Path                 string   `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	Data                 []byte   `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ListFilesReply) Reset()         { *m = ListFilesReply{} }
+func (m *ListFilesReply) String() string { return proto.CompactTextString(m) }
+func (*ListFilesReply) ProtoMessage()    {}
+func (*ListFilesReply) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c77a803fcbc0c059, []int{7}
 }
 
-func (m *MemStatsReply) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_MemStatsReply.Unmarshal(m, b)
+func (m *ListFilesReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListFilesReply.Unmarshal(m, b)
 }
-func (m *MemStatsReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_MemStatsReply.Marshal(b, m, deterministic)
+func (m *ListFilesReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListFilesReply.Marshal(b, m, deterministic)
 }
-func (m *MemStatsReply) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MemStatsReply.Merge(m, src)
+func (m *ListFilesReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListFilesReply.Merge(m, src)
 }
-func (m *MemStatsReply) XXX_Size() int {
-	return xxx_messageInfo_MemStatsReply.Size(m)
+func (m *ListFilesReply) XXX_Size() int {
+	return xxx_messageInfo_ListFilesReply.Size(m)
 }
-func (m *MemStatsReply) XXX_DiscardUnknown() {
-	xxx_messageInfo_MemStatsReply.DiscardUnknown(m)
+func (m *ListFilesReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListFilesReply.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MemStatsReply proto.InternalMessageInfo
+var xxx_messageInfo_ListFilesReply proto.InternalMessageInfo
 
-func (m *MemStatsReply) GetTotal() uint64 {
+func (m *ListFilesReply) GetPath() string {
 	if m != nil {
-		return m.Total
+		return m.Path
 	}
-	return 0
+	return ""
 }
 
-func (m *MemStatsReply) GetUsed() uint64 {
+func (m *ListFilesReply) GetData() []byte {
 	if m != nil {
-		return m.Used
+		return m.Data
 	}
-	return 0
-}
-
-func (m *MemStatsReply) GetFree() uint64 {
-	if m != nil {
-		return m.Free
-	}
-	return 0
-}
-
-func (m *MemStatsReply) GetSin() uint64 {
-	if m != nil {
-		return m.Sin
-	}
-	return 0
-}
-
-func (m *MemStatsReply) GetSout() uint64 {
-	if m != nil {
-		return m.Sout
-	}
-	return 0
+	return nil
 }
 
 func init() {
-	proto.RegisterType((*CPUStatsRequest)(nil), "protobuf.CPUStatsRequest")
-	proto.RegisterType((*CPUStatsReply)(nil), "protobuf.CPUStatsReply")
-	proto.RegisterType((*DiskStatsRequest)(nil), "protobuf.DiskStatsRequest")
-	proto.RegisterType((*DiskStatsReply)(nil), "protobuf.DiskStatsReply")
-	proto.RegisterType((*LoadStatsRequest)(nil), "protobuf.LoadStatsRequest")
-	proto.RegisterType((*LoadStatsReply)(nil), "protobuf.LoadStatsReply")
-	proto.RegisterType((*MemStatsRequest)(nil), "protobuf.MemStatsRequest")
-	proto.RegisterType((*MemStatsReply)(nil), "protobuf.MemStatsReply")
+	proto.RegisterType((*UploadRequest)(nil), "protobuf.UploadRequest")
+	proto.RegisterType((*UploadReply)(nil), "protobuf.UploadReply")
+	proto.RegisterType((*DownloadRequest)(nil), "protobuf.DownloadRequest")
+	proto.RegisterType((*DownloadReply)(nil), "protobuf.DownloadReply")
+	proto.RegisterType((*DeleteRequest)(nil), "protobuf.DeleteRequest")
+	proto.RegisterType((*DeleteReply)(nil), "protobuf.DeleteReply")
+	proto.RegisterType((*ListFilesRequest)(nil), "protobuf.ListFilesRequest")
+	proto.RegisterType((*ListFilesReply)(nil), "protobuf.ListFilesReply")
 }
 
 func init() { proto.RegisterFile("protobuf.proto", fileDescriptor_c77a803fcbc0c059) }
 
 var fileDescriptor_c77a803fcbc0c059 = []byte{
-	// 442 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x52, 0x5d, 0x8b, 0xd3, 0x40,
-	0x14, 0x75, 0x76, 0x93, 0xe2, 0xde, 0xdd, 0xad, 0xeb, 0x20, 0x1a, 0xfb, 0x20, 0x25, 0xa0, 0xec,
-	0x83, 0x2c, 0x7e, 0xb0, 0x7f, 0xc0, 0x0f, 0x56, 0x41, 0xa1, 0x8c, 0xf4, 0xdd, 0x34, 0xb9, 0x2d,
-	0xa1, 0xc9, 0x4c, 0xcc, 0x4c, 0xc0, 0x3e, 0xfb, 0x7b, 0x04, 0x7f, 0xa2, 0xcc, 0x9d, 0x24, 0x9d,
-	0x64, 0x0b, 0x7d, 0x3b, 0xf7, 0xde, 0xc3, 0x9d, 0x73, 0xee, 0x1c, 0x98, 0x56, 0xb5, 0x32, 0x6a,
-	0xd5, 0xac, 0x6f, 0x08, 0xf0, 0x87, 0x5d, 0x1d, 0xbf, 0x84, 0x47, 0x1f, 0x17, 0xcb, 0x1f, 0x26,
-	0x31, 0x5a, 0xe0, 0xaf, 0x06, 0xb5, 0xe1, 0x1c, 0x02, 0x99, 0x94, 0x18, 0xb1, 0x39, 0xbb, 0x3e,
-	0x13, 0x84, 0xe3, 0x3f, 0x0c, 0x2e, 0xf7, 0xbc, 0xaa, 0xd8, 0xf1, 0x17, 0x00, 0x15, 0xd6, 0x29,
-	0x4a, 0x93, 0x6c, 0x1c, 0x37, 0x14, 0x5e, 0xc7, 0x6e, 0x69, 0x34, 0xd6, 0xd1, 0xc9, 0x9c, 0x5d,
-	0x33, 0x41, 0x98, 0x3f, 0x85, 0x89, 0xde, 0x69, 0x83, 0x65, 0x74, 0x4a, 0xdd, 0xb6, 0xb2, 0xdc,
-	0x3c, 0x2b, 0x30, 0x0a, 0x1c, 0xd7, 0x62, 0x52, 0x91, 0xa7, 0x18, 0x85, 0xae, 0x67, 0x71, 0xfc,
-	0x0a, 0xae, 0x3e, 0xe5, 0x7a, 0x7b, 0x54, 0xed, 0x4f, 0x98, 0x7a, 0x3c, 0xab, 0x76, 0x0e, 0xe7,
-	0x8d, 0xc6, 0x6c, 0xe1, 0xf4, 0x11, 0x99, 0x09, 0xbf, 0xc5, 0x5f, 0xc3, 0xe3, 0x5c, 0xaa, 0x0c,
-	0xf5, 0xd2, 0xe3, 0x39, 0xf1, 0xf7, 0x07, 0x56, 0xc9, 0x37, 0x95, 0x64, 0x47, 0x95, 0xfc, 0x63,
-	0x30, 0xf5, 0x88, 0x56, 0xca, 0x13, 0x08, 0x0b, 0x95, 0x64, 0x6f, 0x5b, 0x11, 0xae, 0xe8, 0xba,
-	0xb7, 0xed, 0x93, 0xae, 0xb0, 0x07, 0xa3, 0xf1, 0x6d, 0x77, 0x30, 0x57, 0xf1, 0x18, 0x2e, 0xaa,
-	0x5a, 0xa5, 0x5a, 0x34, 0x52, 0xe6, 0x72, 0x43, 0x87, 0x0b, 0xc5, 0xa0, 0xd7, 0x73, 0x3e, 0x14,
-	0x2a, 0xdd, 0x62, 0x46, 0x87, 0xec, 0x38, 0x6d, 0xcf, 0x4a, 0x4e, 0xcd, 0x6f, 0x13, 0x4d, 0x68,
-	0x46, 0xd8, 0x26, 0xe2, 0x3b, 0x96, 0x47, 0x9d, 0x69, 0xb8, 0xdc, 0xd3, 0x5a, 0x5f, 0x46, 0x99,
-	0xa4, 0x20, 0x56, 0x20, 0x5c, 0xd1, 0xc6, 0x20, 0x23, 0x5b, 0x01, 0xc5, 0x80, 0x5e, 0x5d, 0xd7,
-	0x88, 0xe4, 0x29, 0x10, 0x84, 0xf9, 0x15, 0x9c, 0xea, 0x5c, 0x92, 0x91, 0x40, 0x58, 0x68, 0x59,
-	0x5a, 0x35, 0x86, 0x74, 0x07, 0x82, 0xf0, 0xbb, 0xbf, 0x27, 0x70, 0xf6, 0x55, 0x1a, 0xac, 0x53,
-	0x55, 0x96, 0xfc, 0x33, 0x9c, 0xdf, 0xa1, 0xe9, 0x62, 0xc9, 0x9f, 0xdf, 0xf4, 0x29, 0x1f, 0x45,
-	0x7a, 0xf6, 0xec, 0xd0, 0xa8, 0x2a, 0x76, 0xf1, 0x83, 0x37, 0x8c, 0x7f, 0x81, 0x8b, 0x3b, 0x34,
-	0x7d, 0x60, 0xf8, 0x6c, 0x4f, 0x1e, 0xa7, 0x6d, 0x16, 0x1d, 0x9c, 0x0d, 0x37, 0xf5, 0xff, 0xed,
-	0x6f, 0x1a, 0xa7, 0xc5, 0xdf, 0x34, 0x0c, 0x08, 0x6d, 0x72, 0xd6, 0xba, 0x03, 0xfb, 0xd6, 0x46,
-	0x7f, 0xe3, 0x5b, 0x1b, 0xfc, 0x87, 0x5d, 0xb3, 0x9a, 0xd0, 0xec, 0xfd, 0xff, 0x00, 0x00, 0x00,
-	0xff, 0xff, 0xf5, 0xb9, 0xbe, 0xcf, 0x00, 0x04, 0x00, 0x00,
+	// 287 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x91, 0x41, 0x4b, 0xc3, 0x30,
+	0x1c, 0xc5, 0x97, 0x21, 0xa5, 0xfd, 0xcf, 0x4d, 0xf9, 0x83, 0xac, 0xe6, 0x34, 0x22, 0x4a, 0x77,
+	0x19, 0xa2, 0x07, 0x45, 0x3c, 0xc9, 0x14, 0x04, 0x4f, 0x05, 0x3f, 0x40, 0xba, 0x66, 0x58, 0xcc,
+	0x96, 0xb8, 0x66, 0xc8, 0xbe, 0x85, 0x1f, 0x59, 0x9a, 0xad, 0x6d, 0x36, 0x87, 0xd5, 0xdb, 0x4b,
+	0xdf, 0xcb, 0xeb, 0xe3, 0x17, 0xe8, 0xe9, 0x85, 0x32, 0x2a, 0x59, 0x4e, 0x47, 0x56, 0xa0, 0x5f,
+	0x9e, 0xd9, 0x0d, 0x74, 0x5f, 0xb5, 0x54, 0x3c, 0x8d, 0xc5, 0xc7, 0x52, 0xe4, 0x06, 0x11, 0x0e,
+	0x34, 0x37, 0x6f, 0x21, 0x19, 0x90, 0x28, 0x88, 0xad, 0x2e, 0xbe, 0xa5, 0xdc, 0xf0, 0xb0, 0x3d,
+	0x20, 0xd1, 0x61, 0x6c, 0x35, 0x1b, 0x42, 0xa7, 0xbc, 0xa8, 0xe5, 0x0a, 0x29, 0xf8, 0x53, 0x21,
+	0xd2, 0x84, 0x4f, 0xde, 0x37, 0x57, 0xab, 0x33, 0x3b, 0x87, 0xa3, 0xb1, 0xfa, 0x9c, 0x37, 0xfc,
+	0xa5, 0x98, 0x52, 0xc7, 0x8a, 0xce, 0xbf, 0x4e, 0x39, 0x83, 0xee, 0x58, 0x48, 0x61, 0xc4, 0x6f,
+	0xed, 0x43, 0xe8, 0x94, 0xa1, 0xa6, 0xbd, 0x17, 0x70, 0xfc, 0x92, 0xe5, 0xe6, 0x29, 0x93, 0x22,
+	0x77, 0x2a, 0x65, 0x96, 0x1b, 0x9b, 0xf5, 0x63, 0xab, 0xd9, 0x2d, 0xf4, 0x9c, 0xdc, 0x3f, 0x16,
+	0x5f, 0x7d, 0xb5, 0x21, 0x78, 0x9e, 0x1b, 0xb1, 0x98, 0xa8, 0xd9, 0x0c, 0xef, 0xc1, 0x5b, 0xa3,
+	0xc4, 0xfe, 0xa8, 0x7a, 0xa8, 0xad, 0x57, 0xa1, 0x27, 0x3f, 0x0d, 0x2d, 0x57, 0xac, 0x15, 0x11,
+	0x7c, 0x00, 0xbf, 0xc4, 0x86, 0xa7, 0x75, 0x6c, 0x87, 0x38, 0xed, 0xef, 0xb3, 0x6c, 0xc7, 0x25,
+	0xc1, 0x3b, 0xf0, 0xd6, 0x70, 0xdc, 0x05, 0x5b, 0x4c, 0xdd, 0x05, 0x0e, 0x47, 0xd6, 0xc2, 0x47,
+	0x08, 0x2a, 0x0a, 0x48, 0xeb, 0xd4, 0x2e, 0x42, 0x1a, 0xee, 0xf5, 0x36, 0x13, 0x12, 0xcf, 0x9a,
+	0xd7, 0xdf, 0x01, 0x00, 0x00, 0xff, 0xff, 0x9d, 0x67, 0xaa, 0xc3, 0xab, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -505,14 +407,10 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type IntercommClient interface {
-	// Get  CPU info
-	GetCPUStats(ctx context.Context, in *CPUStatsRequest, opts ...grpc.CallOption) (Intercomm_GetCPUStatsClient, error)
-	// Get disk info
-	GetDiskStats(ctx context.Context, in *DiskStatsRequest, opts ...grpc.CallOption) (Intercomm_GetDiskStatsClient, error)
-	// Get disk info
-	GetLoadStats(ctx context.Context, in *LoadStatsRequest, opts ...grpc.CallOption) (Intercomm_GetLoadStatsClient, error)
-	// Get disk info
-	GetMemStats(ctx context.Context, in *MemStatsRequest, opts ...grpc.CallOption) (Intercomm_GetMemStatsClient, error)
+	Upload(ctx context.Context, opts ...grpc.CallOption) (Intercomm_UploadClient, error)
+	Download(ctx context.Context, in *DownloadRequest, opts ...grpc.CallOption) (Intercomm_DownloadClient, error)
+	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteReply, error)
+	ListFiles(ctx context.Context, in *ListFilesRequest, opts ...grpc.CallOption) (Intercomm_ListFilesClient, error)
 }
 
 type intercommClient struct {
@@ -523,44 +421,46 @@ func NewIntercommClient(cc *grpc.ClientConn) IntercommClient {
 	return &intercommClient{cc}
 }
 
-func (c *intercommClient) GetCPUStats(ctx context.Context, in *CPUStatsRequest, opts ...grpc.CallOption) (Intercomm_GetCPUStatsClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[0], "/protobuf.Intercomm/GetCPUStats", opts...)
+func (c *intercommClient) Upload(ctx context.Context, opts ...grpc.CallOption) (Intercomm_UploadClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[0], "/protobuf.Intercomm/Upload", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &intercommGetCPUStatsClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
+	x := &intercommUploadClient{stream}
 	return x, nil
 }
 
-type Intercomm_GetCPUStatsClient interface {
-	Recv() (*CPUStatsReply, error)
+type Intercomm_UploadClient interface {
+	Send(*UploadRequest) error
+	CloseAndRecv() (*UploadReply, error)
 	grpc.ClientStream
 }
 
-type intercommGetCPUStatsClient struct {
+type intercommUploadClient struct {
 	grpc.ClientStream
 }
 
-func (x *intercommGetCPUStatsClient) Recv() (*CPUStatsReply, error) {
-	m := new(CPUStatsReply)
+func (x *intercommUploadClient) Send(m *UploadRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *intercommUploadClient) CloseAndRecv() (*UploadReply, error) {
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	m := new(UploadReply)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func (c *intercommClient) GetDiskStats(ctx context.Context, in *DiskStatsRequest, opts ...grpc.CallOption) (Intercomm_GetDiskStatsClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[1], "/protobuf.Intercomm/GetDiskStats", opts...)
+func (c *intercommClient) Download(ctx context.Context, in *DownloadRequest, opts ...grpc.CallOption) (Intercomm_DownloadClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[1], "/protobuf.Intercomm/Download", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &intercommGetDiskStatsClient{stream}
+	x := &intercommDownloadClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -570,29 +470,38 @@ func (c *intercommClient) GetDiskStats(ctx context.Context, in *DiskStatsRequest
 	return x, nil
 }
 
-type Intercomm_GetDiskStatsClient interface {
-	Recv() (*DiskStatsReply, error)
+type Intercomm_DownloadClient interface {
+	Recv() (*DownloadReply, error)
 	grpc.ClientStream
 }
 
-type intercommGetDiskStatsClient struct {
+type intercommDownloadClient struct {
 	grpc.ClientStream
 }
 
-func (x *intercommGetDiskStatsClient) Recv() (*DiskStatsReply, error) {
-	m := new(DiskStatsReply)
+func (x *intercommDownloadClient) Recv() (*DownloadReply, error) {
+	m := new(DownloadReply)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func (c *intercommClient) GetLoadStats(ctx context.Context, in *LoadStatsRequest, opts ...grpc.CallOption) (Intercomm_GetLoadStatsClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[2], "/protobuf.Intercomm/GetLoadStats", opts...)
+func (c *intercommClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteReply, error) {
+	out := new(DeleteReply)
+	err := c.cc.Invoke(ctx, "/protobuf.Intercomm/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &intercommGetLoadStatsClient{stream}
+	return out, nil
+}
+
+func (c *intercommClient) ListFiles(ctx context.Context, in *ListFilesRequest, opts ...grpc.CallOption) (Intercomm_ListFilesClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[2], "/protobuf.Intercomm/ListFiles", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &intercommListFilesClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -602,49 +511,17 @@ func (c *intercommClient) GetLoadStats(ctx context.Context, in *LoadStatsRequest
 	return x, nil
 }
 
-type Intercomm_GetLoadStatsClient interface {
-	Recv() (*LoadStatsReply, error)
+type Intercomm_ListFilesClient interface {
+	Recv() (*ListFilesReply, error)
 	grpc.ClientStream
 }
 
-type intercommGetLoadStatsClient struct {
+type intercommListFilesClient struct {
 	grpc.ClientStream
 }
 
-func (x *intercommGetLoadStatsClient) Recv() (*LoadStatsReply, error) {
-	m := new(LoadStatsReply)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *intercommClient) GetMemStats(ctx context.Context, in *MemStatsRequest, opts ...grpc.CallOption) (Intercomm_GetMemStatsClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[3], "/protobuf.Intercomm/GetMemStats", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &intercommGetMemStatsClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type Intercomm_GetMemStatsClient interface {
-	Recv() (*MemStatsReply, error)
-	grpc.ClientStream
-}
-
-type intercommGetMemStatsClient struct {
-	grpc.ClientStream
-}
-
-func (x *intercommGetMemStatsClient) Recv() (*MemStatsReply, error) {
-	m := new(MemStatsReply)
+func (x *intercommListFilesClient) Recv() (*ListFilesReply, error) {
+	m := new(ListFilesReply)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -653,127 +530,142 @@ func (x *intercommGetMemStatsClient) Recv() (*MemStatsReply, error) {
 
 // IntercommServer is the server API for Intercomm service.
 type IntercommServer interface {
-	// Get  CPU info
-	GetCPUStats(*CPUStatsRequest, Intercomm_GetCPUStatsServer) error
-	// Get disk info
-	GetDiskStats(*DiskStatsRequest, Intercomm_GetDiskStatsServer) error
-	// Get disk info
-	GetLoadStats(*LoadStatsRequest, Intercomm_GetLoadStatsServer) error
-	// Get disk info
-	GetMemStats(*MemStatsRequest, Intercomm_GetMemStatsServer) error
+	Upload(Intercomm_UploadServer) error
+	Download(*DownloadRequest, Intercomm_DownloadServer) error
+	Delete(context.Context, *DeleteRequest) (*DeleteReply, error)
+	ListFiles(*ListFilesRequest, Intercomm_ListFilesServer) error
+}
+
+// UnimplementedIntercommServer can be embedded to have forward compatible implementations.
+type UnimplementedIntercommServer struct {
+}
+
+func (*UnimplementedIntercommServer) Upload(srv Intercomm_UploadServer) error {
+	return status.Errorf(codes.Unimplemented, "method Upload not implemented")
+}
+func (*UnimplementedIntercommServer) Download(req *DownloadRequest, srv Intercomm_DownloadServer) error {
+	return status.Errorf(codes.Unimplemented, "method Download not implemented")
+}
+func (*UnimplementedIntercommServer) Delete(ctx context.Context, req *DeleteRequest) (*DeleteReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (*UnimplementedIntercommServer) ListFiles(req *ListFilesRequest, srv Intercomm_ListFilesServer) error {
+	return status.Errorf(codes.Unimplemented, "method ListFiles not implemented")
 }
 
 func RegisterIntercommServer(s *grpc.Server, srv IntercommServer) {
 	s.RegisterService(&_Intercomm_serviceDesc, srv)
 }
 
-func _Intercomm_GetCPUStats_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(CPUStatsRequest)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(IntercommServer).GetCPUStats(m, &intercommGetCPUStatsServer{stream})
+func _Intercomm_Upload_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(IntercommServer).Upload(&intercommUploadServer{stream})
 }
 
-type Intercomm_GetCPUStatsServer interface {
-	Send(*CPUStatsReply) error
+type Intercomm_UploadServer interface {
+	SendAndClose(*UploadReply) error
+	Recv() (*UploadRequest, error)
 	grpc.ServerStream
 }
 
-type intercommGetCPUStatsServer struct {
+type intercommUploadServer struct {
 	grpc.ServerStream
 }
 
-func (x *intercommGetCPUStatsServer) Send(m *CPUStatsReply) error {
+func (x *intercommUploadServer) SendAndClose(m *UploadReply) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func _Intercomm_GetDiskStats_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(DiskStatsRequest)
+func (x *intercommUploadServer) Recv() (*UploadRequest, error) {
+	m := new(UploadRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func _Intercomm_Download_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(DownloadRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(IntercommServer).GetDiskStats(m, &intercommGetDiskStatsServer{stream})
+	return srv.(IntercommServer).Download(m, &intercommDownloadServer{stream})
 }
 
-type Intercomm_GetDiskStatsServer interface {
-	Send(*DiskStatsReply) error
+type Intercomm_DownloadServer interface {
+	Send(*DownloadReply) error
 	grpc.ServerStream
 }
 
-type intercommGetDiskStatsServer struct {
+type intercommDownloadServer struct {
 	grpc.ServerStream
 }
 
-func (x *intercommGetDiskStatsServer) Send(m *DiskStatsReply) error {
+func (x *intercommDownloadServer) Send(m *DownloadReply) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func _Intercomm_GetLoadStats_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(LoadStatsRequest)
+func _Intercomm_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(IntercommServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/protobuf.Intercomm/Delete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IntercommServer).Delete(ctx, req.(*DeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Intercomm_ListFiles_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ListFilesRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(IntercommServer).GetLoadStats(m, &intercommGetLoadStatsServer{stream})
+	return srv.(IntercommServer).ListFiles(m, &intercommListFilesServer{stream})
 }
 
-type Intercomm_GetLoadStatsServer interface {
-	Send(*LoadStatsReply) error
+type Intercomm_ListFilesServer interface {
+	Send(*ListFilesReply) error
 	grpc.ServerStream
 }
 
-type intercommGetLoadStatsServer struct {
+type intercommListFilesServer struct {
 	grpc.ServerStream
 }
 
-func (x *intercommGetLoadStatsServer) Send(m *LoadStatsReply) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func _Intercomm_GetMemStats_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(MemStatsRequest)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(IntercommServer).GetMemStats(m, &intercommGetMemStatsServer{stream})
-}
-
-type Intercomm_GetMemStatsServer interface {
-	Send(*MemStatsReply) error
-	grpc.ServerStream
-}
-
-type intercommGetMemStatsServer struct {
-	grpc.ServerStream
-}
-
-func (x *intercommGetMemStatsServer) Send(m *MemStatsReply) error {
+func (x *intercommListFilesServer) Send(m *ListFilesReply) error {
 	return x.ServerStream.SendMsg(m)
 }
 
 var _Intercomm_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "protobuf.Intercomm",
 	HandlerType: (*IntercommServer)(nil),
-	Methods:     []grpc.MethodDesc{},
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Delete",
+			Handler:    _Intercomm_Delete_Handler,
+		},
+	},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "GetCPUStats",
-			Handler:       _Intercomm_GetCPUStats_Handler,
+			StreamName:    "Upload",
+			Handler:       _Intercomm_Upload_Handler,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "Download",
+			Handler:       _Intercomm_Download_Handler,
 			ServerStreams: true,
 		},
 		{
-			StreamName:    "GetDiskStats",
-			Handler:       _Intercomm_GetDiskStats_Handler,
-			ServerStreams: true,
-		},
-		{
-			StreamName:    "GetLoadStats",
-			Handler:       _Intercomm_GetLoadStats_Handler,
-			ServerStreams: true,
-		},
-		{
-			StreamName:    "GetMemStats",
-			Handler:       _Intercomm_GetMemStats_Handler,
+			StreamName:    "ListFiles",
+			Handler:       _Intercomm_ListFiles_Handler,
 			ServerStreams: true,
 		},
 	},

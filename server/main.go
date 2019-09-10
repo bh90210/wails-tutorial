@@ -1,9 +1,12 @@
 package main
 
 import (
-	cc "mockServer/api/clientCommunication"
+	cc "mockServer/api"
+	fh "mockServer/pkg"
 )
 
 func main() {
-	cc.StartServer()
+	go cc.StartServer()
+
+	fh.TestFunc()
 }

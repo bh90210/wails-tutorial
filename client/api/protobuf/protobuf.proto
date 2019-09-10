@@ -1,0 +1,48 @@
+// cd wails-tutorial/server/api
+// protoc -I protobuf/ protobuf/protobuf.proto --go_out=plugins=grpc:protobuf
+
+syntax = "proto3";
+
+package protobuf;
+
+service Intercomm {
+  rpc Upload (stream UploadRequest) returns (UploadReply) {}
+  rpc Download (DownloadRequest) returns (stream DownloadReply) {}
+  rpc Delete (DeleteRequest) returns (DeleteReply) {}
+  rpc ListFiles (ListFilesRequest) returns (stream ListFilesReply) {}
+}
+
+message UploadRequest {
+  string path = 1;
+  bytes data = 2;
+}
+
+message UploadReply {
+  string feedback = 1;
+}
+
+message DownloadRequest {
+  string path = 1;
+}
+
+message DownloadReply {
+  string path = 1;
+  bytes data = 2;
+}
+
+message DeleteRequest {
+  string path = 1;
+}
+
+message DeleteReply {
+  string feedback = 1;
+}
+
+message ListFilesRequest {
+  bool list = 1;
+}
+
+message ListFilesReply {
+  string path = 1;
+  bytes data = 2;
+}

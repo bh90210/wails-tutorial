@@ -1,6 +1,3 @@
-.App {
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 10vh;
@@ -20,10 +17,6 @@
 .App-body {
   background-color: white;
   height: 100%;
-}
-
-.App-ul-aside {
-
 }
 
 .App-filesdrop-outer {

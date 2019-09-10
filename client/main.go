@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"time"
 
 	"github.com/leaanthony/mewn"
@@ -30,7 +29,7 @@ func (s *Stats) WailsInit(runtime *wails.Runtime) error {
 
 	go func() {
 		for {
-			runtime.Events.Emit("cpu_usage", rand.Intn(100))
+			runtime.Events.Emit("cpu_usage", [5]int{1, 2, 3, 4, 5})
 			time.Sleep(1 * time.Second)
 		}
 	}()
