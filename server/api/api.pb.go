@@ -24,86 +24,102 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-type UploadRequest struct {
+type File struct {
 	Path                 string   `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
-	Data                 []byte   `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Size                 int32    `protobuf:"varint,3,opt,name=size,proto3" json:"size,omitempty"`
+	Data                 []byte   `protobuf:"bytes,4,opt,name=data,proto3" json:"data,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *UploadRequest) Reset()         { *m = UploadRequest{} }
-func (m *UploadRequest) String() string { return proto.CompactTextString(m) }
-func (*UploadRequest) ProtoMessage()    {}
-func (*UploadRequest) Descriptor() ([]byte, []int) {
+func (m *File) Reset()         { *m = File{} }
+func (m *File) String() string { return proto.CompactTextString(m) }
+func (*File) ProtoMessage()    {}
+func (*File) Descriptor() ([]byte, []int) {
 	return fileDescriptor_00212fb1f9d3bf1c, []int{0}
 }
 
-func (m *UploadRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UploadRequest.Unmarshal(m, b)
+func (m *File) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_File.Unmarshal(m, b)
 }
-func (m *UploadRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UploadRequest.Marshal(b, m, deterministic)
+func (m *File) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_File.Marshal(b, m, deterministic)
 }
-func (m *UploadRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UploadRequest.Merge(m, src)
+func (m *File) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_File.Merge(m, src)
 }
-func (m *UploadRequest) XXX_Size() int {
-	return xxx_messageInfo_UploadRequest.Size(m)
+func (m *File) XXX_Size() int {
+	return xxx_messageInfo_File.Size(m)
 }
-func (m *UploadRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_UploadRequest.DiscardUnknown(m)
+func (m *File) XXX_DiscardUnknown() {
+	xxx_messageInfo_File.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_UploadRequest proto.InternalMessageInfo
+var xxx_messageInfo_File proto.InternalMessageInfo
 
-func (m *UploadRequest) GetPath() string {
+func (m *File) GetPath() string {
 	if m != nil {
 		return m.Path
 	}
 	return ""
 }
 
-func (m *UploadRequest) GetData() []byte {
+func (m *File) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *File) GetSize() int32 {
+	if m != nil {
+		return m.Size
+	}
+	return 0
+}
+
+func (m *File) GetData() []byte {
 	if m != nil {
 		return m.Data
 	}
 	return nil
 }
 
-type UploadReply struct {
+type Feedback struct {
 	Feedback             string   `protobuf:"bytes,1,opt,name=feedback,proto3" json:"feedback,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *UploadReply) Reset()         { *m = UploadReply{} }
-func (m *UploadReply) String() string { return proto.CompactTextString(m) }
-func (*UploadReply) ProtoMessage()    {}
-func (*UploadReply) Descriptor() ([]byte, []int) {
+func (m *Feedback) Reset()         { *m = Feedback{} }
+func (m *Feedback) String() string { return proto.CompactTextString(m) }
+func (*Feedback) ProtoMessage()    {}
+func (*Feedback) Descriptor() ([]byte, []int) {
 	return fileDescriptor_00212fb1f9d3bf1c, []int{1}
 }
 
-func (m *UploadReply) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UploadReply.Unmarshal(m, b)
+func (m *Feedback) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Feedback.Unmarshal(m, b)
 }
-func (m *UploadReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UploadReply.Marshal(b, m, deterministic)
+func (m *Feedback) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Feedback.Marshal(b, m, deterministic)
 }
-func (m *UploadReply) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UploadReply.Merge(m, src)
+func (m *Feedback) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Feedback.Merge(m, src)
 }
-func (m *UploadReply) XXX_Size() int {
-	return xxx_messageInfo_UploadReply.Size(m)
+func (m *Feedback) XXX_Size() int {
+	return xxx_messageInfo_Feedback.Size(m)
 }
-func (m *UploadReply) XXX_DiscardUnknown() {
-	xxx_messageInfo_UploadReply.DiscardUnknown(m)
+func (m *Feedback) XXX_DiscardUnknown() {
+	xxx_messageInfo_Feedback.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_UploadReply proto.InternalMessageInfo
+var xxx_messageInfo_Feedback proto.InternalMessageInfo
 
-func (m *UploadReply) GetFeedback() string {
+func (m *Feedback) GetFeedback() string {
 	if m != nil {
 		return m.Feedback
 	}
@@ -112,6 +128,7 @@ func (m *UploadReply) GetFeedback() string {
 
 type DownloadRequest struct {
 	Path                 string   `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -149,127 +166,9 @@ func (m *DownloadRequest) GetPath() string {
 	return ""
 }
 
-type DownloadReply struct {
-	Path                 string   `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
-	Data                 []byte   `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *DownloadReply) Reset()         { *m = DownloadReply{} }
-func (m *DownloadReply) String() string { return proto.CompactTextString(m) }
-func (*DownloadReply) ProtoMessage()    {}
-func (*DownloadReply) Descriptor() ([]byte, []int) {
-	return fileDescriptor_00212fb1f9d3bf1c, []int{3}
-}
-
-func (m *DownloadReply) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DownloadReply.Unmarshal(m, b)
-}
-func (m *DownloadReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DownloadReply.Marshal(b, m, deterministic)
-}
-func (m *DownloadReply) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DownloadReply.Merge(m, src)
-}
-func (m *DownloadReply) XXX_Size() int {
-	return xxx_messageInfo_DownloadReply.Size(m)
-}
-func (m *DownloadReply) XXX_DiscardUnknown() {
-	xxx_messageInfo_DownloadReply.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DownloadReply proto.InternalMessageInfo
-
-func (m *DownloadReply) GetPath() string {
+func (m *DownloadRequest) GetName() string {
 	if m != nil {
-		return m.Path
-	}
-	return ""
-}
-
-func (m *DownloadReply) GetData() []byte {
-	if m != nil {
-		return m.Data
-	}
-	return nil
-}
-
-type DeleteRequest struct {
-	Path                 string   `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *DeleteRequest) Reset()         { *m = DeleteRequest{} }
-func (m *DeleteRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteRequest) ProtoMessage()    {}
-func (*DeleteRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_00212fb1f9d3bf1c, []int{4}
-}
-
-func (m *DeleteRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteRequest.Unmarshal(m, b)
-}
-func (m *DeleteRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteRequest.Marshal(b, m, deterministic)
-}
-func (m *DeleteRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteRequest.Merge(m, src)
-}
-func (m *DeleteRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteRequest.Size(m)
-}
-func (m *DeleteRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteRequest proto.InternalMessageInfo
-
-func (m *DeleteRequest) GetPath() string {
-	if m != nil {
-		return m.Path
-	}
-	return ""
-}
-
-type DeleteReply struct {
-	Feedback             string   `protobuf:"bytes,1,opt,name=feedback,proto3" json:"feedback,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *DeleteReply) Reset()         { *m = DeleteReply{} }
-func (m *DeleteReply) String() string { return proto.CompactTextString(m) }
-func (*DeleteReply) ProtoMessage()    {}
-func (*DeleteReply) Descriptor() ([]byte, []int) {
-	return fileDescriptor_00212fb1f9d3bf1c, []int{5}
-}
-
-func (m *DeleteReply) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteReply.Unmarshal(m, b)
-}
-func (m *DeleteReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteReply.Marshal(b, m, deterministic)
-}
-func (m *DeleteReply) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteReply.Merge(m, src)
-}
-func (m *DeleteReply) XXX_Size() int {
-	return xxx_messageInfo_DeleteReply.Size(m)
-}
-func (m *DeleteReply) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteReply.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteReply proto.InternalMessageInfo
-
-func (m *DeleteReply) GetFeedback() string {
-	if m != nil {
-		return m.Feedback
+		return m.Name
 	}
 	return ""
 }
@@ -285,7 +184,7 @@ func (m *ListFilesRequest) Reset()         { *m = ListFilesRequest{} }
 func (m *ListFilesRequest) String() string { return proto.CompactTextString(m) }
 func (*ListFilesRequest) ProtoMessage()    {}
 func (*ListFilesRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_00212fb1f9d3bf1c, []int{6}
+	return fileDescriptor_00212fb1f9d3bf1c, []int{3}
 }
 
 func (m *ListFilesRequest) XXX_Unmarshal(b []byte) error {
@@ -313,86 +212,34 @@ func (m *ListFilesRequest) GetList() bool {
 	return false
 }
 
-type ListFilesReply struct {
-	Path                 string   `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
-	Data                 []byte   `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ListFilesReply) Reset()         { *m = ListFilesReply{} }
-func (m *ListFilesReply) String() string { return proto.CompactTextString(m) }
-func (*ListFilesReply) ProtoMessage()    {}
-func (*ListFilesReply) Descriptor() ([]byte, []int) {
-	return fileDescriptor_00212fb1f9d3bf1c, []int{7}
-}
-
-func (m *ListFilesReply) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListFilesReply.Unmarshal(m, b)
-}
-func (m *ListFilesReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListFilesReply.Marshal(b, m, deterministic)
-}
-func (m *ListFilesReply) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListFilesReply.Merge(m, src)
-}
-func (m *ListFilesReply) XXX_Size() int {
-	return xxx_messageInfo_ListFilesReply.Size(m)
-}
-func (m *ListFilesReply) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListFilesReply.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListFilesReply proto.InternalMessageInfo
-
-func (m *ListFilesReply) GetPath() string {
-	if m != nil {
-		return m.Path
-	}
-	return ""
-}
-
-func (m *ListFilesReply) GetData() []byte {
-	if m != nil {
-		return m.Data
-	}
-	return nil
-}
-
 func init() {
-	proto.RegisterType((*UploadRequest)(nil), "api.UploadRequest")
-	proto.RegisterType((*UploadReply)(nil), "api.UploadReply")
+	proto.RegisterType((*File)(nil), "api.File")
+	proto.RegisterType((*Feedback)(nil), "api.Feedback")
 	proto.RegisterType((*DownloadRequest)(nil), "api.DownloadRequest")
-	proto.RegisterType((*DownloadReply)(nil), "api.DownloadReply")
-	proto.RegisterType((*DeleteRequest)(nil), "api.DeleteRequest")
-	proto.RegisterType((*DeleteReply)(nil), "api.DeleteReply")
 	proto.RegisterType((*ListFilesRequest)(nil), "api.ListFilesRequest")
-	proto.RegisterType((*ListFilesReply)(nil), "api.ListFilesReply")
 }
 
 func init() { proto.RegisterFile("api.proto", fileDescriptor_00212fb1f9d3bf1c) }
 
 var fileDescriptor_00212fb1f9d3bf1c = []byte{
-	// 284 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x92, 0xc1, 0x4a, 0xc3, 0x40,
-	0x10, 0x86, 0xbb, 0x2a, 0x21, 0x99, 0x5a, 0x2d, 0xa3, 0x42, 0xc9, 0xa9, 0xac, 0x28, 0xe9, 0xa5,
-	0x94, 0x7a, 0xb0, 0xe0, 0xb5, 0x08, 0x82, 0xa7, 0x80, 0x0f, 0xb0, 0x6d, 0x46, 0x5c, 0xdc, 0x76,
-	0xd7, 0x66, 0x45, 0xfa, 0xc6, 0x3e, 0x86, 0x64, 0x9b, 0xd4, 0x64, 0x0f, 0xc6, 0xde, 0x26, 0xc3,
-	0x3f, 0xf3, 0xff, 0xf9, 0x66, 0x21, 0x12, 0x46, 0x8e, 0xcd, 0x46, 0x5b, 0x8d, 0xc7, 0xc2, 0x48,
-	0x7e, 0x0f, 0xbd, 0x17, 0xa3, 0xb4, 0xc8, 0x52, 0xfa, 0xf8, 0xa4, 0xdc, 0x22, 0xc2, 0x89, 0x11,
-	0xf6, 0x6d, 0xc0, 0x86, 0x2c, 0x89, 0x52, 0x57, 0x17, 0xbd, 0x4c, 0x58, 0x31, 0x38, 0x1a, 0xb2,
-	0xe4, 0x34, 0x75, 0x35, 0x1f, 0x41, 0xb7, 0x1a, 0x34, 0x6a, 0x8b, 0x31, 0x84, 0xaf, 0x44, 0xd9,
-	0x42, 0x2c, 0xdf, 0xcb, 0xd1, 0xfd, 0x37, 0xbf, 0x81, 0xf3, 0xb9, 0xfe, 0x5a, 0xb7, 0xb8, 0x14,
-	0x51, 0x7e, 0x65, 0xc5, 0xce, 0xff, 0x46, 0xb9, 0x86, 0xde, 0x9c, 0x14, 0x59, 0xfa, 0x6b, 0xfb,
-	0x08, 0xba, 0x95, 0xa8, 0x2d, 0xef, 0x2d, 0xf4, 0x9f, 0x65, 0x6e, 0x1f, 0xa5, 0xa2, 0xbc, 0xb6,
-	0x52, 0xc9, 0xdc, 0x3a, 0x6d, 0x98, 0xba, 0x9a, 0xcf, 0xe0, 0xac, 0xa6, 0x3b, 0x20, 0xf1, 0xf4,
-	0x9b, 0x41, 0xf4, 0xb4, 0xb6, 0xb4, 0x59, 0xea, 0xd5, 0x0a, 0xa7, 0x10, 0xec, 0x50, 0x22, 0x8e,
-	0x8b, 0xf3, 0x34, 0x0e, 0x12, 0xf7, 0x1b, 0x3d, 0xa3, 0xb6, 0xbc, 0x93, 0x30, 0x9c, 0x41, 0x58,
-	0xc1, 0xc2, 0x4b, 0xa7, 0xf0, 0x10, 0xc7, 0xe8, 0x75, 0xdd, 0xe4, 0x84, 0xe1, 0x04, 0x82, 0x1d,
-	0x88, 0xd2, 0xad, 0x81, 0xae, 0x74, 0xab, 0x91, 0xe2, 0x1d, 0x7c, 0x80, 0x68, 0xff, 0x9f, 0x78,
-	0xe5, 0x04, 0x3e, 0x9f, 0xf8, 0xc2, 0x6f, 0x97, 0x76, 0x8b, 0xc0, 0x3d, 0xb6, 0xbb, 0x9f, 0x00,
-	0x00, 0x00, 0xff, 0xff, 0xb0, 0x0b, 0x30, 0xce, 0x79, 0x02, 0x00, 0x00,
+	// 257 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x91, 0x4d, 0x4b, 0xc4, 0x30,
+	0x10, 0x86, 0x37, 0x6e, 0x2d, 0xcd, 0xa0, 0x28, 0x83, 0x42, 0xe9, 0xa9, 0x04, 0x29, 0xbd, 0xb8,
+	0xf8, 0x71, 0xf2, 0xbe, 0x2c, 0x08, 0x9e, 0x02, 0x7a, 0xcf, 0x6e, 0x47, 0x0c, 0xa6, 0x4d, 0xdc,
+	0x44, 0x04, 0xff, 0x9a, 0x7f, 0x4e, 0x92, 0xfd, 0x50, 0xf7, 0x20, 0x7b, 0x7b, 0xfa, 0x0e, 0xef,
+	0xf4, 0x49, 0x02, 0x5c, 0x39, 0x3d, 0x71, 0x4b, 0x1b, 0x2c, 0x8e, 0x95, 0xd3, 0xe2, 0x09, 0xb2,
+	0x99, 0x36, 0x84, 0x08, 0x99, 0x53, 0xe1, 0xa5, 0x64, 0x35, 0x6b, 0xb9, 0x4c, 0x1c, 0xb3, 0x41,
+	0xf5, 0x54, 0x1e, 0xac, 0xb2, 0xc8, 0x31, 0xf3, 0xfa, 0x93, 0xca, 0x71, 0xcd, 0xda, 0x43, 0x99,
+	0x38, 0x66, 0x9d, 0x0a, 0xaa, 0xcc, 0x6a, 0xd6, 0x1e, 0xc9, 0xc4, 0xa2, 0x81, 0x62, 0x46, 0xd4,
+	0xcd, 0xd5, 0xe2, 0x15, 0x2b, 0x28, 0x9e, 0xd7, 0xbc, 0xde, 0xbf, 0xfd, 0x16, 0x77, 0x70, 0x32,
+	0xb5, 0x1f, 0x83, 0xb1, 0xaa, 0x93, 0xf4, 0xf6, 0x4e, 0x3e, 0xec, 0xab, 0x22, 0x1a, 0x38, 0x7d,
+	0xd0, 0x3e, 0x44, 0x7d, 0xff, 0xab, 0x6b, 0xb4, 0x0f, 0xa9, 0x5b, 0xc8, 0xc4, 0x37, 0x5f, 0x0c,
+	0xf8, 0xfd, 0x10, 0x68, 0xb9, 0xb0, 0x7d, 0x8f, 0x0d, 0xe4, 0x8f, 0x2e, 0xfe, 0x0e, 0xf9, 0x24,
+	0xde, 0x45, 0xac, 0x57, 0xc7, 0x2b, 0xdc, 0x48, 0x8d, 0x5a, 0x86, 0x97, 0x50, 0x6c, 0xc4, 0xf0,
+	0x2c, 0x8d, 0x77, 0x3c, 0xab, 0x9f, 0xbe, 0x18, 0xe1, 0x05, 0xe4, 0x53, 0x32, 0x14, 0xe8, 0xbf,
+	0xb5, 0x78, 0x0d, 0x7c, 0xab, 0x8c, 0xe7, 0x69, 0xba, 0x7b, 0x84, 0x3f, 0x6b, 0xaf, 0xd8, 0x3c,
+	0x4f, 0x8f, 0x75, 0xfb, 0x1d, 0x00, 0x00, 0xff, 0xff, 0x3e, 0x3d, 0x71, 0x48, 0xb9, 0x01, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -408,8 +255,8 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type IntercommClient interface {
 	Upload(ctx context.Context, opts ...grpc.CallOption) (Intercomm_UploadClient, error)
-	Download(ctx context.Context, in *DownloadRequest, opts ...grpc.CallOption) (Intercomm_DownloadClient, error)
-	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteReply, error)
+	Download(ctx context.Context, in *DownloadRequest, opts ...grpc.CallOption) (*File, error)
+	Delete(ctx context.Context, in *File, opts ...grpc.CallOption) (*Feedback, error)
 	ListFiles(ctx context.Context, in *ListFilesRequest, opts ...grpc.CallOption) (Intercomm_ListFilesClient, error)
 }
 
@@ -431,8 +278,8 @@ func (c *intercommClient) Upload(ctx context.Context, opts ...grpc.CallOption) (
 }
 
 type Intercomm_UploadClient interface {
-	Send(*UploadRequest) error
-	CloseAndRecv() (*UploadReply, error)
+	Send(*File) error
+	CloseAndRecv() (*Feedback, error)
 	grpc.ClientStream
 }
 
@@ -440,55 +287,32 @@ type intercommUploadClient struct {
 	grpc.ClientStream
 }
 
-func (x *intercommUploadClient) Send(m *UploadRequest) error {
+func (x *intercommUploadClient) Send(m *File) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *intercommUploadClient) CloseAndRecv() (*UploadReply, error) {
+func (x *intercommUploadClient) CloseAndRecv() (*Feedback, error) {
 	if err := x.ClientStream.CloseSend(); err != nil {
 		return nil, err
 	}
-	m := new(UploadReply)
+	m := new(Feedback)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func (c *intercommClient) Download(ctx context.Context, in *DownloadRequest, opts ...grpc.CallOption) (Intercomm_DownloadClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[1], "/api.Intercomm/Download", opts...)
+func (c *intercommClient) Download(ctx context.Context, in *DownloadRequest, opts ...grpc.CallOption) (*File, error) {
+	out := new(File)
+	err := c.cc.Invoke(ctx, "/api.Intercomm/Download", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &intercommDownloadClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
+	return out, nil
 }
 
-type Intercomm_DownloadClient interface {
-	Recv() (*DownloadReply, error)
-	grpc.ClientStream
-}
-
-type intercommDownloadClient struct {
-	grpc.ClientStream
-}
-
-func (x *intercommDownloadClient) Recv() (*DownloadReply, error) {
-	m := new(DownloadReply)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *intercommClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteReply, error) {
-	out := new(DeleteReply)
+func (c *intercommClient) Delete(ctx context.Context, in *File, opts ...grpc.CallOption) (*Feedback, error) {
+	out := new(Feedback)
 	err := c.cc.Invoke(ctx, "/api.Intercomm/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -497,7 +321,7 @@ func (c *intercommClient) Delete(ctx context.Context, in *DeleteRequest, opts ..
 }
 
 func (c *intercommClient) ListFiles(ctx context.Context, in *ListFilesRequest, opts ...grpc.CallOption) (Intercomm_ListFilesClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[2], "/api.Intercomm/ListFiles", opts...)
+	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[1], "/api.Intercomm/ListFiles", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -512,7 +336,7 @@ func (c *intercommClient) ListFiles(ctx context.Context, in *ListFilesRequest, o
 }
 
 type Intercomm_ListFilesClient interface {
-	Recv() (*ListFilesReply, error)
+	Recv() (*File, error)
 	grpc.ClientStream
 }
 
@@ -520,8 +344,8 @@ type intercommListFilesClient struct {
 	grpc.ClientStream
 }
 
-func (x *intercommListFilesClient) Recv() (*ListFilesReply, error) {
-	m := new(ListFilesReply)
+func (x *intercommListFilesClient) Recv() (*File, error) {
+	m := new(File)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -531,8 +355,8 @@ func (x *intercommListFilesClient) Recv() (*ListFilesReply, error) {
 // IntercommServer is the server API for Intercomm service.
 type IntercommServer interface {
 	Upload(Intercomm_UploadServer) error
-	Download(*DownloadRequest, Intercomm_DownloadServer) error
-	Delete(context.Context, *DeleteRequest) (*DeleteReply, error)
+	Download(context.Context, *DownloadRequest) (*File, error)
+	Delete(context.Context, *File) (*Feedback, error)
 	ListFiles(*ListFilesRequest, Intercomm_ListFilesServer) error
 }
 
@@ -543,10 +367,10 @@ type UnimplementedIntercommServer struct {
 func (*UnimplementedIntercommServer) Upload(srv Intercomm_UploadServer) error {
 	return status.Errorf(codes.Unimplemented, "method Upload not implemented")
 }
-func (*UnimplementedIntercommServer) Download(req *DownloadRequest, srv Intercomm_DownloadServer) error {
-	return status.Errorf(codes.Unimplemented, "method Download not implemented")
+func (*UnimplementedIntercommServer) Download(ctx context.Context, req *DownloadRequest) (*File, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Download not implemented")
 }
-func (*UnimplementedIntercommServer) Delete(ctx context.Context, req *DeleteRequest) (*DeleteReply, error) {
+func (*UnimplementedIntercommServer) Delete(ctx context.Context, req *File) (*Feedback, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 func (*UnimplementedIntercommServer) ListFiles(req *ListFilesRequest, srv Intercomm_ListFilesServer) error {
@@ -562,8 +386,8 @@ func _Intercomm_Upload_Handler(srv interface{}, stream grpc.ServerStream) error 
 }
 
 type Intercomm_UploadServer interface {
-	SendAndClose(*UploadReply) error
-	Recv() (*UploadRequest, error)
+	SendAndClose(*Feedback) error
+	Recv() (*File, error)
 	grpc.ServerStream
 }
 
@@ -571,41 +395,38 @@ type intercommUploadServer struct {
 	grpc.ServerStream
 }
 
-func (x *intercommUploadServer) SendAndClose(m *UploadReply) error {
+func (x *intercommUploadServer) SendAndClose(m *Feedback) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *intercommUploadServer) Recv() (*UploadRequest, error) {
-	m := new(UploadRequest)
+func (x *intercommUploadServer) Recv() (*File, error) {
+	m := new(File)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-func _Intercomm_Download_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(DownloadRequest)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
+func _Intercomm_Download_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DownloadRequest)
+	if err := dec(in); err != nil {
+		return nil, err
 	}
-	return srv.(IntercommServer).Download(m, &intercommDownloadServer{stream})
-}
-
-type Intercomm_DownloadServer interface {
-	Send(*DownloadReply) error
-	grpc.ServerStream
-}
-
-type intercommDownloadServer struct {
-	grpc.ServerStream
-}
-
-func (x *intercommDownloadServer) Send(m *DownloadReply) error {
-	return x.ServerStream.SendMsg(m)
+	if interceptor == nil {
+		return srv.(IntercommServer).Download(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.Intercomm/Download",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IntercommServer).Download(ctx, req.(*DownloadRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Intercomm_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteRequest)
+	in := new(File)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -617,7 +438,7 @@ func _Intercomm_Delete_Handler(srv interface{}, ctx context.Context, dec func(in
 		FullMethod: "/api.Intercomm/Delete",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(IntercommServer).Delete(ctx, req.(*DeleteRequest))
+		return srv.(IntercommServer).Delete(ctx, req.(*File))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -631,7 +452,7 @@ func _Intercomm_ListFiles_Handler(srv interface{}, stream grpc.ServerStream) err
 }
 
 type Intercomm_ListFilesServer interface {
-	Send(*ListFilesReply) error
+	Send(*File) error
 	grpc.ServerStream
 }
 
@@ -639,7 +460,7 @@ type intercommListFilesServer struct {
 	grpc.ServerStream
 }
 
-func (x *intercommListFilesServer) Send(m *ListFilesReply) error {
+func (x *intercommListFilesServer) Send(m *File) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -647,6 +468,10 @@ var _Intercomm_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "api.Intercomm",
 	HandlerType: (*IntercommServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Download",
+			Handler:    _Intercomm_Download_Handler,
+		},
 		{
 			MethodName: "Delete",
 			Handler:    _Intercomm_Delete_Handler,
@@ -657,11 +482,6 @@ var _Intercomm_serviceDesc = grpc.ServiceDesc{
 			StreamName:    "Upload",
 			Handler:       _Intercomm_Upload_Handler,
 			ClientStreams: true,
-		},
-		{
-			StreamName:    "Download",
-			Handler:       _Intercomm_Download_Handler,
-			ServerStreams: true,
 		},
 		{
 			StreamName:    "ListFiles",

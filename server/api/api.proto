@@ -6,43 +6,28 @@ syntax = "proto3";
 package api;
 
 service Intercomm {
-  rpc Upload (stream UploadRequest) returns (UploadReply) {}
-  rpc Download (DownloadRequest) returns (stream DownloadReply) {}
-  rpc Delete (DeleteRequest) returns (DeleteReply) {}
-  rpc ListFiles (ListFilesRequest) returns (stream ListFilesReply) {}
+  rpc Upload (stream File) returns (Feedback) {}
+  rpc Download (DownloadRequest) returns (File) {}
+  rpc Delete (File) returns (Feedback) {}
+  rpc ListFiles (ListFilesRequest) returns (stream File) {}
 }
 
-message UploadRequest {
+message File {
   string path = 1;
-  bytes data = 2;
+  string name = 2;
+  int32 size = 3;
+  bytes data = 4;
 }
 
-message UploadReply {
+message Feedback {
   string feedback = 1;
 }
 
 message DownloadRequest {
   string path = 1;
-}
-
-message DownloadReply {
-  string path = 1;
-  bytes data = 2;
-}
-
-message DeleteRequest {
-  string path = 1;
-}
-
-message DeleteReply {
-  string feedback = 1;
+  string name = 2;
 }
 
 message ListFilesRequest {
   bool list = 1;
-}
-
-message ListFilesReply {
-  string path = 1;
-  bytes data = 2;
 }

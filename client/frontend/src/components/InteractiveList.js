@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 var arrr = [0,1,2]
+//var arrr
 
 function generate(element) {
   return arrr.map(value =>

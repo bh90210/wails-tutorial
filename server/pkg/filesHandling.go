@@ -7,7 +7,8 @@ import (
 	"path/filepath"
 )
 
-func TestFunc() {
+// ListFiles .
+func ListFiles() string {
 	dir, err := os.Getwd()
 	if err != nil {
 		log.Fatal(err)
@@ -32,6 +33,8 @@ func TestFunc() {
 	})
 	if err != nil {
 		fmt.Printf("error walking the path %q: %v\n", dir, err)
-		return
+		return "err"
 	}
+
+	return "err"
 }

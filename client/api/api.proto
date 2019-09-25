@@ -1,0 +1,37 @@
+// cd wails-tutorial/client
+// protoc -I api/ api/api.proto --go_out=plugins=grpc:api
+
+syntax = "proto3";
+
+package api;
+
+service Intercomm {
+  rpc Upload (stream File) returns (UploadReply) {}
+  rpc Download (DownloadRequest) returns (File) {}
+  rpc Delete (File) returns (DeleteReply) {}
+  rpc ListFiles (ListFilesRequest) returns (stream File) {}
+}
+
+message File {
+  string path = 1;
+  string name = 2;
+  int32 size = 3;
+  bytes data = 4;
+}
+
+message UploadReply {
+  string feedback = 1;
+}
+
+message DownloadRequest {
+  string path = 1;
+  string name = 2;
+}
+
+message DeleteReply {
+  string feedback = 1;
+}
+
+message ListFilesRequest {
+  bool list = 1;
+}
