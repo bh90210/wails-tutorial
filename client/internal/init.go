@@ -9,21 +9,21 @@ type FH struct {
 	Log     *wails.CustomLogger
 }
 
-func NewFH() (*FH, error) {
+func NewFH() *FH {
 	result := &FH{}
-	return result, nil
+	return result
 }
 
 // WailsInit .
 func (w *FH) WailsInit(runtime *wails.Runtime) error {
 	w.Log = runtime.Log.New("Init")
-	runtime.Window.SetColour("#fff")
-
 	w.Runtime = runtime
 
 	// get a list of files stored on server
 	//go api.ListFiles()
 	w.ListFiles()
 
+	runtime.Window.SetColour("#fff")
+	
 	return nil
 }

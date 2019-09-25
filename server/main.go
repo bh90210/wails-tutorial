@@ -1,7 +1,7 @@
 package main
 
 import (
-	cc "mockServer/api"
+	cc "grpc-tutorial-server/api"
 )
 
 func main() {

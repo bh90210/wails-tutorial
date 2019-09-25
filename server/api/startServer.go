@@ -5,7 +5,7 @@ import (
 	fmt "fmt"
 	"net"
 
-	e "mockServer/errors"
+	e "grpc-tutorial-server/errors"
 
 	"google.golang.org/grpc"
 )

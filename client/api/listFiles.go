@@ -2,7 +2,7 @@ package api
 
 import (
 	context "context"
-	"grpc-tutorial/errors"
+	e "grpc-tutorial/errors"
 	"io"
 	"log"
 )
@@ -15,7 +15,7 @@ func ListFiles() {
 	defer conn.Close()
 
 	stream, err := client.ListFiles(context.Background(), &Request{List: true})
-	errors.Handle(err)
+	e.Handle(err)
 
 	waitc := make(chan struct{})
 	go func() {
@@ -29,7 +29,7 @@ func ListFiles() {
 			if err != nil {
 				log.Fatalf("Failed to receive a note : %v", err)
 			}
-			log.Printf("Got message %s, %s, %v)", in.Path, in.Name, in.Size)
+			log.Printf("++++++++ Got message %s, %s, %v)", in.Path, in.Name, in.Size)
 		}
 	}()
 	stream.CloseSend()

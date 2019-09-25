@@ -1,4 +1,4 @@
-module mockServer
+module grpc-tutorial-server
 
 go 1.13
 

@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// ListFiles .
 func (w *FH) ListFiles() {
 	api.ListFiles()
 

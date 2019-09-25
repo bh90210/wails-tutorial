@@ -25,7 +25,7 @@ func main() {
 
 	// bind 'files handling' methods
 	// including WailsInit
-	filesHandling, _ := internal.NewFH()
+	filesHandling := internal.NewFH()
 	app.Bind(filesHandling)
 
 	app.Run()

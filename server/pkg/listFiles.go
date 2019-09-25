@@ -8,7 +8,7 @@ import (
 )
 
 // ListFiles .
-func ListFiles() string {
+func ListFiles() map[string]map[string]int64 {
 	dir, err := os.Getwd()
 	if err != nil {
 		log.Fatal(err)
@@ -17,6 +17,8 @@ func ListFiles() string {
 	os.Chdir(dir)
 
 	subDirToSkip := "cert"
+
+	list := make(map[string]map[string]int64)
 
 	fmt.Println("On Unix:")
 	err = filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
@@ -30,14 +32,16 @@ func ListFiles() string {
 		}
 		if !info.IsDir() {
 			fmt.Println(info.Name())
-			return nil
+
+			list[info.Name()] = map[string]int64{path: info.Size()}
+			//return nil
 		}
 		return nil
 	})
 	if err != nil {
 		fmt.Printf("error walking the path %q: %v\n", dir, err)
-		return "err"
+		//return "err"
 	}
 
-	return ""
+	return list
 }
