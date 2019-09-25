@@ -5,7 +5,5 @@ import (
 )
 
 func main() {
-	//go pkg.ListFiles()
-
 	cc.StartServer()
 }
