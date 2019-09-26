@@ -6,9 +6,9 @@ import (
 
 func (s *intercommService) ListFiles(in *Request, stream Intercomm_ListFilesServer) error {
 	// use a different package function
-	// to collect all files on server-side
+	// to collect all files
 	files := fh.ListFiles()
-	// iterate over the result to get the filename
+	// iterate over the result to get the info
 	for name, value := range files {
 		// then iterate again to get the nested map values
 		for path, size := range value {

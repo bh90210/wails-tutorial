@@ -33,9 +33,11 @@ export default function InteractiveList() {
   const secondary = true;
   const [list, setList] = useState([[]]);
 
+  // functional equivalent of componentDidMout()
   useEffect(() => {
+    // fetch files list when frontend starts
     window.backend.FH.ListFiles()
- 
+    // start listening for event coming from backend
     window.wails.Events.On("filesList", (list) => {
       setList(list)
       console.log(list)
@@ -52,15 +54,12 @@ export default function InteractiveList() {
           <Typography variant="h6" className={classes.title}>
             Remote Files
           </Typography>
-
           <div className={classes.demo}>
             <List dense={dense}>
             {list.map((value, index) => {
             const path = `${value[0]}`;
             const name = `${value[1]}`;
             const size = `${value[2]}`;
-        
-
         return (
                 <ListItem key={index}>
                   <ListItemAvatar>
