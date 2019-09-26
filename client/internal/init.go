@@ -1,6 +1,8 @@
 package internal
 
 import (
+	"fmt"
+
 	"github.com/wailsapp/wails"
 )
 
@@ -24,6 +26,11 @@ func (w *FH) WailsInit(runtime *wails.Runtime) error {
 	w.ListFiles()
 
 	runtime.Window.SetColour("#fff")
-	
+
+	w.Runtime.Events.On("filesDropped", func(data ...interface{}) {
+		// You should probably do better error checking
+		fmt.Printf("I received the 'filesDropped' event with the message '%s'!\n", data[0])
+	})
+
 	return nil
 }

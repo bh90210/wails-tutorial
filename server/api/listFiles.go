@@ -5,10 +5,15 @@ import (
 )
 
 func (s *intercommService) ListFiles(in *Request, stream Intercomm_ListFilesServer) error {
+	// use a different package function
+	// to collect all files on server-side
 	files := fh.ListFiles()
-	for key, value := range files {
+	// iterate over the result to get the filename
+	for name, value := range files {
+		// then iterate again to get the nested map values
 		for path, size := range value {
-			info := &File{Path: path, Name: key, Size: int32(size)}
+			info := &File{Path: path, Name: name, Size: int32(size)}
+			// stream each file's info to client
 			stream.Send(info)
 		}
 	}

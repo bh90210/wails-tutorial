@@ -10,6 +10,8 @@ import (
 	"google.golang.org/grpc"
 )
 
+type intercommService struct{}
+
 // StartServer start listening for clients
 func StartServer() {
 	flag.Parse()
@@ -22,5 +24,3 @@ func StartServer() {
 	// start the server
 	e.Handle(s.Serve(lis))
 }
-
-type intercommService struct{}

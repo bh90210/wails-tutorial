@@ -39,7 +39,8 @@ export default function Drop(props) {
         reader.onload = function(e) {  
             // get file content  
             var binaryStr = e.target.result; 
-            window.backend.basic(name, path, size, binaryStr)
+            // pass it to backend
+            //window.backend.basic(name, path, size, binaryStr)
         }
         reader.readAsBinaryString(file);
       })(acceptedFiles[i]);

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -26,26 +27,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-var arrr = [0,1,2]
-//var arrr
-
-function generate(element) {
-  return arrr.map(value =>
-    React.cloneElement(element, {
-      key: value,
-    }),
-  );
-}
-
 export default function InteractiveList() {
   const classes = useStyles();
-  const [dense, setDense] = React.useState(false);
-  const [secondary, setSecondary] = React.useState(true);
+  const dense = true;
+  const secondary = true;
+  const [list, setList] = useState([["shit.go", "poop/shit.go", "666"],["lmao.mp3", "lol/lmao.mp3", "1654"]]);
 
-  
-  window.wails.Events.On("cpu_usage", (cpu_usage) => {
-    arrr = cpu_usage
-  });
+  useEffect(() => {
+    window.backend.FH.ListFiles()
+ 
+    window.wails.Events.On("filesList", (list) => {
+      setList(list)
+      console.log(list)
+      //setList([["shit.go", "poop/shit.go", "666"],["aaa", "aaa", "aaa"]])
+    });
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -57,19 +53,25 @@ export default function InteractiveList() {
           <Typography variant="h6" className={classes.title}>
             Remote Files
           </Typography>
+
           <div className={classes.demo}>
             <List dense={dense}>
-              {
-               generate(
-                <ListItem>
+            {list.map((value, index) => {
+            const path = `${value[0]}`;
+            const name = `${value[1]}`;
+            const size = `${value[2]}`;
+        
+
+        return (
+                <ListItem key={index}>
                   <ListItemAvatar>
                     <Avatar>
                       <FileCopy />
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? 'Secondary text' : null}
+                    primary={name}
+                    secondary={secondary ? `path: ${path} - size: ${size} bytes` : null}
                   />
                   <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="download">
@@ -79,8 +81,9 @@ export default function InteractiveList() {
                       <DeleteIcon />
                     </IconButton>
                   </ListItemSecondaryAction>
-                </ListItem>,
-              )}
+                </ListItem>
+                );
+              })}
             </List>
           </div>
         </Grid>
