@@ -31,7 +31,7 @@ export default function InteractiveList() {
   const classes = useStyles();
   const dense = true;
   const secondary = true;
-  const [list, setList] = useState([["shit.go", "poop/shit.go", "666"],["lmao.mp3", "lol/lmao.mp3", "1654"]]);
+  const [list, setList] = useState([[]]);
 
   useEffect(() => {
     window.backend.FH.ListFiles()
@@ -39,7 +39,6 @@ export default function InteractiveList() {
     window.wails.Events.On("filesList", (list) => {
       setList(list)
       console.log(list)
-      //setList([["shit.go", "poop/shit.go", "666"],["aaa", "aaa", "aaa"]])
     });
   }, []);
 
