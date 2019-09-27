@@ -1,7 +1,7 @@
 package main
 
 import (
-	"grpc-tutorial/internal"
+	"grpc-tutorial/pkg"
 
 	"github.com/leaanthony/mewn"
 	"github.com/wailsapp/wails"
@@ -25,8 +25,8 @@ func main() {
 
 	// bind 'files handling' methods
 	// including WailsInit
-	filesHandling := internal.NewFH()
-	app.Bind(filesHandling)
+	filesHandler := pkg.NewFH()
+	app.Bind(filesHandler)
 
 	app.Run()
 }

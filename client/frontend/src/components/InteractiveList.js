@@ -44,6 +44,10 @@ export default function InteractiveList() {
     });
   }, []);
 
+  function deleteFile(filePath) {
+    window.backend.FH.DeleteFile(filePath)
+  }
+
   return (
     <div className={classes.root}>
       <Grid container 
@@ -76,7 +80,7 @@ export default function InteractiveList() {
                       <DownloadIcon />
                     </IconButton>
                     <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon />
+                      <DeleteIcon onClick={deleteFile(path)} />
                     </IconButton>
                   </ListItemSecondaryAction>
                 </ListItem>

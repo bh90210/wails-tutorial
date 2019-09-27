@@ -14,7 +14,7 @@ func ListFiles() map[string]map[string]int64 {
 		log.Fatal(err)
 	}
 
-	os.Chdir(dir)
+	os.Chdir(dir + "/files")
 	list := make(map[string]map[string]int64)
 
 	err = filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
