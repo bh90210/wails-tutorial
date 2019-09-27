@@ -46,6 +46,7 @@ export default function InteractiveList() {
 
   function deleteFile(filePath) {
     window.backend.FH.DeleteFile(filePath)
+    //window.backend.FH.deleteFile(filePath)
   }
 
   return (
