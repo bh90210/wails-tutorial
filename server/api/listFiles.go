@@ -1,7 +1,7 @@
 package api
 
 import (
-	fh "grpc-tutorial-server/pkg"
+	fh "grpc-tutorial-server/internal"
 )
 
 func (s *intercommService) ListFiles(in *Request, stream Intercomm_ListFilesServer) error {

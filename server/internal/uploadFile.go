@@ -1,21 +1,21 @@
-package pkg
+package internal
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 
 	e "grpc-tutorial-server/errors"
 )
 
-// DeleteFile .
-func DeleteFile(filePath string) {
+// UploadFile .
+func UploadFile(filePath string, data []byte) {
 	dir, err := os.Getwd()
 	e.Handle(err)
 	fmt.Println(filePath)
 	// here we don't need to include '/files' directory
 	// because in 'listFiles.go' we have this line which is ran when the app inits
 	// os.Chdir(dir + "/files") thus the working directory is already '/files'
-	err = os.Remove(dir + "/" + filePath)
+	err = ioutil.WriteFile(dir+"/"+filePath, data, 0644)
 	e.Handle(err)
-	//fmt.Println("==> done deleting file")
 }
