@@ -36,6 +36,11 @@ export default function Drop(props) {
     </li>
   ));
   const classes = useStyles();
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+    const yourFunction = async () => {
+      await delay(800);
+      window.backend.FH.ListFiles()
+    };
 
   function hideButtons() {
     setVisibility(false)
@@ -55,14 +60,20 @@ export default function Drop(props) {
             // pass it to backend
             //.arr.concat('new value')
             //setList(list + [path, binaryStr])
-            list.concat(path)
-            dataList.concat(binaryStr)
+            //list.concat([path])
+            //dataList.concat([binaryStr])
+            console.log(name)
+            console.log(path)
+            window.backend.UploadFile(name, binaryStr)
         }
         reader.readAsBinaryString(file);
       })(acceptedFiles[i]);
     }
-    window.backend.UploadFile(list, dataList)
+
+    hideButtons()
     //setList([])
+
+    yourFunction()
   }
 
   return (

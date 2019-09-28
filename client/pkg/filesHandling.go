@@ -60,9 +60,10 @@ func DeleteFile(filePath string) string {
 
 // UploadFile .
 //func (w *FH) UploadFile() {
-func UploadFile(list []string, data [][]byte) string {
-	reply := api.UploadFile(list, data)
-	log.Print("test")
+func UploadFile(filePath string, data []byte) string {
+	log.Print(filePath)
+	reply := api.UploadFile(filePath, data)
+	log.Print(reply)
 
 	return reply
 }

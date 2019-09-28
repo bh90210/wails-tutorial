@@ -6,7 +6,7 @@ import (
 )
 
 // UploadFile a file from server
-func UploadFile(filesList []string, dataList [][]byte) string {
+func UploadFile(filePath string, dataList []byte) string {
 	// connect to server
 	conn, client := ConnectToServer()
 	// and drop connection when done
@@ -15,11 +15,10 @@ func UploadFile(filesList []string, dataList [][]byte) string {
 	stream, err := client.Upload(context.Background())
 	e.Handle(err)
 
-	for i, info := range filesList {
-		file := &File{Name: info, Data: dataList[i]}
-		err := stream.Send(file)
-		e.Handle(err)
-	}
+	file := &File{Path: filePath, Data: dataList}
+	err = stream.Send(file)
+	e.Handle(err)
+
 	reply, err := stream.CloseAndRecv()
 	e.Handle(err)
 
