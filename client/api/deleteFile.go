@@ -15,7 +15,7 @@ func DeleteFile(filePath string) string {
 	reply, err := client.Delete(context.Background(), &File{Path: filePath})
 	e.Handle(err)
 
-	if reply == nil {
+	if reply.Feedback == "succ" {
 		return "succ"
 	}
 

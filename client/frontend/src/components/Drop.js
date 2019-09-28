@@ -23,12 +23,25 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Drop(props) {
-
   const [isVisible, setVisibility] = useState(false);
-
+  const [list, setList] = useState([]);
+  const [dataList, setDataList] = useState([]);
   const onDrop = useCallback(acceptedFiles => {
     setVisibility(true)
+  }, [])
+  const {acceptedFiles, getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
+  const files = acceptedFiles.map(file => (
+    <li key={file.name}>
+      <div className="App-filesdrop-outer"><div className="App-filesdrop-filepath">{file.path}</div> <div className="App-filesdrop-filezise">{file.size} bytes</div></div>
+    </li>
+  ));
+  const classes = useStyles();
 
+  function hideButtons() {
+    setVisibility(false)
+  }
+
+  function uploadFiles() {
     for (var i = 0; i < acceptedFiles.length; i++) { //for multiple files          
       (function(file) {
 
@@ -40,24 +53,16 @@ export default function Drop(props) {
             // get file content  
             var binaryStr = e.target.result; 
             // pass it to backend
-            //window.backend.basic(name, path, size, binaryStr)
+            //.arr.concat('new value')
+            //setList(list + [path, binaryStr])
+            list.concat(path)
+            dataList.concat(binaryStr)
         }
         reader.readAsBinaryString(file);
       })(acceptedFiles[i]);
     }
-  }, [])
-  const {acceptedFiles, getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
-
-  const files = acceptedFiles.map(file => (
-    <li key={file.name}>
-      <div className="App-filesdrop-outer"><div className="App-filesdrop-filepath">{file.path}</div> <div className="App-filesdrop-filezise">{file.size} bytes</div></div>
-    </li>
-  ));
-
-  const classes = useStyles();
-
-  function hideButtons() {
-    setVisibility(false)
+    window.backend.UploadFile(list, dataList)
+    //setList([])
   }
 
   return (
@@ -71,7 +76,7 @@ export default function Drop(props) {
         }
       </div>
       <div className="App-button-div">
-        {isVisible && <Button className={classes.button} variant="contained" color="primary">
+        {isVisible && <Button onClick={uploadFiles} className={classes.button} variant="contained" color="primary">
               Upload
               <CloudUploadIcon />
             </Button>}

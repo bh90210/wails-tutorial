@@ -25,8 +25,12 @@ func main() {
 
 	// bind 'files handling' methods
 	// including WailsInit
-	filesHandler := pkg.NewFH()
-	app.Bind(filesHandler)
-
+	fh := pkg.NewFH()
+	app.Bind(fh)
+	//app.Bind(fh.ListFiles)
+	app.Bind(pkg.DeleteFile)
+	//app.Bind(listFiles)
+	app.Bind(pkg.UploadFile)
+	app.Bind(pkg.DownloadFile)
 	app.Run()
 }

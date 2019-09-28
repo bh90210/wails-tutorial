@@ -32,21 +32,38 @@ export default function InteractiveList() {
   const dense = true;
   const secondary = true;
   const [list, setList] = useState([[]]);
+  const [showList, setShowList] = useState(false);
 
   // functional equivalent of componentDidMout()
   useEffect(() => {
     // fetch files list when frontend starts
     window.backend.FH.ListFiles()
+    //window.backend.FH.De
     // start listening for event coming from backend
     window.wails.Events.On("filesList", (list) => {
-      setList(list)
       console.log(list)
+      if (list != null) {
+        setShowList(true)
+        setList(list)
+      }
+      if (list == null) {
+        setList([[]])
+        setShowList(false)
+      } 
     });
   }, []);
 
-  function deleteFile(filePath) {
-    window.backend.FH.DeleteFile(filePath)
-    //window.backend.FH.deleteFile(filePath)
+  function deleteFile(e) {
+    //e.preventDefault();
+    //window.backend.FH.DeleteFile(e)
+    //window.backend.DeleteFile()
+    console.log(e);
+    window.backend.DeleteFile(e).then((result) => window.backend.FH.ListFiles())
+  }
+
+  function downloadFile(e) {
+    console.log(e)
+    window.backend.DownloadFile(e)
   }
 
   return (
@@ -59,6 +76,7 @@ export default function InteractiveList() {
           <Typography variant="h6" className={classes.title}>
             Remote Files
           </Typography>
+          {showList ?   
           <div className={classes.demo}>
             <List dense={dense}>
             {list.map((value, index) => {
@@ -77,11 +95,11 @@ export default function InteractiveList() {
                     secondary={secondary ? `path: ${path} - size: ${size} bytes` : null}
                   />
                   <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="download">
+                    <IconButton onClick={(e) => downloadFile(path)} edge="end" aria-label="download">
                       <DownloadIcon />
                     </IconButton>
-                    <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon onClick={deleteFile(path)} />
+                    <IconButton onClick={(e) => deleteFile(path)} edge="end" aria-label="delete">
+                      <DeleteIcon />
                     </IconButton>
                   </ListItemSecondaryAction>
                 </ListItem>
@@ -89,6 +107,10 @@ export default function InteractiveList() {
               })}
             </List>
           </div>
+          // watch out here
+          // as we set content to 'nothing'
+          // when showList is false
+          : '' }
         </Grid>
       </Grid>
     </div>
