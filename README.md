@@ -1,3 +1,5 @@
+![Imgur](https://i.imgur.com/B5NHvWX.png)
+
 # wails-tutorial
 
 The full tutorial walkthgouh can be found on [dev.to](link)
