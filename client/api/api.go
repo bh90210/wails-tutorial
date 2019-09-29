@@ -16,37 +16,23 @@ const (
 )
 
 func NewGrpcHelper() *GrpcHelper {
-	return &GrpcHelper{Conn: connHelper, Client: clientHelper}
+	flag.Parse()
+	var opts []grpc.DialOption
+	opts = append(opts, grpc.WithInsecure())
+
+	conn, err := grpc.Dial(port, opts...)
+	if err != nil {
+		log.Fatalf("fail to dial: %v", err)
+	}
+
+	client := NewIntercommClient(conn)
+
+	return &GrpcHelper{Conn: conn, Client: client}
 }
 
 type GrpcHelper struct {
 	Conn   *grpc.ClientConn
 	Client IntercommClient
-}
-
-var connHelper *grpc.ClientConn
-var clientHelper IntercommClient
-
-// ConnectToServer function initialises a new connection
-// with the server and pass it down to calling function
-func ConnectToServer() *grpc.ClientConn {
-	flag.Parse()
-	var opts []grpc.DialOption
-	opts = append(opts, grpc.WithInsecure())
-
-	co, err := grpc.Dial(port, opts...)
-	if err != nil {
-		log.Fatalf("fail to dial: %v", err)
-	}
-
-	cl := NewIntercommClient(co)
-
-	//_ = &GrpcHelper{Conn: co, Client: cl}
-
-	clientHelper = cl
-	connHelper = co
-
-	return connHelper
 }
 
 // UploadFile a file from server

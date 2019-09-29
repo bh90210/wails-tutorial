@@ -2,10 +2,18 @@ package pkg
 
 import (
 	"grpc-tutorial/api"
+	e "grpc-tutorial/errors"
+	"io/ioutil"
 	"log"
+	"os"
 
 	"github.com/wailsapp/wails"
 )
+
+// NewFH .
+func NewFH() *FH {
+	return &FH{}
+}
 
 // FH .
 type FH struct {
@@ -14,18 +22,13 @@ type FH struct {
 	helper  *api.GrpcHelper
 }
 
-// NewFH .
-func NewFH() *FH {
-	return &FH{}
-}
-
 // WailsInit .
 func (w *FH) WailsInit(runtime *wails.Runtime) error {
-	api.ConnectToServer()
+	connClient := api.NewGrpcHelper()
 
 	w.Log = runtime.Log.New("Init")
 	w.Runtime = runtime
-	w.helper = api.NewGrpcHelper()
+	w.helper = connClient
 
 	runtime.Window.SetColour("#fff")
 
@@ -51,39 +54,35 @@ func (w *FH) ListFiles() {
 	log.Print(list)
 }
 
-// // DeleteFile .
-// //func (w *FH) DeleteFile(filePath string) {
-// func (w *FH) DeleteFile(filePath string) string {
-// 	reply := h.DeleteFile(filePath)
-// 	log.Print(reply)
-//  w.ListFiles()
+// DeleteFile .
+func (w *FH) DeleteFile(filePath string) string {
+	reply := w.helper.DeleteFile(filePath)
+	log.Print(reply)
+	w.ListFiles()
 
-// 	return reply
-// }
+	return reply
+}
 
-// // UploadFile .
-// //func (w *FH) UploadFile() {
-// func (w *FH) UploadFile(filePath string, data []byte) string {
-// 	log.Print(filePath)
-// 	reply := h.UploadFile(filePath, data)
-// 	log.Print(reply)
-//  w.ListFiles()
+// UploadFile .
+func (w *FH) UploadFile(filePath string, data []byte) string {
+	log.Print(filePath)
+	reply := w.helper.UploadFile(filePath, data)
+	log.Print(reply)
+	w.ListFiles()
 
-// 	return reply
-// }
+	return reply
+}
 
-// // DownloadFile .
-// //func (w *FH) DownloadFile() {
-// func (w *FH) DownloadFile(filePath string) string {
-// 	data := h.DownloadFile(filePath)
-// 	dir, err := os.Getwd()
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	os.Chdir(dir + "/downloads")
+// DownloadFile .
+func (w *FH) DownloadFile(filePath string) string {
+	data := w.helper.DownloadFile(filePath)
+	dir, err := os.Getwd()
+	e.Handle(err)
 
-// 	err = ioutil.WriteFile(dir+"/"+filePath, data, 0644)
-// 	e.Handle(err)
+	os.Chdir(dir + "/downloads")
 
-// 	return "succ"
-// }
+	err = ioutil.WriteFile(dir+"/"+filePath, data, 0644)
+	e.Handle(err)
+
+	return "succ"
+}
