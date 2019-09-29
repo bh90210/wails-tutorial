@@ -21,16 +21,10 @@ func main() {
 		Colour: "#FFF",
 	})
 
-	// frontend binding section
-
 	// bind 'files handling' methods
 	// including WailsInit
 	fh := pkg.NewFH()
+	defer fh.Close()
 	app.Bind(fh)
-	//app.Bind(fh.ListFiles)
-	app.Bind(pkg.DeleteFile)
-	//app.Bind(listFiles)
-	app.Bind(pkg.UploadFile)
-	app.Bind(pkg.DownloadFile)
 	app.Run()
 }

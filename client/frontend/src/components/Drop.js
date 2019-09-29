@@ -24,8 +24,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function Drop(props) {
   const [isVisible, setVisibility] = useState(false);
-  const [list, setList] = useState([]);
-  const [dataList, setDataList] = useState([]);
+  //const [list, setList] = useState([]);
+  //const [dataList, setDataList] = useState([]);
   const onDrop = useCallback(acceptedFiles => {
     setVisibility(true)
   }, [])
@@ -36,11 +36,6 @@ export default function Drop(props) {
     </li>
   ));
   const classes = useStyles();
-  const delay = ms => new Promise(res => setTimeout(res, ms));
-    const yourFunction = async () => {
-      await delay(800);
-      window.backend.FH.ListFiles()
-    };
 
   function hideButtons() {
     setVisibility(false)
@@ -52,7 +47,7 @@ export default function Drop(props) {
 
         var name = file.name;
         var path = file.path;
-        var size = file.size;
+        //var size = file.size;
         var reader = new FileReader();  
         reader.onload = function(e) {  
             // get file content  
@@ -64,7 +59,7 @@ export default function Drop(props) {
             //dataList.concat([binaryStr])
             console.log(name)
             console.log(path)
-            window.backend.UploadFile(name, binaryStr)
+            window.backend.FH.UploadFile(name, binaryStr)
         }
         reader.readAsBinaryString(file);
       })(acceptedFiles[i]);
@@ -72,8 +67,6 @@ export default function Drop(props) {
 
     hideButtons()
     //setList([])
-
-    yourFunction()
   }
 
   return (
@@ -83,7 +76,7 @@ export default function Drop(props) {
         {
           isDragActive ?
             <p>Drop the files here ...</p> :
-            <p>Drag 'n' drop files here, or click to select files</p>
+            <p>Drag 'n' drop files here, or click for window dialog</p>
         }
       </div>
       <div className="App-button-div">
