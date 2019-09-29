@@ -1,12 +1,12 @@
 {
- "name": "gRPC Tutorial",
+ "name": "client",
  "description": "Enter your project description",
  "author": {
   "name": "bh90210",
   "email": "ktc@pm.me"
  },
  "version": "0.1.0",
- "binaryname": "grpc-tutorial",
+ "binaryname": "client",
  "frontend": {
   "dir": "frontend",
   "install": "npm install",
