@@ -1,40 +1,30 @@
 package pkg
 
 import (
-	"fmt"
-	"log"
+	e "grpc-tutorial-server/errors"
 	"os"
 	"path/filepath"
 )
 
 // ListFiles .
 func ListFiles() map[string]map[string]int64 {
+	// get current working directory
 	dir, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-	}
+	e.Handle(err)
 
+	// cd in '/files' which is where files are stored server side
 	os.Chdir(dir + "/files")
 	list := make(map[string]map[string]int64)
-
 	err = filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			fmt.Printf("prevent panic by handling failure accessing a path %q: %v\n", path, err)
-			return err
-		}
+		e.Handle(err)
 
+		// leave directories out
 		if !info.IsDir() {
-			fmt.Println(info.Name())
-
 			list[info.Name()] = map[string]int64{path: info.Size()}
-			//return nil
 		}
 		return nil
 	})
-	if err != nil {
-		fmt.Printf("error walking the path %q: %v\n", dir, err)
-		//return "err"
-	}
+	e.Handle(err)
 
 	return list
 }

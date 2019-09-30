@@ -6,7 +6,7 @@ syntax = "proto3";
 package api;
 
 service Intercomm {
-  rpc Upload (stream File) returns (Reply) {}
+  rpc Upload (File) returns (Reply) {}
   rpc Download (Request) returns (File) {}
   rpc Delete (File) returns (Reply) {}
   rpc ListFiles (Request) returns (stream File) {}
@@ -15,8 +15,7 @@ service Intercomm {
 message File {
   string path = 1;
   string name = 2;
-  // consider refactoring with int64
-  int32 size = 3;
+  int64 size = 3;
   bytes data = 4;
 }
 

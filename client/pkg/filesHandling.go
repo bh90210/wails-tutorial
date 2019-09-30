@@ -15,7 +15,7 @@ func NewFH() *FH {
 	return &FH{}
 }
 
-// FH .
+// FH stands for files handling
 type FH struct {
 	Runtime *wails.Runtime
 	Log     *wails.CustomLogger

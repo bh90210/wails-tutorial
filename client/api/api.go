@@ -37,19 +37,7 @@ type GrpcHelper struct {
 
 // UploadFile a file from server
 func (h *GrpcHelper) UploadFile(filePath string, dataList []byte) string {
-	// connect to server
-	//conn, client := ConnectToServer()
-	// and drop connection when done
-	//defer conn.Close()
-
-	stream, err := h.Client.Upload(context.Background())
-	e.Handle(err)
-
-	file := &File{Path: filePath, Data: dataList}
-	err = stream.Send(file)
-	e.Handle(err)
-
-	reply, err := stream.CloseAndRecv()
+	reply, err := h.Client.Upload(context.Background(), &File{Path: filePath, Data: dataList})
 	e.Handle(err)
 
 	return reply.Feedback
@@ -57,11 +45,6 @@ func (h *GrpcHelper) UploadFile(filePath string, dataList []byte) string {
 
 // ListFiles get all files from server
 func (h *GrpcHelper) ListFiles() [][]string {
-	// connect to server
-	//conn, client := ConnectToServer()
-	// and drop connection when done
-	//defer conn.Close()
-
 	stream, err := h.Client.ListFiles(context.Background(), &Request{List: true})
 	e.Handle(err)
 
@@ -95,11 +78,6 @@ func (h *GrpcHelper) ListFiles() [][]string {
 
 // DownloadFile a file from server
 func (h *GrpcHelper) DownloadFile(filePath string) []byte {
-	// connect to server
-	//conn, client := ConnectToServer()
-	// and drop connection when done
-	//defer conn.Close()
-
 	file, err := h.Client.Download(context.Background(), &Request{Path: filePath})
 	e.Handle(err)
 
@@ -110,11 +88,6 @@ func (h *GrpcHelper) DownloadFile(filePath string) []byte {
 
 // DeleteFile a file from server
 func (h *GrpcHelper) DeleteFile(filePath string) string {
-	// connect to server
-	//conn, client := ConnectToServer()
-	// and drop connection when done
-	//defer conn.Close()
-
 	reply, err := h.Client.Delete(context.Background(), &File{Path: filePath})
 	e.Handle(err)
 

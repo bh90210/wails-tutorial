@@ -27,7 +27,7 @@ const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 type File struct {
 	Path                 string   `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
 	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Size                 int32    `protobuf:"varint,3,opt,name=size,proto3" json:"size,omitempty"`
+	Size                 int64    `protobuf:"varint,3,opt,name=size,proto3" json:"size,omitempty"`
 	Data                 []byte   `protobuf:"bytes,4,opt,name=data,proto3" json:"data,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -73,7 +73,7 @@ func (m *File) GetName() string {
 	return ""
 }
 
-func (m *File) GetSize() int32 {
+func (m *File) GetSize() int64 {
 	if m != nil {
 		return m.Size
 	}
@@ -190,22 +190,22 @@ func init() {
 func init() { proto.RegisterFile("api.proto", fileDescriptor_00212fb1f9d3bf1c) }
 
 var fileDescriptor_00212fb1f9d3bf1c = []byte{
-	// 238 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x90, 0xc1, 0x4a, 0x03, 0x31,
-	0x10, 0x86, 0x1b, 0xbb, 0x5d, 0x37, 0x43, 0x4f, 0x73, 0x5a, 0xf6, 0xb4, 0xa6, 0x08, 0x39, 0x15,
-	0xd1, 0x57, 0xa8, 0x82, 0xe0, 0x29, 0xa0, 0xf7, 0xb4, 0x3b, 0x62, 0x30, 0xbb, 0x89, 0x4d, 0x44,
-	0xf4, 0x79, 0x7c, 0x50, 0xc9, 0x58, 0xf4, 0xa4, 0xd0, 0xdb, 0x97, 0x7f, 0x92, 0x8f, 0xfc, 0x03,
-	0xd2, 0x46, 0xb7, 0x8e, 0xfb, 0x90, 0x03, 0xce, 0x6d, 0x74, 0xea, 0x01, 0xaa, 0x1b, 0xe7, 0x09,
-	0x11, 0xaa, 0x68, 0xf3, 0x53, 0x2b, 0x7a, 0xa1, 0xa5, 0x61, 0x2e, 0xd9, 0x64, 0x47, 0x6a, 0x4f,
-	0xbe, 0xb3, 0xc2, 0x25, 0x4b, 0xee, 0x83, 0xda, 0x79, 0x2f, 0xf4, 0xc2, 0x30, 0x97, 0x6c, 0xb0,
-	0xd9, 0xb6, 0x55, 0x2f, 0xf4, 0xd2, 0x30, 0xab, 0x6b, 0x38, 0x35, 0xf4, 0xf2, 0x4a, 0x29, 0x1f,
-	0xa3, 0xf6, 0x2e, 0x65, 0x56, 0x37, 0x86, 0x59, 0xad, 0x60, 0x61, 0x28, 0xfa, 0x77, 0xec, 0xa0,
-	0x79, 0x24, 0x1a, 0xb6, 0x76, 0xf7, 0x7c, 0x10, 0xfd, 0x9c, 0x2f, 0x3f, 0x05, 0xc8, 0xdb, 0x29,
-	0xd3, 0x7e, 0x17, 0xc6, 0x11, 0x57, 0x50, 0xdf, 0x47, 0x1f, 0xec, 0x80, 0x72, 0x5d, 0xca, 0x96,
-	0x7a, 0x1d, 0x30, 0xb2, 0x4a, 0xcd, 0xb4, 0xc0, 0x73, 0x68, 0x36, 0xe1, 0x6d, 0xe2, 0x6b, 0xcb,
-	0xc3, 0x8c, 0x7f, 0xdb, 0xfd, 0x3e, 0x52, 0x33, 0x3c, 0x83, 0x7a, 0x43, 0x9e, 0x32, 0xfd, 0xe9,
-	0x42, 0x0d, 0xf2, 0xce, 0xa5, 0x5c, 0x26, 0xe9, 0x1f, 0xd5, 0x85, 0xd8, 0xd6, 0xbc, 0xf6, 0xab,
-	0xaf, 0x00, 0x00, 0x00, 0xff, 0xff, 0x6a, 0x85, 0x54, 0x96, 0x83, 0x01, 0x00, 0x00,
+	// 234 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x90, 0xc1, 0x4a, 0xc4, 0x30,
+	0x10, 0x86, 0x37, 0xb6, 0xae, 0xcd, 0xb0, 0xa7, 0x9c, 0x4a, 0x4f, 0x35, 0x22, 0xe4, 0xb4, 0x88,
+	0xbe, 0xc2, 0x2a, 0x08, 0x9e, 0x02, 0x7a, 0xcf, 0x6e, 0x47, 0x0c, 0xa6, 0x4d, 0xdc, 0x44, 0x44,
+	0x1f, 0xc7, 0x27, 0x95, 0x19, 0x8b, 0x9e, 0x14, 0xf6, 0xf6, 0xe5, 0x9f, 0xe4, 0x23, 0xff, 0x80,
+	0x74, 0xc9, 0xaf, 0xd3, 0x3e, 0x96, 0xa8, 0x2a, 0x97, 0xbc, 0x7e, 0x80, 0xfa, 0xc6, 0x07, 0x54,
+	0x0a, 0xea, 0xe4, 0xca, 0x53, 0x2b, 0x7a, 0x61, 0xa4, 0x65, 0xa6, 0x6c, 0x72, 0x23, 0xb6, 0x47,
+	0xdf, 0x19, 0x31, 0x65, 0xd9, 0x7f, 0x60, 0x5b, 0xf5, 0xc2, 0x54, 0x96, 0x99, 0xb2, 0xc1, 0x15,
+	0xd7, 0xd6, 0xbd, 0x30, 0x2b, 0xcb, 0xac, 0xaf, 0xe1, 0xc4, 0xe2, 0xcb, 0x2b, 0xe6, 0x72, 0x88,
+	0x3a, 0xf8, 0x5c, 0x58, 0xdd, 0x58, 0x66, 0x7d, 0x06, 0xc7, 0x16, 0x53, 0x78, 0x57, 0x1d, 0x34,
+	0x8f, 0x88, 0xc3, 0xd6, 0xed, 0x9e, 0x67, 0xd1, 0xcf, 0xf9, 0xf2, 0x53, 0x80, 0xbc, 0x9d, 0x0a,
+	0xee, 0x77, 0x71, 0x1c, 0xd5, 0x29, 0x2c, 0xef, 0x53, 0x88, 0x6e, 0x50, 0x72, 0x4d, 0x65, 0xa9,
+	0x5e, 0x07, 0x8c, 0xac, 0xd2, 0x0b, 0x75, 0x0e, 0xcd, 0x26, 0xbe, 0x4d, 0x7c, 0x69, 0x35, 0x4f,
+	0xf8, 0xaf, 0xdd, 0xef, 0x13, 0xbd, 0x20, 0xd3, 0x06, 0x03, 0x16, 0xfc, 0xdb, 0x64, 0x40, 0xde,
+	0xf9, 0x5c, 0x68, 0x92, 0xff, 0x51, 0x5d, 0x88, 0xed, 0x92, 0x97, 0x7e, 0xf5, 0x15, 0x00, 0x00,
+	0xff, 0xff, 0x46, 0x5a, 0x54, 0xb9, 0x81, 0x01, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -220,7 +220,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type IntercommClient interface {
-	Upload(ctx context.Context, opts ...grpc.CallOption) (Intercomm_UploadClient, error)
+	Upload(ctx context.Context, in *File, opts ...grpc.CallOption) (*Reply, error)
 	Download(ctx context.Context, in *Request, opts ...grpc.CallOption) (*File, error)
 	Delete(ctx context.Context, in *File, opts ...grpc.CallOption) (*Reply, error)
 	ListFiles(ctx context.Context, in *Request, opts ...grpc.CallOption) (Intercomm_ListFilesClient, error)
@@ -234,38 +234,13 @@ func NewIntercommClient(cc *grpc.ClientConn) IntercommClient {
 	return &intercommClient{cc}
 }
 
-func (c *intercommClient) Upload(ctx context.Context, opts ...grpc.CallOption) (Intercomm_UploadClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[0], "/api.Intercomm/Upload", opts...)
+func (c *intercommClient) Upload(ctx context.Context, in *File, opts ...grpc.CallOption) (*Reply, error) {
+	out := new(Reply)
+	err := c.cc.Invoke(ctx, "/api.Intercomm/Upload", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &intercommUploadClient{stream}
-	return x, nil
-}
-
-type Intercomm_UploadClient interface {
-	Send(*File) error
-	CloseAndRecv() (*Reply, error)
-	grpc.ClientStream
-}
-
-type intercommUploadClient struct {
-	grpc.ClientStream
-}
-
-func (x *intercommUploadClient) Send(m *File) error {
-	return x.ClientStream.SendMsg(m)
-}
-
-func (x *intercommUploadClient) CloseAndRecv() (*Reply, error) {
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	m := new(Reply)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
+	return out, nil
 }
 
 func (c *intercommClient) Download(ctx context.Context, in *Request, opts ...grpc.CallOption) (*File, error) {
@@ -287,7 +262,7 @@ func (c *intercommClient) Delete(ctx context.Context, in *File, opts ...grpc.Cal
 }
 
 func (c *intercommClient) ListFiles(ctx context.Context, in *Request, opts ...grpc.CallOption) (Intercomm_ListFilesClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[1], "/api.Intercomm/ListFiles", opts...)
+	stream, err := c.cc.NewStream(ctx, &_Intercomm_serviceDesc.Streams[0], "/api.Intercomm/ListFiles", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -320,7 +295,7 @@ func (x *intercommListFilesClient) Recv() (*File, error) {
 
 // IntercommServer is the server API for Intercomm service.
 type IntercommServer interface {
-	Upload(Intercomm_UploadServer) error
+	Upload(context.Context, *File) (*Reply, error)
 	Download(context.Context, *Request) (*File, error)
 	Delete(context.Context, *File) (*Reply, error)
 	ListFiles(*Request, Intercomm_ListFilesServer) error
@@ -330,8 +305,8 @@ type IntercommServer interface {
 type UnimplementedIntercommServer struct {
 }
 
-func (*UnimplementedIntercommServer) Upload(srv Intercomm_UploadServer) error {
-	return status.Errorf(codes.Unimplemented, "method Upload not implemented")
+func (*UnimplementedIntercommServer) Upload(ctx context.Context, req *File) (*Reply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Upload not implemented")
 }
 func (*UnimplementedIntercommServer) Download(ctx context.Context, req *Request) (*File, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Download not implemented")
@@ -347,30 +322,22 @@ func RegisterIntercommServer(s *grpc.Server, srv IntercommServer) {
 	s.RegisterService(&_Intercomm_serviceDesc, srv)
 }
 
-func _Intercomm_Upload_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(IntercommServer).Upload(&intercommUploadServer{stream})
-}
-
-type Intercomm_UploadServer interface {
-	SendAndClose(*Reply) error
-	Recv() (*File, error)
-	grpc.ServerStream
-}
-
-type intercommUploadServer struct {
-	grpc.ServerStream
-}
-
-func (x *intercommUploadServer) SendAndClose(m *Reply) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func (x *intercommUploadServer) Recv() (*File, error) {
-	m := new(File)
-	if err := x.ServerStream.RecvMsg(m); err != nil {
+func _Intercomm_Upload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(File)
+	if err := dec(in); err != nil {
 		return nil, err
 	}
-	return m, nil
+	if interceptor == nil {
+		return srv.(IntercommServer).Upload(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/api.Intercomm/Upload",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(IntercommServer).Upload(ctx, req.(*File))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Intercomm_Download_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -435,6 +402,10 @@ var _Intercomm_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*IntercommServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "Upload",
+			Handler:    _Intercomm_Upload_Handler,
+		},
+		{
 			MethodName: "Download",
 			Handler:    _Intercomm_Download_Handler,
 		},
@@ -444,11 +415,6 @@ var _Intercomm_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams: []grpc.StreamDesc{
-		{
-			StreamName:    "Upload",
-			Handler:       _Intercomm_Upload_Handler,
-			ClientStreams: true,
-		},
 		{
 			StreamName:    "ListFiles",
 			Handler:       _Intercomm_ListFiles_Handler,

@@ -1,7 +1,6 @@
 package pkg
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 
@@ -10,9 +9,10 @@ import (
 
 // UploadFile .
 func UploadFile(filePath string, data []byte) {
+	// get wirking directory
 	dir, err := os.Getwd()
 	e.Handle(err)
-	fmt.Println(filePath)
+
 	// here we don't need to include '/files' directory
 	// because in 'listFiles.go' we have this line which is ran when the app inits
 	// os.Chdir(dir + "/files") thus the working directory is already '/files'
