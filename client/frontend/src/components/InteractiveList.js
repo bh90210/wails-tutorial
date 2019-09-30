@@ -39,7 +39,7 @@ export default function InteractiveList() {
     // fetch files list when frontend inits
     //window.backend.FH.ListFiles()
     
-    // start listening for event coming from backend
+    // start listening for events coming from backend
     window.wails.Events.On("filesList", (list) => {
       console.log(list)
       if (list != null) {
@@ -47,7 +47,6 @@ export default function InteractiveList() {
         setList(list)
       }
       if (list == null) {
-        setList([[]])
         setShowList(false)
       } 
     });
@@ -106,7 +105,7 @@ export default function InteractiveList() {
           </div>
           // watch out here
           // as we set content to 'nothing'
-          // when showList is false
+          // when showList is empty (false)
           : '' }
         </Grid>
       </Grid>

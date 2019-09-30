@@ -5,7 +5,6 @@ import (
 	"flag"
 	e "grpc-tutorial/errors"
 	"io"
-	"log"
 	"strconv"
 
 	"google.golang.org/grpc"
@@ -15,21 +14,20 @@ const (
 	port = ":50051"
 )
 
+// NewGrpcHelper initiates a connection with server
 func NewGrpcHelper() *GrpcHelper {
 	flag.Parse()
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithInsecure())
-
 	conn, err := grpc.Dial(port, opts...)
-	if err != nil {
-		log.Fatalf("fail to dial: %v", err)
-	}
+	e.Handle(err)
 
 	client := NewIntercommClient(conn)
 
 	return &GrpcHelper{Conn: conn, Client: client}
 }
 
+// GrpcHelper helper struct to hold grpc's connection and client
 type GrpcHelper struct {
 	Conn   *grpc.ClientConn
 	Client IntercommClient
@@ -60,7 +58,7 @@ func (h *GrpcHelper) ListFiles() [][]string {
 			}
 			e.Handle(err)
 
-			log.Printf("++++++++ Got message %s, %s, %v", in.Path, in.Name, in.Size)
+			//log.Printf("++++++++ Got message %s, %s, %v", in.Path, in.Name, in.Size)
 			// create an array to place the files
 			intToString := strconv.FormatInt(int64(in.Size), 10)
 			var entry []string

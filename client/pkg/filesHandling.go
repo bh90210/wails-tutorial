@@ -24,10 +24,12 @@ type FH struct {
 
 // WailsInit .
 func (w *FH) WailsInit(runtime *wails.Runtime) error {
+	// when we call NewGrpcHelper() a new connection with the server is established
 	connClient := api.NewGrpcHelper()
 
 	w.Log = runtime.Log.New("Init")
 	w.Runtime = runtime
+	// export returned grpc connection and client
 	w.helper = connClient
 
 	runtime.Window.SetColour("#fff")
@@ -40,6 +42,7 @@ func (w *FH) WailsInit(runtime *wails.Runtime) error {
 	return nil
 }
 
+// Close drops connections with server
 func (w *FH) Close() {
 	w.helper.Conn.Close()
 }
