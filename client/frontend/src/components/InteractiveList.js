@@ -76,7 +76,7 @@ export default function InteractiveList() {
           <div className={classes.demo}>
             <List dense={dense}>
             {list.map((value, index) => {
-            const path = `${value[0]}`;
+            //const path = `${value[0]}`;
             const name = `${value[1]}`;
             const size = `${value[2]}`;
         return (
@@ -88,13 +88,13 @@ export default function InteractiveList() {
                   </ListItemAvatar>
                   <ListItemText
                     primary={name}
-                    secondary={secondary ? `path: ${path} - size: ${size} bytes` : null}
+                    secondary={secondary ? `size: ${size} bytes` : null}
                   />
                   <ListItemSecondaryAction>
-                    <IconButton onClick={(e) => downloadFile(path)} edge="end" aria-label="download">
+                    <IconButton onClick={(e) => downloadFile(name)} edge="end" aria-label="download">
                       <DownloadIcon />
                     </IconButton>
-                    <IconButton onClick={(e) => deleteFile(path)} edge="end" aria-label="delete">
+                    <IconButton onClick={(e) => deleteFile(name)} edge="end" aria-label="delete">
                       <DeleteIcon />
                     </IconButton>
                   </ListItemSecondaryAction>

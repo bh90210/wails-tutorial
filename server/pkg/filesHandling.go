@@ -1,7 +1,6 @@
 package pkg
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -37,40 +36,33 @@ func ListFiles() map[string]map[string]int64 {
 }
 
 // DownloadFile .
-func DownloadFile(filePath string) []byte {
+func DownloadFile(fileName string) []byte {
 	// get current working directory
 	dir, err := os.Getwd()
 	e.Handle(err)
 
-	fmt.Println(filePath)
-	dat, err := ioutil.ReadFile(dir + "/" + filePath)
+	dat, err := ioutil.ReadFile(dir + "/" + fileName)
 	e.Handle(err)
 
 	return dat
 }
 
 // UploadFile .
-func UploadFile(filePath string, data []byte) {
+func UploadFile(fileName string, data []byte) {
 	// get wirking directory
 	dir, err := os.Getwd()
 	e.Handle(err)
 
-	// here we don't need to include '/files' directory
-	// because in 'listFiles.go' we have this line which is ran when the app inits
-	// os.Chdir(dir + "/files") thus the working directory is already '/files'
-	err = ioutil.WriteFile(dir+"/"+filePath, data, 0644)
+	err = ioutil.WriteFile(dir+"/"+fileName, data, 0644)
 	e.Handle(err)
 }
 
 // DeleteFile .
-func DeleteFile(filePath string) {
+func DeleteFile(fileName string) {
 	// get current working directory
 	dir, err := os.Getwd()
 	e.Handle(err)
 
-	// here we don't need to include '/files' directory
-	// because in 'listFiles.go' we have this line which is ran when the app inits
-	// os.Chdir(dir + "/files") thus the working directory is already '/files'
-	err = os.Remove(dir + "/" + filePath)
+	err = os.Remove(dir + "/" + fileName)
 	e.Handle(err)
 }

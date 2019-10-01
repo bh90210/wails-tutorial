@@ -24,8 +24,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function Drop(props) {
   const [isVisible, setVisibility] = useState(false);
-  //const [list, setList] = useState([]);
-  //const [dataList, setDataList] = useState([]);
   const onDrop = useCallback(acceptedFiles => {
     setVisibility(true)
   }, [])
@@ -46,19 +44,13 @@ export default function Drop(props) {
       (function(file) {
 
         var name = file.name;
-        var path = file.path;
+        //var path = file.path;
         //var size = file.size;
         var reader = new FileReader();  
         reader.onload = function(e) {  
             // get file content  
             var binaryStr = e.target.result; 
             // pass it to backend
-            //.arr.concat('new value')
-            //setList(list + [path, binaryStr])
-            //list.concat([path])
-            //dataList.concat([binaryStr])
-            console.log(name)
-            console.log(path)
             window.backend.FH.UploadFile(name, binaryStr)
         }
         reader.readAsBinaryString(file);
@@ -76,7 +68,7 @@ export default function Drop(props) {
         {
           isDragActive ?
             <p>Drop the files here ...</p> :
-            <p>Drag 'n' drop files here, or click for window dialog</p>
+            <p>Drag 'n' drop a file here, or click for window dialog</p>
         }
       </div>
       <div className="App-button-div">
