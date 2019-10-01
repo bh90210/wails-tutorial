@@ -29,7 +29,6 @@ func (w *FH) WailsInit(runtime *wails.Runtime) error {
 
 	w.Log = runtime.Log.New("Init")
 	w.Runtime = runtime
-	// export returned grpc connection and client
 	w.helper = connClient
 
 	runtime.Window.SetColour("#fff")
@@ -57,15 +56,6 @@ func (w *FH) ListFiles() {
 	log.Print(list)
 }
 
-// DeleteFile .
-func (w *FH) DeleteFile(filePath string) string {
-	reply := w.helper.DeleteFile(filePath)
-	log.Print(reply)
-	w.ListFiles()
-
-	return reply
-}
-
 // UploadFile .
 func (w *FH) UploadFile(filePath string, data []byte) string {
 	log.Print(filePath)
@@ -88,4 +78,13 @@ func (w *FH) DownloadFile(filePath string) string {
 	e.Handle(err)
 
 	return "succ"
+}
+
+// DeleteFile .
+func (w *FH) DeleteFile(filePath string) string {
+	reply := w.helper.DeleteFile(filePath)
+	log.Print(reply)
+	w.ListFiles()
+
+	return reply
 }

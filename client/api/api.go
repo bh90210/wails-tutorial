@@ -33,14 +33,6 @@ type GrpcHelper struct {
 	Client IntercommClient
 }
 
-// UploadFile a file from server
-func (h *GrpcHelper) UploadFile(filePath string, dataList []byte) string {
-	reply, err := h.Client.Upload(context.Background(), &File{Path: filePath, Data: dataList})
-	e.Handle(err)
-
-	return reply.Feedback
-}
-
 // ListFiles get all files from server
 func (h *GrpcHelper) ListFiles() [][]string {
 	stream, err := h.Client.ListFiles(context.Background(), &Request{List: true})
@@ -72,6 +64,14 @@ func (h *GrpcHelper) ListFiles() [][]string {
 	<-waitc
 
 	return filesList
+}
+
+// UploadFile a file from server
+func (h *GrpcHelper) UploadFile(filePath string, dataList []byte) string {
+	reply, err := h.Client.Upload(context.Background(), &File{Path: filePath, Data: dataList})
+	e.Handle(err)
+
+	return reply.Feedback
 }
 
 // DownloadFile a file from server

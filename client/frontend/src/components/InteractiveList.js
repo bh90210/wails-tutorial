@@ -37,7 +37,7 @@ export default function InteractiveList() {
   // functional equivalent of componentDidMout()
   useEffect(() => {
     // fetch files list when frontend inits
-    //window.backend.FH.ListFiles()
+    window.backend.FH.ListFiles()
     
     // start listening for events coming from backend
     window.wails.Events.On("filesList", (list) => {

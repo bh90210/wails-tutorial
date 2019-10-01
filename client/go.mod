@@ -7,4 +7,6 @@ require (
 	google.golang.org/grpc v1.23.0
 )
 
+replace github.com/wailsapp/wails v0.17.15-pre => /home/bh90210/wails/
+
 go 1.13
