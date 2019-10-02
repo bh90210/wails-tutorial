@@ -14,13 +14,6 @@ const (
 	port = ":50051"
 )
 
-// type Files interface {
-// 	ListFiles() [][]string
-// 	UploadFile(fileName string, dataList []byte) string
-// 	DownloadFile(fileName string) []byte
-// 	DeleteFile(fileName string) string
-// }
-
 // NewGrpcHelper initiates a connection with server
 func NewGrpcHelper() *GrpcHelper {
 	flag.Parse()
