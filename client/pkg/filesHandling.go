@@ -9,27 +9,22 @@ import (
 	"github.com/wailsapp/wails"
 )
 
+// API section
+
 type files interface {
 	handle() string
+}
+
+func handleFiles(f files) string {
+	reply := f.handle()
+
+	return reply
 }
 
 type list struct {
 	list [][]string
 	// holds gRPC's connection, client
 	// and wails' runtime, logger
-	*FilesHandling
-}
-type upload struct {
-	fileName string
-	data     []byte
-	*FilesHandling
-}
-type download struct {
-	fileName string
-	*FilesHandling
-}
-type delete struct {
-	fileName string
 	*FilesHandling
 }
 
@@ -41,10 +36,21 @@ func (i *list) handle() string {
 	return "succ"
 }
 
+type upload struct {
+	fileName string
+	data     []byte
+	*FilesHandling
+}
+
 func (i *upload) handle() string {
 	reply := i.FilesHandling.apiHelper.UploadFile(i.fileName, i.data)
 	i.FilesHandling.ListFiles()
 	return reply
+}
+
+type download struct {
+	fileName string
+	*FilesHandling
 }
 
 func (i *download) handle() string {
@@ -60,6 +66,11 @@ func (i *download) handle() string {
 	return "succ"
 }
 
+type delete struct {
+	fileName string
+	*FilesHandling
+}
+
 func (i *delete) handle() string {
 	reply := i.FilesHandling.apiHelper.DeleteFile(i.fileName)
 	i.FilesHandling.ListFiles()
@@ -67,11 +78,7 @@ func (i *delete) handle() string {
 	return reply
 }
 
-func handleFiles(f files) string {
-	reply := f.handle()
-
-	return reply
-}
+// Binding section
 
 // NewFH this function exists to help defer Close() connection
 // from `main` when app exits
