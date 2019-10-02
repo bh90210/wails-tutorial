@@ -14,6 +14,13 @@ const (
 	port = ":50051"
 )
 
+// type Files interface {
+// 	ListFiles() [][]string
+// 	UploadFile(fileName string, dataList []byte) string
+// 	DownloadFile(fileName string) []byte
+// 	DeleteFile(fileName string) string
+// }
+
 // NewGrpcHelper initiates a connection with server
 func NewGrpcHelper() *GrpcHelper {
 	flag.Parse()
@@ -67,16 +74,16 @@ func (h *GrpcHelper) ListFiles() [][]string {
 }
 
 // UploadFile a file from server
-func (h *GrpcHelper) UploadFile(filePath string, dataList []byte) string {
-	reply, err := h.Client.Upload(context.Background(), &File{Path: filePath, Data: dataList})
+func (h *GrpcHelper) UploadFile(fileName string, dataList []byte) string {
+	reply, err := h.Client.Upload(context.Background(), &File{Path: fileName, Data: dataList})
 	e.Handle(err)
 
 	return reply.Feedback
 }
 
 // DownloadFile a file from server
-func (h *GrpcHelper) DownloadFile(filePath string) []byte {
-	file, err := h.Client.Download(context.Background(), &Request{Path: filePath})
+func (h *GrpcHelper) DownloadFile(fileName string) []byte {
+	file, err := h.Client.Download(context.Background(), &Request{Path: fileName})
 	e.Handle(err)
 
 	data := file.GetData()
@@ -85,8 +92,8 @@ func (h *GrpcHelper) DownloadFile(filePath string) []byte {
 }
 
 // DeleteFile a file from server
-func (h *GrpcHelper) DeleteFile(filePath string) string {
-	reply, err := h.Client.Delete(context.Background(), &File{Path: filePath})
+func (h *GrpcHelper) DeleteFile(fileName string) string {
+	reply, err := h.Client.Delete(context.Background(), &File{Path: fileName})
 	e.Handle(err)
 
 	if reply.Feedback == "succ" {
