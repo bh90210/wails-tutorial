@@ -51,7 +51,7 @@ export default function Drop(props) {
             // get file content  
             var binaryStr = e.target.result; 
             // pass it to backend
-            window.backend.FH.UploadFile(name, binaryStr)
+            window.backend.FilesHandling.UploadFile(name, binaryStr)
         }
         reader.readAsBinaryString(file);
       })(acceptedFiles[i]);

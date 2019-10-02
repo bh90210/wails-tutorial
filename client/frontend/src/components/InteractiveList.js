@@ -37,7 +37,7 @@ export default function InteractiveList() {
   // functional equivalent of componentDidMout()
   useEffect(() => {
     // fetch files list when frontend inits
-    window.backend.FH.ListFiles()
+    window.backend.FilesHandling.ListFiles()
     
     // start listening for events coming from backend
     window.wails.Events.On("filesList", (list) => {
@@ -54,12 +54,12 @@ export default function InteractiveList() {
 
   function deleteFile(e) {
     console.log(e);
-    window.backend.FH.DeleteFile(e);
+    window.backend.FilesHandling.DeleteFile(e);
   }
 
   function downloadFile(e) {
     console.log(e)
-    window.backend.FH.DownloadFile(e)
+    window.backend.FilesHandling.DownloadFile(e)
   }
 
   return (

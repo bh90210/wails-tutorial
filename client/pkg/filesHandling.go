@@ -17,38 +17,38 @@ type list struct {
 	list [][]string
 	// holds gRPC's connection, client
 	// and wails' runtime, logger
-	*FH
+	*FilesHandling
 }
 type upload struct {
 	fileName string
 	data     []byte
-	*FH
+	*FilesHandling
 }
 type download struct {
 	fileName string
-	*FH
+	*FilesHandling
 }
 type delete struct {
 	fileName string
-	*FH
+	*FilesHandling
 }
 
 func (i *list) handle() string {
-	serverList := i.FH.helper.ListFiles()
+	serverList := i.FilesHandling.apiHelper.ListFiles()
 	// "emit" it to front
-	i.FH.runtime.Events.Emit("filesList", serverList)
+	i.FilesHandling.runtime.Events.Emit("filesList", serverList)
 
 	return "succ"
 }
 
 func (i *upload) handle() string {
-	reply := i.FH.helper.UploadFile(i.fileName, i.data)
-	i.FH.ListFiles()
+	reply := i.FilesHandling.apiHelper.UploadFile(i.fileName, i.data)
+	i.FilesHandling.ListFiles()
 	return reply
 }
 
 func (i *download) handle() string {
-	data := i.FH.helper.DownloadFile(i.fileName)
+	data := i.FilesHandling.apiHelper.DownloadFile(i.fileName)
 	dir, err := os.Getwd()
 	e.Handle(err)
 
@@ -61,8 +61,8 @@ func (i *download) handle() string {
 }
 
 func (i *delete) handle() string {
-	reply := i.FH.helper.DeleteFile(i.fileName)
-	i.FH.ListFiles()
+	reply := i.FilesHandling.apiHelper.DeleteFile(i.fileName)
+	i.FilesHandling.ListFiles()
 
 	return reply
 }
@@ -76,31 +76,31 @@ func handleFiles(f files) string {
 // NewFH this function exists to help defer Close() connection
 // from `main` when app exits
 // and binds methods (including WailsInit) to front
-func NewFH() *FH {
-	return &FH{}
+func NewFH() *FilesHandling {
+	return &FilesHandling{}
 }
 
 // FH frontend binding struct
-type FH struct {
+type FilesHandling struct {
 	runtime *wails.Runtime
 	log     *wails.CustomLogger
 	// *api.GrpcHelper holds gRPC's connection and client for use in this package
-	helper *api.GrpcHelper
+	apiHelper *api.GrpcHelper
 }
 
 // Close drops connections with server
-func (w *FH) Close() {
-	w.helper.Conn.Close()
+func (w *FilesHandling) Close() {
+	w.apiHelper.Conn.Close()
 }
 
 // WailsInit frontend binding method
-func (w *FH) WailsInit(runtime *wails.Runtime) error {
+func (w *FilesHandling) WailsInit(runtime *wails.Runtime) error {
 	w.log = runtime.Log.New("Init")
 	w.runtime = runtime
 	runtime.Window.SetColour("#fff")
 	// when we call NewGrpcHelper() a new connection with the server is established
 	connClient := api.NewGrpcHelper()
-	w.helper = connClient
+	w.apiHelper = connClient
 	// w.Runtime.Events.On("filesDropped", func(data ...interface{}) {
 	// 	// You should probably do better error checking
 	// 	fmt.Printf("I received the 'filesDropped' event with the message '%s'!\n", data[0])
@@ -110,32 +110,32 @@ func (w *FH) WailsInit(runtime *wails.Runtime) error {
 }
 
 // ListFiles frontend binding method
-func (w *FH) ListFiles() {
+func (w *FilesHandling) ListFiles() {
 	// get the files from server
-	_ = handleFiles(&list{FH: w})
+	_ = handleFiles(&list{FilesHandling: w})
 }
 
 // UploadFile frontend binding method to be called when user
 // presses the upload button
 // window.backend.FH.UploadFile(string, []byte)
-func (w *FH) UploadFile(fileName string, data []byte) string {
-	uploadFile := &upload{fileName: fileName, data: data, FH: w}
+func (w *FilesHandling) UploadFile(fileName string, data []byte) string {
+	uploadFile := &upload{fileName: fileName, data: data, FilesHandling: w}
 	reply := handleFiles(uploadFile)
 
 	return reply
 }
 
 // DownloadFile frontend binding method
-func (w *FH) DownloadFile(fileName string) string {
-	downloadFile := &download{fileName: fileName, FH: w}
+func (w *FilesHandling) DownloadFile(fileName string) string {
+	downloadFile := &download{fileName: fileName, FilesHandling: w}
 	reply := handleFiles(downloadFile)
 
 	return reply
 }
 
 // DeleteFile frontend binding method
-func (w *FH) DeleteFile(fileName string) string {
-	deleteFile := &delete{fileName: fileName, FH: w}
+func (w *FilesHandling) DeleteFile(fileName string) string {
+	deleteFile := &delete{fileName: fileName, FilesHandling: w}
 	reply := handleFiles(deleteFile)
 
 	return reply

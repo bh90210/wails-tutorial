@@ -23,8 +23,8 @@ func main() {
 
 	// bind 'files handling' methods
 	// including WailsInit
-	fh := pkg.NewFH()
-	defer fh.Close()
-	app.Bind(fh)
+	filesHandling := pkg.NewFH()
+	defer filesHandling.Close()
+	app.Bind(filesHandling)
 	app.Run()
 }
