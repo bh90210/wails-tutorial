@@ -87,7 +87,7 @@ func NewFH() *FilesHandling {
 	return &FilesHandling{}
 }
 
-// FH frontend binding struct
+// FilesHandling frontend binding struct
 type FilesHandling struct {
 	runtime *wails.Runtime
 	log     *wails.CustomLogger
