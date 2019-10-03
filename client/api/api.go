@@ -25,10 +25,16 @@ func NewGrpcHelper() *GrpcHelper {
 	return &GrpcHelper{Conn: conn, Client: client}
 }
 
-// GrpcHelper helper struct to hold grpc's connection and client
+// GrpcHelper helper struct to hold grpc's connection and client.
+// It also implements FileManager interface, see `pkg/fileHandling.go`
 type GrpcHelper struct {
 	Conn   *grpc.ClientConn
 	Client IntercommClient
+}
+
+// Close drops connections with server
+func (h *GrpcHelper) Close() {
+	h.Conn.Close()
 }
 
 // ListFiles get all files from server
@@ -64,8 +70,8 @@ func (h *GrpcHelper) ListFiles() [][]string {
 }
 
 // UploadFile a file from server
-func (h *GrpcHelper) UploadFile(fileName string, dataList []byte) string {
-	reply, err := h.Client.Upload(context.Background(), &File{Path: fileName, Data: dataList})
+func (h *GrpcHelper) UploadFile(fileName string, data []byte) string {
+	reply, err := h.Client.Upload(context.Background(), &File{Path: fileName, Data: data})
 	e.Handle(err)
 
 	return reply.Feedback
