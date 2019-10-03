@@ -2,7 +2,6 @@ package api
 
 import (
 	context "context"
-	"flag"
 	e "grpc-tutorial/errors"
 	"io"
 	"strconv"
@@ -16,7 +15,6 @@ const (
 
 // NewGrpcHelper initiates a connection with server
 func NewGrpcHelper() *GrpcHelper {
-	flag.Parse()
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithInsecure())
 	conn, err := grpc.Dial(port, opts...)
@@ -50,7 +48,6 @@ func (h *GrpcHelper) ListFiles() [][]string {
 			}
 			e.Handle(err)
 
-			//log.Printf("++++++++ Got message %s, %s, %v", in.Path, in.Name, in.Size)
 			// create an array to place the files
 			intToString := strconv.FormatInt(int64(in.Size), 10)
 			var entry []string

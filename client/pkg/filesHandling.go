@@ -11,12 +11,12 @@ import (
 
 // API section
 
-type files interface {
+type handler interface {
 	handle() string
 }
 
-func handleFiles(f files) string {
-	reply := f.handle()
+func handleFiles(file handler) string {
+	reply := file.handle()
 
 	return reply
 }
