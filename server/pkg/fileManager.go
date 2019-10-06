@@ -1,4 +1,4 @@
-package pkg
+package fileManager
 
 import (
 	"io/ioutil"

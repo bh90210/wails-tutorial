@@ -1,7 +1,7 @@
 package main
 
 import (
-	"grpc-tutorial/pkg"
+	"grpc-tutorial/fileManager"
 
 	"github.com/leaanthony/mewn"
 	"github.com/wailsapp/wails"

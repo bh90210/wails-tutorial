@@ -1,4 +1,4 @@
-package pkg
+package fileManager
 
 import (
 	"grpc-tutorial/api"
